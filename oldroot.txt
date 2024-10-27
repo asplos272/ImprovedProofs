@@ -1,0 +1,75 @@
+session "AllFixes" = Base +
+  options [document = false]
+  sessions
+    FixIBData
+    FixIDData
+    FixIIAGO_WritePull
+    FixIIAGO_WritePullDrop
+    FixIMADData
+    FixIMADGO
+    FixIMAGO
+    FixIMDData
+    FixISADData
+    FixISADGO
+    FixISAGO
+    FixISDData
+    FixISDIData
+    FixISDSnpInv
+    FixInvalidDirtyEvict
+    FixInvalidLoad
+    FixInvalidRdOwn
+    FixInvalidRdShared
+    FixInvalidStore
+    FixMADData
+    FixMADRspIFwdM
+    FixMARspIFwdM
+    FixMARspIHitSE
+    FixMBData
+    FixMDData
+    FixMIAGO_WritePull
+    FixMIASnpDataInvalid
+    FixMIASnpDataShared
+    FixMIASnpInv
+    FixModifiedDirtyEvict
+    FixModifiedDirtyEvictPrevious
+    FixModifiedEvict
+    FixModifiedLoad
+    FixModifiedRdOwn
+    FixModifiedRdShared
+    FixModifiedSnpDataInvalid
+    FixModifiedSnpDataShared
+    FixModifiedSnpInv
+    FixModifiedStore
+    FixSADData
+    FixSADRspIFwdM
+    FixSADRspSFwdM
+    FixSARspIFwdM
+    FixSARspSFwdM
+    FixSBData
+    FixSDData
+    FixSIACGO
+    FixSIAGO_WritePull
+    FixSIAGO_WritePullDrop
+    FixSIASnpInv
+    FixSMADData
+    FixSMADGO
+    FixSMADSnpInv
+    FixSMAGO
+    FixSMDData
+    FixSharedDirtyEvict
+    FixSharedEvict
+    FixSharedLoad
+    FixSharedRdOwn
+    FixSharedRdOwnSelf
+    FixSharedRdShared
+    FixSharedSnpInv
+    FixSharedStore
+    FixShared_CleanEvictNoData_Last
+    FixShared_CleanEvictNoData_NotLast
+    FixShared_CleanEvict_Last
+    FixShared_CleanEvict_NotLastData
+    FixShared_CleanEvict_NotLastDrop
+
+
+
+
