@@ -67,16 +67,16 @@ lemma ISADGO'_nextGOPendingIs: "nextGOPendingIs X T 1 = nextGOPendingIs X ( T \<
 
 
 lemma ISADGO'_nextHTDDataPending: "nextHTDDataPending T i = nextHTDDataPending ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 lemma ISADGO'_HSTATE: "HSTATE X T  = HSTATE X ( T \<lparr>buffer1 := OM\<rparr> [ i s= m] [ j -=reqresp ]) "
   by simp
 
 lemma ISADGO'_HSTATE_neg: "\<not> (HSTATE X T)  = (\<not> (HSTATE X ( T \<lparr>buffer1 := OM\<rparr> [ i s= m] [ j -=reqresp ]))) "
-by simp
+apply  simp done
 
 lemma ISADGO'_CSTATE_otherside: "CSTATE X T 1 = CSTATE X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) 1"
-by simp
+apply  simp done
 
 
 lemma ISADGO'_CSTATE_sameside: "CSTATE ISD ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) 0"
@@ -84,15 +84,15 @@ lemma ISADGO'_CSTATE_sameside: "CSTATE ISD ( T \<lparr>buffer1 := Some m\<rparr>
 
 
 lemma ISADGO'_nextSnoopIs: "nextSnoopIs X T i = nextSnoopIs X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 lemma ISADGO'_nextReqIs: "nextReqIs X T i = nextReqIs X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 
 
 lemma ISADGO'_nextSnpRespIs: "nextSnpRespIs X T i = nextSnpRespIs X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 
 lemma ISADGO'_nextReqIs_invariant1: shows "nextReqIs x T i = nextReqIs x ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) i"
@@ -1758,7 +1758,7 @@ apply (smt (verit) CSTATE_various_forms4 i614old)
  apply  (insert assms)(**)apply (metis ISADGO'_HSTATE \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) 0\<close> assms hstate_invariants(14) hstate_invariants(2) hstate_invariants(24) i433 nextDTHDataFrom_IXADGO_invariant1 reqresps_empty_noGOPending1) done
   show goal298: "HSTATE MAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<and> nextDTHDataFrom 0 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<longrightarrow> reqresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) = []"
   apply  (cases "dthdatas1 T") apply  (auto)
-by (smt (verit) HSTATE_def i432 list.discI nextDTHDataFrom_def) 
+apply  (smt (verit) HSTATE_def i432 list.discI nextDTHDataFrom_def)  done
   show goal299: "HSTATE MAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<and> nextDTHDataFrom 1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<longrightarrow> reqresps1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) = []"
  apply  (insert assms)(**)apply (smt (verit) l_reqresps1_aux) done
   show goal300: "(HSTATE SAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<or> HSTATE MAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<or> HSTATE SA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<or> HSTATE MA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ])) \<and> snpresps1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) \<noteq> [] \<longrightarrow> htddatas1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) = [] \<or> CSTATE ISDI ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= ISD] [ 0 -=reqresp ]) 0"

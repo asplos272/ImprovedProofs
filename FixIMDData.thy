@@ -341,7 +341,7 @@ have i26: "C_msg_not RdShared Invalid T" by (insert assms, unfold SWMR_state_mac
 have i27: "H_msg_P_same ModifiedM (nextReqIs DirtyEvict) (\<lambda>T i. CSTATE MIA T i \<or> CSTATE IIA T i) T" by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
 have i28: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (\<lambda>T. \<not> HSTATE ModifiedM T) T" by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
 have i29: "C_msg_P_same MIA (nextGOPendingIs GO_WritePull) nextEvict T" by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
-have i30: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (HSTATE ID) T" by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
+have i30: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (HSTATE ID) T" apply (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption) done
 
 
 have i31: "C_state_not MIA RdShared T" by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
@@ -1659,7 +1659,7 @@ qed
  apply  (insert assms)(**)apply (smt (verit) CSTATE_IMDData_otherside IMDData_HSTATE IMDData_nextGOPendingIs assms i327 i328 i656 i674 i725 i772) done
   show goal215: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
  
- by (smt (verit) CSTATE_disj1 C_msg_P_same_def HSTATE_rule_6 MESI_State.distinct(43) assms goal176 goal18 goal19 goal214 i221 i2x i656 i674 i725 i772 nextDTHDataPending_def)
+    apply (smt (verit) CSTATE_disj1 C_msg_P_same_def HSTATE_rule_6 MESI_State.distinct(43) assms goal176 goal18 goal19 goal214 i221 i2x i656 i674 i725 i772 nextDTHDataPending_def) done
 
   show goal216: "CSTATE SMAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
  apply  (insert assms)(**)apply (smt (verit) IMDData_HSTATE i220) done

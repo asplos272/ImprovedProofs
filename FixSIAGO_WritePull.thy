@@ -125,12 +125,12 @@ lemma SIAGO_WritePull_nextEvict_otherside: shows
 lemma SIAGO_WritePull_nextHTDDataPending_otherside: shows 
 "nextDTHDataPending  ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0]) 1 = nextDTHDataPending T 1" 
    apply(case_tac "program1 T")
-by simp+
+apply  simp+ done
 
 lemma SIAGO_WritePull_nextHTDDataPending_real: shows 
 "nextHTDDataPending  ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0]) i = nextHTDDataPending T i" 
    apply(case_tac "program1 T")
-by simp+
+apply  simp+ done
 
 
 lemma SIAGO_WritePull_nextSnpRespIs_otherside: shows 
@@ -149,7 +149,7 @@ lemma SIAGO_WritePull_nextHTDDataPending_sameside: shows
 lemma SIAGO_WritePull_nextSnpRespIs_sameside: shows 
 "nextSnpRespIs X  ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0]) 0 = nextSnpRespIs X T 0"
    apply(case_tac "program1 T")
-by simp+
+apply  simp+ done
  
 
 lemma SIAGO_WritePull_HSTATE: shows "HSTATE X ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0]) = 

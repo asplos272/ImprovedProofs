@@ -1440,7 +1440,7 @@ apply (smt (verit) i2200 nextGOPending_reqresps1_invariants1)
  apply  (insert assms)(**)apply (smt (verit) assms dthdatas1_HostSharedRdOwnSelf dthdatas2_HostSharedRdOwnSelf i186) done
   show goal178: "nextDTHDataFrom 0 ( T [ 0 +=hostdata txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO mesi txid] [ 0 -=req ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 +=hostdata txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO mesi txid] [ 0 -=req ]) 0"
   apply  (cases "dthdatas1 T") apply  (auto)
-by (smt (verit) i1 i186 null_rec(1) null_rec(2)) 
+apply  (smt (verit) i1 i186 null_rec(1) null_rec(2))  done
   show goal179: "nextDTHDataFrom 1 ( T [ 0 +=hostdata txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO mesi txid] [ 0 -=req ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 +=hostdata txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO mesi txid] [ 0 -=req ]) 1"
  apply  (insert assms)(**)apply (smt (verit) i191 nextDTHDataFrom_general_rule_13_0 nextHTDDataPending_otherside_rule_3_0) done
   show goal180: "nextDTHDataFrom 0 ( T [ 0 +=hostdata txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO mesi txid] [ 0 -=req ]) \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 0 +=hostdata txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO mesi txid] [ 0 -=req ])"

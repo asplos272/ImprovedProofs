@@ -2642,7 +2642,7 @@ apply (smt (verit) aux1531 i100 i454 list.discI)
  apply  (insert assms)(**)apply (metis CSTATE_otherside_rule_19 ISDSnpInv_nextReqIs i947) done
   show goal774: "nextSnpRespIs RspIHitSE ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= ISDI]) 0 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= ISDI])"
   apply  (cases "dthdatas1 T") apply  (auto)
-by (smt (verit) aux67 i56 list.discI) 
+apply  (smt (verit) aux67 i56 list.discI)  done
   show goal775: "nextSnpRespIs RspIHitSE ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= ISDI]) 1 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= ISDI])"
  apply  (insert assms)(**)apply (metis ISDSnpInv'_snpresps2_invariant1_aux2 i1x i79 nextDTHDataFrom_general_rule_8_0 nextSnpRespIs_property2) done
   show goal776: "nextSnpRespIs RspIFwdM ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= ISDI]) 0 \<longrightarrow> \<not> nextReqIs CleanEvictNoData ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= ISDI]) 0"

@@ -111,7 +111,7 @@ lemma HostShared_CleanEvict_Last_nextSnpRespIs_sameside: shows
 
 lemma HostShared_CleanEvict_Last_HSTATE: shows "HSTATE IB ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) " 
  apply(case_tac "program1 T")
-by simp+
+apply  simp+ done
 
 lemma HostShared_CleanEvict_Last_nextLoad: shows "nextLoad ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) i = nextLoad T i" 
  apply(case_tac "program1 T")

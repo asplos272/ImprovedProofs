@@ -1446,12 +1446,12 @@ apply (smt (verit) i118)
  apply  (insert assms)(**)apply (smt (verit) CSTATE_inequality_invariant HSTATE_X_Evict_invariant1 MESI_State.distinct(101) assms i161 i165 nextDTHDataFrom_general_rule_6_0) done
   show goal153: "HSTATE SAD ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<and> nextDTHDataFrom 0 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<longrightarrow> reqs2 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) = []"
   apply  (cases "dthdatas1 T") apply  (auto)
-by (smt (verit) HSTATE_def i166 i733 list.discI nextDTHDataFrom_def) 
+apply  (smt (verit) HSTATE_def i166 i733 list.discI nextDTHDataFrom_def)  done
   show goal154: "HSTATE SAD ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<and> nextDTHDataFrom 1 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<longrightarrow> reqs1 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) = []"
  apply  (insert assms)(**)apply (smt (verit) CSTATE_inequality_invariant HSTATE_X_Evict_invariant1 MESI_State.distinct(101) assms i161 i167 nextDTHDataFrom_general_rule_6_0) done
   show goal155: "HSTATE SD ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<and> nextDTHDataFrom 0 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<longrightarrow> reqs2 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) = []"
   apply  (cases "dthdatas1 T") apply  (auto)
-by (smt (verit) HSTATE_def i168 list.discI nextDTHDataFrom_def) 
+apply  (smt (verit) HSTATE_def i168 list.discI nextDTHDataFrom_def)  done
   show goal156: "HSTATE SD ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<and> nextDTHDataFrom 1 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<longrightarrow> reqs1 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) = []"
  apply  (insert assms)(**)apply (smt (verit) CSTATE_inequality_invariant HSTATE_X_Evict_invariant1 MESI_State.distinct(97) assms aux81 i169 i858 nextDTHDataFrom_general_rule_6_0) done
   show goal157: "HSTATE SharedM ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) \<and> nextReqIs RdOwn ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) 0 \<longrightarrow> dthdatas2 ( T [ 0 +=rdreq CleanEvictNoData] [ 0 s= SIAC]) = []"

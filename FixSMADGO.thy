@@ -74,13 +74,13 @@ lemma SMADGO'_nextGOPendingIs: "nextGOPendingIs X T 1 = nextGOPendingIs X ( T \<
 
 
 lemma SMADGO'_nextHTDDataPending: "nextHTDDataPending T i = nextHTDDataPending ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 lemma SMADGO'_HSTATE: "HSTATE X T  = HSTATE X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) "
-by simp
+apply  simp done
 
 lemma SMADGO'_CSTATE_otherside: "CSTATE X T 1 = CSTATE X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1"
-by simp
+apply  simp done
 
 
 lemma SMADGO'_CSTATE_sameside: "CSTATE SMD ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0"
@@ -88,15 +88,15 @@ lemma SMADGO'_CSTATE_sameside: "CSTATE SMD ( T \<lparr>buffer1 := Some m\<rparr>
 
 
 lemma SMADGO'_nextSnoopIs: "nextSnoopIs X T i = nextSnoopIs X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 lemma SMADGO'_nextReqIs: "nextReqIs X T i = nextReqIs X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 
 
 lemma SMADGO'_nextSnpRespIs: "nextSnpRespIs X T i = nextSnpRespIs X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"
-by simp
+apply  simp done
 
 
 lemma SMADGO'_nextReqIs_invariant1: shows "nextReqIs x T i = nextReqIs x ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"

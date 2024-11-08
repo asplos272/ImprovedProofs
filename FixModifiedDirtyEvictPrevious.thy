@@ -2445,7 +2445,7 @@ apply (smt (verit) i4x i898)
     apply  (insert assms)(**)apply (smt (verit) CSTATE_HostModified_DirtyEvictPrevious_otherside_invariant2 CSTATE_HostModified_DirtyEvictPrevious_otherside_invariant3 assms aux436_1 i74) done
   show goal636: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<or> CSTATE IMAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0"
      apply  (cases "dthdatas1 T") apply  (auto)
-by (smt (verit) i189 i1x i4x i898 list.distinct(1)) 
+apply  (smt (verit) i189 i1x i4x i898 list.distinct(1))  done
   show goal637: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
      apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i189 i194 i1x) 

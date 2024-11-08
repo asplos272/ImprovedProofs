@@ -111,7 +111,7 @@ lemma HostShared_CleanEvictNoData_NotLast_nextSnpRespIs_sameside: shows
 
 lemma HostShared_CleanEvictNoData_NotLast_HSTATE: shows "HSTATE SharedM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) " 
  apply(case_tac "program1 T")
-by simp+
+apply  simp+ done
 
 lemma HostShared_CleanEvictNoData_NotLast_nextLoad: shows "nextLoad ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) i = nextLoad T i" 
  apply(case_tac "program1 T")
@@ -178,7 +178,7 @@ done
 
 
 lemma Shared_CleanEvictNoData_NotLast_otherside_nextReqIs: "nextReqIs X T 1 = nextReqIs X ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) 1"
-by simp
+apply  simp done
 
 
 

@@ -112,7 +112,7 @@ lemma HostShared_CleanEvict_NotLastDrop_nextSnpRespIs_sameside: shows
 
 lemma HostShared_CleanEvict_NotLastDrop_HSTATE: shows "HSTATE SharedM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) " 
  apply(case_tac "program1 T")
-by simp+
+apply  simp+ done
 
 lemma HostShared_CleanEvict_NotLastDrop_nextLoad: shows "nextLoad ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) i = nextLoad T i" 
  apply(case_tac "program1 T")

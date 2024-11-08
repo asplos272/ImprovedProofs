@@ -2530,7 +2530,7 @@ qed
 
  by (metis aux_r93_2)
   show goal795: "(CSTATE MIA (T [ -=i 0]) 1 \<and> nextGOPendingIs GO_WritePull (T [ -=i 0]) 1 \<and> HSTATE ID (T [ -=i 0]) \<longrightarrow> (\<not> CSTATE SIA (T [ -=i 0]) 0 \<or> nextGOPendingIs GO_WritePullDrop (T [ -=i 0]) 0))  "
-by (metis goal431 i205)
+apply  (metis goal431 i205) done
 
   show goal796: "(HSTATE SAD (T [ -=i 0]) \<and> nextDTHDataFrom 1 (T [ -=i 0]) \<longrightarrow> \<not> CSTATE MIA (T [ -=i 0]) 0 \<and> \<not> CSTATE MIA (T [ -=i 0]) 1) "
 

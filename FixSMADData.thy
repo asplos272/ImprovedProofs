@@ -116,7 +116,7 @@ lemma SMADData_dthdatas2:   " dthdatas2  T  = dthdatas2  ( T [ 0 s= SMA] [ 0 :=d
 
 
 lemma SMADData_htddatas1:   " length (htddatas1  T) \<le> 1 \<Longrightarrow>   (htddatas1 ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])) = []"
-by(cases "htddatas1 T", simp+)
+apply (cases "htddatas1 T", simp+) done
 
   
 lemma SMADData_htddatas2:   " htddatas2  T  = htddatas2  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"

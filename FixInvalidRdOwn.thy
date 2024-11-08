@@ -1149,7 +1149,7 @@ have i970: "(HSTATE SAD T \<and> nextDTHDataFrom 1 T \<longrightarrow> \<not> CS
  by (smt (verit) i208 nextReqIs_not_various_forms1)
   have aux_notRdO: "\<not> nextReqIs RdOwn ( T [ 0 +=hostdata  txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO Modified txid] [ 0 -=req ]) 0"
  
-by (smt (verit) i208 nextReqIs_not_various_forms1)
+apply  (smt (verit) i208 nextReqIs_not_various_forms1) done
 \<comment>\<open>
   have i210: "reqresps1 ( T [ 0 +=hostdata  txid] [ 5 sHost= ModifiedM] [ 0 +=reqresp GO Modified txid] [ 0 -=req ]) = []" 
   
