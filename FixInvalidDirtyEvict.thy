@@ -1051,7 +1051,7 @@ have i206: "\<not> nextReqIs RdOwn T 0"
  by (metis i57)
   have i208: "reqs1 ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = []"
  
- by (smt (verit) FixInvalidDirtyEvict.reqlength1_minus i208aux)
+ by (smt (verit) reqlength1_minus i208aux)
   have i209: "\<forall>X. \<not> nextReqIs X ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0"
  
  using empty_reqs_nextReqIs i208 by presburger

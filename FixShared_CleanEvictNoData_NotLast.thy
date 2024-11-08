@@ -1043,7 +1043,7 @@ apply simp subgoal  using i2x nextReqIs_invariant nextReqIs_various_forms1 apply
 
   have i208: "reqs1 ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = []"
  using i57   
- by (metis FixShared_CleanEvictNoData_NotLast.reqlength1_minus reqs1_invariant_hstate_reqresps1)
+ by (metis reqlength1_minus reqs1_invariant_hstate_reqresps1)
 
   have i209: "\<forall>X. \<not> nextReqIs X ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) 0"
  
