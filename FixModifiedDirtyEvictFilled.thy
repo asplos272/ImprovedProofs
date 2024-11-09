@@ -4912,14 +4912,13 @@ lemma helper: "f T \<Longrightarrow>
   f T \<and>
   HSTATE ModifiedM T \<and>
   nextReqIs DirtyEvict T 0 \<and>
-  GTS T 1 \<and> CSTATE MIA T 0 \<and> \<not> (CSTATE SIA T 1 \<and> nextGOPendingIs GO_WritePullDrop T 1) \<Longrightarrow>
+  GTS T 1 \<and> CSTATE MIA T 0 \<Longrightarrow>
   f ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])) \<Longrightarrow>
  Lall
   (if HSTATE ModifiedM T \<and>
    nextReqIs DirtyEvict T 0 \<and>
    GTS T ((0 + 1) mod 2) \<and>
-   CSTATE MIA T 0 \<and>
-   \<not> (CSTATE SIA T ((0 + 1) mod 2) \<and> nextGOPendingIs GO_WritePullDrop T ((0 + 1) mod 2))
+   CSTATE MIA T 0 
    then [clearBuffer (sendEvictResp GO_WritePull 0 ID (nextReqID T 0) T)] else [])
   f"
 by simp

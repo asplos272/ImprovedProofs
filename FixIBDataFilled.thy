@@ -98,9 +98,7 @@ lemma nextLoad_HostIBDataPrevious: shows "nextLoad T = nextLoad ( T [ 5 sHost= I
 unfolding nextLoad_def
 by simp
 lemma reqlength1_minus: shows "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 (T [ 0 -=req]) = []"
-apply(cases "reqs1 T")
-apply simp+
-done
+apply(cases "reqs1 T") apply simp+ done
 lemma empty_reqs_nextReqIs: shows "reqs1 T  = [] \<Longrightarrow> \<not> nextReqIs X T 0"
 by simp
 lemma HostIBDataPrevious_empty_reqs1_aux: shows " reqs1 T = reqs1 (  T [ 1 +=snp SnpInv txid]  [ 5 sHost= MAD])"
@@ -118,9 +116,7 @@ lemma HostIBDataPrevious_htddatas2_aux: shows "htddatas2 T = [] \<Longrightarrow
 apply simp
 done
 lemma nextGOPending_HostIBDataPrevious: "nextGOPending (  T[ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ] ) i = nextGOPending T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 lemma HostIBDataPrevious'_coherent_aux_simpler: assumes "SWMR_state_machine T \<and> HSTATE IB T \<and> nextDTHDataFrom 0 T \<and> CSTATE Invalid T 0 \<and> CSTATE Invalid T 1"
   shows "SWMR_state_machine  ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 proof -
@@ -1745,810 +1741,418 @@ show ?thesis
 unfolding SWMR_state_machine_def
 proof (intro conjI)
 show goal1: "SWMR ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_various_forms1 CSTATE_various_forms3 HostIBDataPrevious'_devcache_invariant1 HostIBDataPrevious'_devcache_invariant2 MESI_State.distinct(95) assms)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_various_forms1 CSTATE_various_forms3 HostIBDataPrevious'_devcache_invariant1 HostIBDataPrevious'_devcache_invariant2 MESI_State.distinct(95) assms) done
 show goal2: "C_msg_P_oppo ISD nextHTDDataPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699 i764)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699 i764) done
 show goal3: "H_msg_P_same SD nextDTHDataPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal4: "H_msg_P_same SAD nextDTHDataPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal5: "C_msg_P_oppo ISAD nextGOPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal6: "H_msg_P_same SharedM (nextReqIs RdShared) (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal7: "H_msg_P_oppo SharedM (nextReqIs RdShared) (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal8: "H_msg_P_same ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal9: "H_msg_P_oppo ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal10: "H_msg_P_oppo ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextSnpRespIs RspIFwdM T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal11: "H_msg_P_same ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextSnpRespIs RspIFwdM T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal12: "C_H_state IMAD (nextReqIs RdOwn) Modified SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i494 i495 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i494 i495 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal13: "C_H_state IMAD (nextReqIs RdOwn) Modified SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i494 i495 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i494 i495 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal14: "C_H_state IMAD (nextReqIs RdOwn) Modified SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i494 i495 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i494 i495 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal15: "C_H_state Invalid nextStore Modified SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal16: "C_H_state Invalid nextStore Modified SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal17: "C_H_state Invalid nextStore Modified SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal18: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal19: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal20: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal21: "C_msg_not RdShared IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(147) assms)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(147) assms) done
 show goal22: "C_msg_not RdShared Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) C_msg_not_def assms i26 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) C_msg_not_def assms i26 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal23: "H_msg_P_same ModifiedM (nextReqIs DirtyEvict) (\<lambda>T i. CSTATE MIA T i \<or> CSTATE IIA T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal24: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (\<lambda>T. \<not> HSTATE ModifiedM T) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal25: "C_msg_P_same MIA (nextGOPendingIs GO_WritePull) nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 HostIBDataPrevious_nextGOPendingIs_otherside assms i661 i761 i769)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 HostIBDataPrevious_nextGOPendingIs_otherside assms i661 i761 i769) done
 show goal26: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (HSTATE ID) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 HostIBDataPrevious_nextGOPendingIs_otherside assms i661 i761 i769)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 HostIBDataPrevious_nextGOPendingIs_otherside assms i661 i761 i769) done
 show goal27: "C_state_not MIA RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal28: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis CSTATE_general_rule_1_0 CSTATE_inequality_invariant MESI_State.distinct(163) aux_r33_3 i4x)
 show goal29: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant assms aux_r33_3 i199)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant assms aux_r33_3 i199) done
 show goal30: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant assms aux_r33_3 i199)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant assms aux_r33_3 i199) done
 show goal31: "H_C_state_msg_same ModifiedM Modified (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal32: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_different2 CSTATE_general_rule_1_0 CSTATE_inequality_invariant assms i199 i3x i4x)
 show goal33: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant HostIBDataPrevious_nextGOPendingIs_otherside assms i199 i761)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant HostIBDataPrevious_nextGOPendingIs_otherside assms i199 i761) done
 show goal34: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms aux426_1 i761 nextDTHDataPending_def)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms aux426_1 i761 nextDTHDataPending_def) done
 show goal35: "H_C_state_msg_oppo ModifiedM IIA (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i224)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i224) done
 show goal36: "C_msg_P_host Shared (nextSnoopIs SnpInv) (HSTATE MA) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious) done
 show goal37: "C_msg_state RdShared ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) C_msg_not_def assms i26 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) C_msg_not_def assms i26 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal38: "C_not_C_msg Modified ISAD nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal39: "C_msg_P_same Invalid nextStore (\<lambda>T i. \<not> nextHTDDataPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i190 i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i190 i770 nextHTDDataPending_general_rule_1_0) done
 show goal40: "C_msg_P_same Invalid nextStore (\<lambda>T i. \<not> nextSnoopIs SnpInv T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious) done
 show goal41: "C_msg_P_same ISAD nextGOPending (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) C_msg_not_def assms aux408 i26 nextGOPending_HostIBDataPrevious nextReqIs_HostIBDataPrevious_IMAD_invariant2 reqresps_empty_noGOPending1)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) C_msg_not_def assms aux408 i26 nextGOPending_HostIBDataPrevious nextReqIs_HostIBDataPrevious_IMAD_invariant2 reqresps_empty_noGOPending1) done
 show goal42: "snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i856)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i856) done
 show goal43: "snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i855 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i855 snps1_HostIBDataPrevious) done
 show goal44: "length (reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms i57 i68 i856 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i57 i68 i856 reqs1_HostIBDataPrevious) done
 show goal45: "length (reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms i58 i69 i856 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i58 i69 i856 reqs2_HostIBDataPrevious) done
 show goal46: "length (snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) i213 i60)
-done
+apply  (insert assms) apply (smt (verit) i213 i60) done
 show goal47: "length (snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms i60 i715 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i60 i715 snps1_HostIBDataPrevious) done
 show goal48: "C_msg_P_same Shared (nextSnoopIs SnpInv) (\<lambda>T i. \<not> nextHTDDataPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious) done
 show goal49: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_different2 CSTATE_general_rule_1_0 CSTATE_inequality_invariant assms i199 i3x i4x)
 show goal50: "C_msg_P_oppo Invalid nextStore (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) i3x i4x i855 i856 nextSnoopPending_empty_not_rule_1_0 nextSnoopPending_empty_not_rule_1_1)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) i3x i4x i855 i856 nextSnoopPending_empty_not_rule_1_0 nextSnoopPending_empty_not_rule_1_1) done
 show goal51: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i2150 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i2150 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal52: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal53: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i2150 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i2150 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal54: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal55: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i2150 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i2150 i613old i856) done
 show goal56: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal57: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal58: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal59: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal60: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal61: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal62: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal63: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal64: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal65: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal66: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal67: "C_msg_P_host ISD (nextSnoopIs SnpInv) (HSTATE MA) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms i592 i593 nextSnoopIs_HostIBDataPrevious) done
 show goal68: "length (htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) i2150 i77)
-done
+apply  (insert assms) apply (smt (verit) i2150 i77) done
 show goal69: "length (htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) htddatas2_HostIBDataPrevious i78)
-done
+apply  (insert assms) apply (smt (verit) htddatas2_HostIBDataPrevious i78) done
 show goal70: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal71: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal72: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal73: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal74: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal75: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal76: "length (reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms i721 reqresps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i721 reqresps1_HostIBDataPrevious) done
 show goal77: "length (reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms i382 i60 i856 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i60 i856 reqresps2_HostIBDataPrevious) done
 show goal78: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i855 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i855 snps1_HostIBDataPrevious) done
 show goal79: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i856) done
 show goal80: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i2150 i489 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i2150 i489 i613old i856) done
 show goal81: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal82: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i91 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i91 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal83: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal84: "C_msg_P_same MIA (nextReqIs DirtyEvict) nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside assms i538 i815 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside assms i538 i815 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal85: "reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i68 reqs1_HostIBDataPrevious) done
 show goal86: "reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i69 reqs2_HostIBDataPrevious) done
 show goal87: "reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal88: "reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal89: "reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i613old) done
 show goal90: "reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal91: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal92: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal93: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) aux426_1 nextDTHDataFrom_def)
-done
+apply  (insert assms) apply (smt (verit) aux426_1 nextDTHDataFrom_def) done
 show goal94: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal95: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal96: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal97: "reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i68 reqs1_HostIBDataPrevious) done
 show goal98: "reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i69 reqs2_HostIBDataPrevious) done
 show goal99: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(109) HOST_State.distinct(115) HSTATE_invariant3 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(109) HOST_State.distinct(115) HSTATE_invariant3 i201) done
 show goal100: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal101: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal102: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i613old) done
 show goal103: "length (dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 i60 i856)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 i60 i856) done
 show goal104: "length (dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710 i856 i884)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710 i856 i884) done
 show goal105: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) aux426_1 nextDTHDataFrom_def)
-done
+apply  (insert assms) apply (smt (verit) aux426_1 nextDTHDataFrom_def) done
 show goal106: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal107: "HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(113) HOST_State.distinct(137) HSTATE_invariant3 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(113) HOST_State.distinct(137) HSTATE_invariant3 i201) done
 show goal108: "HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside assms i213 i214 i489 i613old i856 nextSnpRespIs_invariant2)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside assms i213 i214 i489 i613old i856 nextSnpRespIs_invariant2) done
 show goal109: "nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms) done
 show goal110: "nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms) done
 show goal111: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i453 i661 i769 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i453 i661 i769 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal112: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal113: "snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal114: "snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal115: "length (snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) i120 snpresps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) i120 snpresps1_HostIBDataPrevious) done
 show goal116: "length (snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) i121 i214)
-done
+apply  (insert assms) apply (smt (verit) i121 i214) done
 show goal117: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis i4x i614old nextSnpRespIs_general_rule_1_0 nextSnpRespIs_invariant1)
 show goal118: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside assms i213 i214 i613old i615old i856 nextSnpRespIs_invariant2)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside assms i213 i214 i613old i615old i856 nextSnpRespIs_invariant2) done
 show goal119: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201) done
 show goal120: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201) done
 show goal121: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201) done
 show goal122: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i489 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i489 i613old) done
 show goal123: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(109) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(109) HSTATE_invariant4 i201) done
 show goal124: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i613old) done
 show goal125: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal126: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal127: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal128: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal129: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal130: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal131: "dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<and> HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal132: "dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<and> HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal133: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal134: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal135: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms aux_r33_3 i199 i856 nextSnoopPending_empty_not_rule_1_1)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms aux_r33_3 i199 i856 nextSnoopPending_empty_not_rule_1_1) done
 show goal136: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal137: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal138: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i145 nextLoad_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i145 nextLoad_general_rule_1_0) done
 show goal139: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 HostIBDataPrevious_nextLoad i146)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 HostIBDataPrevious_nextLoad i146) done
 show goal140: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal141: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal142: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i613old i856) done
 show goal143: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal144: "(CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal145: "(CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal146: "(CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(121) HOST_State.distinct(137) HSTATE_invariant3 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(121) HOST_State.distinct(137) HSTATE_invariant3 i201) done
 show goal147: "(CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(121) HOST_State.distinct(137) HSTATE_invariant3 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(121) HOST_State.distinct(137) HSTATE_invariant3 i201) done
 show goal148: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal149: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) aux426_1 nextDTHDataFrom_def)
-done
+apply  (insert assms) apply (smt (verit) aux426_1 nextDTHDataFrom_def) done
 show goal150: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal151: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(109) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(109) HSTATE_invariant4 i201) done
 show goal152: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i613old) done
 show goal153: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal154: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal155: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal156: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal157: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal158: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal159: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal160: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal161: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal162: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal163: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal164: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal165: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms)
 by (metis CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_different1 assms i200 i4x)
 show goal166: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal167: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal168: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal169: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0) done
 show goal170: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal171: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal172: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal173: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710) done
 show goal174: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal175: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal176: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal177: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710) done
 show goal178: "nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0) done
 show goal179: "nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal180: "nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal181: "nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal182: "HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710) done
 show goal183: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i199)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i199) done
 show goal184: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (\<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> (\<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_disj2 CSTATE_inequality_invariant assms i199)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_disj2 CSTATE_inequality_invariant assms i199) done
 show goal185: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal186: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal187: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i199)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i199) done
 show goal188: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i199)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i199) done
 show goal189: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal190: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal191: "snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal192: "snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal193: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
 apply  (insert assms)
 by (metis C_msg_not_def i26 i4x nextReqIs_general_rule_1_0)
 show goal194: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal195: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal196: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal197: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal198: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside assms i213 i214 i489 i613old i856 nextSnpRespIs_invariant2)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside assms i213 i214 i489 i613old i856 nextSnpRespIs_invariant2) done
 show goal199: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal200: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis CSTATE_disj1 CSTATE_general_rule_1_0 DIRTYEVICT_COL_def MESI_State.distinct(175) i3x i4x)
 show goal201: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) C_msg_not_def HostIBDataPrevious_nextGOPendingIs_otherside assms i26 i761 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) C_msg_not_def HostIBDataPrevious_nextGOPendingIs_otherside assms i26 i761 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal202: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i2150 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i2150 i613old i856) done
 show goal203: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal204: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis i3x i4x i855 i856 nextSnoopPending_def nextSnoopPending_empty_not_rule_1_1 snps1_HostIBDataPrevious)
@@ -2556,1426 +2160,726 @@ show goal205: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and>
 apply  (insert assms)
 by (metis CSTATE_general_rule_1_0 CSTATE_inequality_invariant DIRTYEVICT_COL_def MESI_State.distinct(175) assms)
 show goal206: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal207: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms aux426_1 i761 nextDTHDataPending_def)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms aux426_1 i761 nextDTHDataPending_def) done
 show goal208: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal209: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal210: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis CSTATE_disj1 CSTATE_general_rule_1_0 DIRTYEVICT_COL_def MESI_State.distinct(175) assms)
 show goal211: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) C_msg_not_def assms i26 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) C_msg_not_def assms i26 nextReqIs_HostIBDataPrevious_IMAD_invariant1 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal212: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis assms i855 i856 nextSnoopPending_empty_not_rule_1_0 nextSnoopPending_empty_not_rule_1_1 nextSnoopPending_general_rule_1_0)
 show goal213:  "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal214:  "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal215: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710 i761 nextDTHDataPending_def)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710 i761 nextDTHDataPending_def) done
 show goal216: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal217: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0) done
 show goal218: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal219: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal220: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal221: "C_not_C_msg Modified IMAD nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux346 i699 nextGOPending_HostIBDataPrevious)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux346 i699 nextGOPending_HostIBDataPrevious) done
 show goal222: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i435 i574 nextGOPending_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i435 i574 nextGOPending_HostIBDataPrevious) done
 show goal223: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i339 nextStore_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i339 nextStore_general_rule_1_0) done
 show goal224: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i340 nextStore_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i340 nextStore_general_rule_1_0) done
 show goal225: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i613old i856) done
 show goal226: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal227: "snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal228: "snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal229: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal230: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious) done
 show goal231: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal232: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal233: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal234: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal235: "C_msg_P_same IMA nextGOPending nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i753 i754 i767 i768)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i753 i754 i767 i768) done
 show goal236: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i754 i763 i765 i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i754 i763 i765 i767) done
 show goal237: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i764 i766 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i764 i766 i768) done
 show goal238: "C_msg_P_oppo IMA nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i753 i754 i767 i768)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i753 i754 i767 i768) done
 show goal239: "C_msg_P_oppo SMA nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765 i766)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765 i766) done
 show goal240: "C_msg_P_oppo ISA nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764) done
 show goal241: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i754 i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i754 i767) done
 show goal242: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal243: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> ((CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (metis CSTATE_general_rule_1_0 aux408 i1x i765 i767 nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending1)
-done
+apply  (insert assms) apply (metis CSTATE_general_rule_1_0 aux408 i1x i765 i767 nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending1) done
 show goal244: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> ((CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (metis CSTATE_general_rule_1_0 i1x i382 i4x i766 i768 nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending2)
-done
+apply  (insert assms) apply (metis CSTATE_general_rule_1_0 i1x i382 i4x i766 i768 nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending2) done
 show goal245: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> (dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710) done
 show goal246: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> (dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710) done
 show goal247: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal248: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal249: "C_msg_P_same SMA nextGOPending nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765 i766)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765 i766) done
 show goal250: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725 i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725 i765) done
 show goal251: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726 i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726 i766) done
 show goal252: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i145 i368 i763 nextLoad_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i145 i368 i763 nextLoad_general_rule_1_0) done
 show goal253: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextLoad ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 HostIBDataPrevious_nextLoad assms i146 i369 i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 HostIBDataPrevious_nextLoad assms i146 i369 i764) done
 show goal254: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i339 i765 i767 i915 i916 nextStore_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i339 i765 i767 i915 i916 nextStore_general_rule_1_0) done
 show goal255: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextStore ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i340 i766 i768 i915 i916 nextStore_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i340 i766 i768 i915 i916 nextStore_general_rule_1_0) done
 show goal256: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux426_1 i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux426_1 i493 i699) done
 show goal257: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms dthdatas2_HostIBDataPrevious i493 i699 i710)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms dthdatas2_HostIBDataPrevious i493 i699 i710) done
 show goal258: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal259: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal260: "CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal261: "CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal262: "CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i613old i855 i856 reqresps1_HostIBDataPrevious2 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i613old i855 i856 reqresps1_HostIBDataPrevious2 snps1_HostIBDataPrevious) done
 show goal263: "CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i382 i614old i855 i856 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i382 i614old i855 i856 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal264: "CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> \<not> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal265: "CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> \<not> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal266: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal267: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal268: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal269: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal270: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal271: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal272: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i613old i856) done
 show goal273: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal274: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal275: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal276: "nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal277: "nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal278: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> CXL_SPG_used ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal279: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> CXL_SPG_used ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal280: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal281: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal282: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal283: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal284: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(121) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(121) HSTATE_invariant4 i201) done
 show goal285: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) aux426_1 nextDTHDataFrom_def)
-done
+apply  (insert assms) apply (smt (verit) aux426_1 nextDTHDataFrom_def) done
 show goal286: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal287: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) aux426_1 nextDTHDataFrom_def)
-done
+apply  (insert assms) apply (smt (verit) aux426_1 nextDTHDataFrom_def) done
 show goal288: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal289: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis DIRTYEVICT_COL_def HOST_State.distinct(121) HSTATE_equals_sHost hstate_invariants(16))
 show goal290: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201) done
 show goal291: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal292: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal293: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal294: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
 apply  (insert assms)
 by (metis CSTATE_different2 CSTATE_general_rule_1_0 HSTATE_equals_sHost assms goal290 hstate_invariants(16) i201 i339 i561 nextReqIs_general_rule_1_0 nextStore_nextEvict_exclusive)
 show goal295: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal296: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i225 i69 i897 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i225 i69 i897 reqs2_HostIBDataPrevious) done
 show goal297: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i68 i699 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i68 i699 reqs1_HostIBDataPrevious) done
 show goal298: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal299: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal300: "(HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i613old) done
 show goal301: "(HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal302: "nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 HostIBDataPrevious_nextSnpRespIs_sameside assms i441 i699 i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 HostIBDataPrevious_nextSnpRespIs_sameside assms i441 i699 i915 i916) done
 show goal303: "nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 HostIBDataPrevious_nextSnpRespIs_otherside assms i442 i699 i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 HostIBDataPrevious_nextSnpRespIs_otherside assms i442 i699 i915 i916) done
 show goal304: "(CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201) done
 show goal305: "(CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201) done
 show goal306: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal307: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal308: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal309: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal310: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal311: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal312: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal313: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal314: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal315: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal316: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal317: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal318: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal319: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal320: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal321: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal322: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal323: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal324: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal325: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal326: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897) done
 show goal327: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i493 i699) done
 show goal328: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal329: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal330: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal331: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal332: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i2150 i489 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i2150 i489 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal333: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i382 i490 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i382 i490 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal334: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal335: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal336: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699) done
 show goal337: "nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal338: "nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal339: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal340: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal341: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal342: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal343: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i613old i856) done
 show goal344: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal345: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal346: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal347: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> CXL_SPG_used ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal348: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> CXL_SPG_used ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal349: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal350: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal351: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal352: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal353: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699) done
 show goal354: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (\<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal355: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (\<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal356: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal357: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal358: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal359: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal360: "C_msg_P_oppo SMAD nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal361: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i946 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i946 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal362: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i947 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i947 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal363: "nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextReqRespStateIs Invalid (reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal364: "nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextReqRespStateIs Invalid (reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal365: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i561 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i561 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal366: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i562 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i562 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal367: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i561 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i561 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal368: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i562 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i562 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal369: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i561 i563 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i561 i563 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal370: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i562 i564 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i562 i564 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal371: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i561 i563 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i561 i563 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal372: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i562 i564 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i562 i564 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal373: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal374: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal375: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal376: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal377: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal378: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal379: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i538 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i538 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal380: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal381: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal382: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal383: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i3x i68 nextReqIs_general_rule_1_0 nextReqIs_nonempty_reqs1)
-done
+apply  (insert assms) apply (smt (verit) i3x i68 nextReqIs_general_rule_1_0 nextReqIs_nonempty_reqs1) done
 show goal384: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal385: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextReqRespStateIs Invalid (reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal386: "nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> nextReqRespStateIs Invalid (reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]))"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal387: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i765) done
 show goal388: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766) done
 show goal389: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal390: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal391: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765) done
 show goal392: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766) done
 show goal393: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal394: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal395: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal396: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766) done
 show goal397: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i556 i946 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i556 i946 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal398: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i557 i947 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i557 i947 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal399: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal400: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699) done
 show goal401: "CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i493 i699) done
 show goal402: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i561 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i561 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal403: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> nextEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i562 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextEvict_otherside i562 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal404: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i563 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i563 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal405: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i564 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i564 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal406: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal407: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextReqIs CleanEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal408: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal409: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal410: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765 i766 i767 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765 i766 i767 i768) done
 show goal411: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> ((CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)) \<and> \<not> ((CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1))"
-apply  (insert assms)
-apply (metis CSTATE_general_rule_1_0 aux346 aux408 htddatas1_general_rule_1_0 i1x i3x i613old i770 i916 nextGOPending_General_rule_1_1 nextHTDDataPending_general_rule_1_0 nextHTDDataPending_various_forms1 numeral_One numeral_eq_iff reqresps1_HostIBDataPrevious2 reqresps_empty_noGOPending1)
-done
+apply  (insert assms) apply (metis CSTATE_general_rule_1_0 aux346 aux408 htddatas1_general_rule_1_0 i1x i3x i613old i770 i916 nextGOPending_General_rule_1_1 nextHTDDataPending_general_rule_1_0 nextHTDDataPending_various_forms1 numeral_One numeral_eq_iff reqresps1_HostIBDataPrevious2 reqresps_empty_noGOPending1) done
 show goal412: "nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms)
 by (smt (verit) CSTATE_HostSide_rule_1_0 goal266 i1x i2x i3x i761 nextGOPendingIs_general_rule_1_1 reqresps_empty_noGOPendingIs1)
 show goal413: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal414: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal415: "nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal416: "nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal417: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i190 i752 i754 i765 i767 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i190 i752 i754 i765 i767 nextHTDDataPending_general_rule_1_0) done
 show goal418: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i766 i768 i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i766 i768 i770 nextHTDDataPending_general_rule_1_0) done
 show goal419: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i2150 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i2150 i613old i856) done
 show goal420: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal421: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal422: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal423: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal424: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal425: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis goal412 i201)
 show goal426: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal427: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i201)
-done
+apply  (insert assms) apply (smt (verit) i201) done
 show goal428: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710) done
 show goal429: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal430: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal431: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal432: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal433: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal434: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal435: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i613old i856) done
 show goal436: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal437: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal438: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal439: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal440: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal441: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765) done
 show goal442: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766) done
 show goal443: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal444: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal445: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal446: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i190 i225 i435 i574 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i190 i225 i435 i574 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0) done
 show goal447: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal448: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal449: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux346 i770 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux346 i770 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0) done
 show goal450: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<or> HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal451: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal452: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal453: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal454: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal455: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal456: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal457: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal458: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal459: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal460: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal461: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal462: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal463: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal464: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal465: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal466: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal467: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal468: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal469: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal470: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal471: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<longrightarrow> \<not> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal472: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<longrightarrow> \<not> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal473: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal474: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal475: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal476: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal477: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i435)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i435) done
 show goal478: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal479: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal480: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal481: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal482: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal483: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal484: "CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal485: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal486: "CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal487: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal488: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal489: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal490: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal491: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i754 i765 i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i754 i765 i767) done
 show goal492: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i766 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i766 i768) done
 show goal493: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i654 i725)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i654 i725) done
 show goal494: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i655 i726)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i655 i726) done
 show goal495: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i190 i225 i435 i574 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i190 i225 i435 i574 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0) done
 show goal496: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux346 i770 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms aux346 i770 nextGOPending_HostIBDataPrevious nextHTDDataPending_general_rule_1_0) done
 show goal497: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal498: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1))"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal499: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal500: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal501: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725 i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725 i763) done
 show goal502: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726 i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726 i764) done
 show goal503: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal504: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(143) assms) done
 show goal505: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i435 i574 nextGOPending_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i435 i574 nextGOPending_HostIBDataPrevious) done
 show goal506: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious) done
 show goal507: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal508: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal509: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i754 i763 i765 i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i754 i763 i765 i767) done
 show goal510: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i764 i766 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i753 i764 i766 i768) done
 show goal511: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0) done
 show goal512: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal513: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal514: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal515: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal516: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal517: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal518: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal519: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i613old i856) done
 show goal520: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal521: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal522: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal523: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal524: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal525: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i685 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i685 nextSnoopIs_HostIBDataPrevious) done
 show goal526: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i686 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 i686 nextSnoopIs_HostIBDataPrevious) done
 show goal527: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal528: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal529: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i754 i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i754 i767) done
 show goal530: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal531: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) i3x i855 snps1_empty_not_nextSnoopIs_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) i3x i855 snps1_empty_not_nextSnoopIs_rule_1_0) done
 show goal532: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
 apply  (insert assms)
 by (smt (verit) empty_no_snoop2 i213 i4x i856)
 show goal533: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i493 i699) done
 show goal534: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal535: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal536: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal537: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> length (dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1 \<and> length (dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i60 i710 i856)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i60 i710 i856) done
 show goal538: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> length (dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1 \<and> length (dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710 i884)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i710 i884) done
 show goal539: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal540: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal541: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> length (dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1 \<and> length (dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i60 i710 i856)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 dthdatas2_HostIBDataPrevious i60 i710 i856) done
 show goal542: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal543: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal544: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal545: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal546: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal547: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal548: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i855 i856 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i855 i856 snps1_HostIBDataPrevious) done
 show goal549: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i855 i856 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i855 i856 snps1_HostIBDataPrevious) done
 show goal550: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i855 i856 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i855 i856 snps1_HostIBDataPrevious) done
 show goal551: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal552: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal553: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal554: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal555: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal556: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal557: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725) done
 show goal558: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726) done
 show goal559: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i725) done
 show goal560: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i726) done
 show goal561: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> lastSharer ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal562: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> lastSharer ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal563: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> lastSharer ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
 apply  (insert assms)
 by (metis goal504 i201)
@@ -3983,261 +2887,133 @@ show goal564: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<an
 apply  (insert assms)
 by (metis goal503 i201)
 show goal565: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 i490 i614old snpresps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 i490 i614old snpresps1_HostIBDataPrevious) done
 show goal566: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal567: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal568: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal569: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0) done
 show goal570: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal571: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (\<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> (\<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal572: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 i490 i614old snpresps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 i490 i614old snpresps1_HostIBDataPrevious) done
 show goal573: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old i615old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old i615old) done
 show goal574: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(175) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(175) assms) done
 show goal575: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious) done
 show goal576: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal577: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal578: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal579: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal580: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal581: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal582: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764) done
 show goal583: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764) done
 show goal584: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old i615old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old i615old) done
 show goal585: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal586: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal587: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal588: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal589: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1))"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal590: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0))"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal591: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal592: "CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal593: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal594: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal595: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal596: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal597: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763) done
 show goal598: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal599: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765) done
 show goal600: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766) done
 show goal601: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal602: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal603: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal604: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i190 i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 i770 nextHTDDataPending_general_rule_1_0) done
 show goal605: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal606: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal607: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) aux408 reqresps1_HostIBDataPrevious2) done
 show goal608: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 reqresps2_HostIBDataPrevious) done
 show goal609: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal610: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal611: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal612: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdShared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal613: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal614: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal615: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal616: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal617: "snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<and> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal618: "snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<and> HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old) done
 show goal619: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal620: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal621: "nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal622: "nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal623: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal624: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspSFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal625: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i493 i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i493 i699) done
 show goal626: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal627: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal628: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal629: "HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis goal425 i201)
@@ -4245,304 +3021,162 @@ show goal630: "HSTATE SharedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<lo
 apply  (insert assms)
 by (metis goal425 i201)
 show goal631: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal632: "CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_inequality_invariant MESI_State.distinct(163) assms) done
 show goal633: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i489 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i489 i613old) done
 show goal634: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old i615old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old i615old) done
 show goal635: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764) done
 show goal636: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms) done
 show goal637: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms) done
 show goal638: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal639: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(135) HOST_State.distinct(137) HSTATE_invariant3 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(135) HOST_State.distinct(137) HSTATE_invariant3 i201) done
 show goal640: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis goal425 i201)
 show goal641: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal642: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(175) assms)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 CSTATE_inequality_invariant MESI_State.distinct(175) assms) done
 show goal643: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal644: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal645: "HSTATE MB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i763 i764) done
 show goal646: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis goal412 i201)
 show goal647: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal648: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal649: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal650: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis HostIBDataPrevious_HSTATE goal412)
 show goal651: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal652: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal653: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal654: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis goal425 i201)
 show goal655: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal656: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) assms i494 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal657: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i495 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal658: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal659: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal660: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i754 i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i754 i767) done
 show goal661: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal662: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal663: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal664: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i764) done
 show goal665: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal666: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal667: "CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal668: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i856) done
 show goal669: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i855 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i855 snps1_HostIBDataPrevious) done
 show goal670: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal671: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal672: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(117) HSTATE_invariant4 i201) done
 show goal673: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal674: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897) done
 show goal675: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal676: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal677: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal678: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897) done
 show goal679: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old i615old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old i615old) done
 show goal680: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i752 i765) done
 show goal681: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766) done
 show goal682: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699 i764)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699 i764) done
 show goal683: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE ISA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766) done
 show goal684: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765) done
 show goal685: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i613old) done
 show goal686: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal687: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766) done
 show goal688: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i855 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i855 snps1_HostIBDataPrevious) done
 show goal689: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i856) done
 show goal690: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) aux426_1 nextDTHDataFrom_def)
-done
+apply  (insert assms) apply (smt (verit) aux426_1 nextDTHDataFrom_def) done
 show goal691: "HSTATE SD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE ISD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal692: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis goal425 i201)
 show goal693: "HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal694: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal695: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE ISAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal696: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal697: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal698: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i613old i856) done
 show goal699: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i490 i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal700: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i761 i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i761 i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal701: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal702: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i661 i769) done
 show goal703: "CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal704: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(163) MESI_State.distinct(175) assms i453 i661 i769 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(163) MESI_State.distinct(175) assms i453 i661 i769 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal705: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal706: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (\<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> (\<not> CSTATE SIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_different1 CSTATE_different2 CSTATE_general_rule_1_0 MESI_State.distinct(175) i3x i4x)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_different1 CSTATE_different2 CSTATE_general_rule_1_0 MESI_State.distinct(175) i3x i4x) done
 show goal707: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
 apply  (insert assms)
 by (metis HOST_State.distinct(119) HSTATE_equals_sHost hstate_invariants(16))
@@ -4550,281 +3184,143 @@ show goal708: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> ne
 apply  (insert assms)
 by (metis HOST_State.distinct(119) HSTATE_equals_sHost hstate_invariants(16))
 show goal709: "length (dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 i60 i856)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 i60 i856) done
 show goal710: "length (dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) \<le> 1"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710 i856 i884)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710 i856 i884) done
 show goal711: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i761 i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i761 i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal712: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> CSTATE IIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextGOPendingIs_otherside assms i761) done
 show goal713: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal714: "HSTATE MAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal715: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms aux426_1 i490 i614old snpresps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms aux426_1 i490 i614old snpresps1_HostIBDataPrevious) done
 show goal716: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> [] \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i214 i613old i615old)
-done
+apply  (insert assms) apply (smt (verit) assms i214 i613old i615old) done
 show goal717: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i382 i614old i855 reqresps2_HostIBDataPrevious snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal718: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2)
-done
+apply  (insert assms) apply (smt (verit) assms aux408 i213 i214 i613old i856 reqresps1_HostIBDataPrevious2) done
 show goal719: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i767) done
 show goal720: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal721: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> (htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i765) done
 show goal722: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> (htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<or> CSTATE ISDI ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0)"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766) done
 show goal723: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) aux426_1)
-done
+apply  (insert assms) apply (smt (verit) aux426_1) done
 show goal724: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710)
-done
+apply  (insert assms) apply (smt (verit) assms dthdatas2_HostIBDataPrevious i710) done
 show goal725: "nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside assms i948)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside assms i948) done
 show goal726: "nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i766 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i766 i768) done
 show goal727: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal728: "CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i768) done
 show goal729: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal730: "CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i766) done
 show goal731: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal732: "CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i753 i768) done
 show goal733: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal734: "CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i751 i766) done
 show goal735: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal736: "CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 aux346 nextGOPending_HostIBDataPrevious) done
 show goal737: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal738: "HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal739: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal740: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal741: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal742: "HSTATE IB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal743: "HSTATE ID ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> \<not> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i915 i916) done
 show goal744: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside assms i948)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside assms i948) done
 show goal745: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal746: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i225 i897) done
 show goal747: "CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i2150 i613old)
-done
+apply  (insert assms) apply (smt (verit) assms i2150 i613old) done
 show goal748: "HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal749: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i592 nextSnoopIs_HostIBDataPrevious) done
 show goal750: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextSnoopIs SnpInv ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i593 nextSnoopIs_HostIBDataPrevious) done
 show goal751: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i915 i916) done
 show goal752: "CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) assms i815 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal753: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 assms i699) done
 show goal754: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> HSTATE SA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 assms i699) done
 show goal755: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0) done
 show goal756: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal757: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i214 i2150 i613old i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i214 i2150 i613old i856) done
 show goal758: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> snpresps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = [] \<and> htddatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms htddatas2_HostIBDataPrevious i614old i855 snpresps1_HostIBDataPrevious snps1_HostIBDataPrevious) done
 show goal759: "(CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal760: "(CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> HSTATE ModifiedM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> CSTATE Modified ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> (CSTATE IMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) i224)
-done
+apply  (insert assms) apply (smt (verit) i224) done
 show goal761: "(CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> []"
-apply  (insert assms)
-apply (smt (verit) assms i613old nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending1)
-done
+apply  (insert assms) apply (smt (verit) assms i613old nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending1) done
 show goal762: "(CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> HSTATE MD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> dthdatas2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<noteq> []"
-apply  (insert assms)
-apply (smt (verit) assms i382 nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending2)
-done
+apply  (insert assms) apply (smt (verit) assms i382 nextGOPending_HostIBDataPrevious reqresps_empty_noGOPending2) done
 show goal763: "(CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201) done
 show goal764: "(CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1) \<and> HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (CSTATE IMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE IMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201)
-done
+apply  (insert assms) apply (smt (verit) HOST_State.distinct(119) HSTATE_invariant4 i201) done
 show goal765: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> snps1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i855 snps1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i855 snps1_HostIBDataPrevious) done
 show goal766: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i213 i856)
-done
+apply  (insert assms) apply (smt (verit) assms i213 i856) done
 show goal767: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i68 reqs1_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i68 reqs1_HostIBDataPrevious) done
 show goal768: "CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<and> nextGOPendingState Invalid ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> reqs2 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) = []"
-apply  (insert assms)
-apply (smt (verit) assms i69 reqs2_HostIBDataPrevious)
-done
+apply  (insert assms) apply (smt (verit) assms i69 reqs2_HostIBDataPrevious) done
 show goal769: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i190 nextHTDDataPending_general_rule_1_0) done
 show goal770: "HSTATE MA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i770 nextHTDDataPending_general_rule_1_0) done
 show goal771: "HSTATE SB ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> \<not> CSTATE MIA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 CSTATE_HostIBDataPrevious_otherside_invariant3 assms i661 i769) done
 show goal772: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i946 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant3 i946 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal773: "nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE SIAC ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i947 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) CSTATE_HostIBDataPrevious_otherside_invariant2 i947 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal774: "nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside assms i948)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside assms i948) done
 show goal775: "nextSnpRespIs RspIHitSE ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])"
-apply  (insert assms)
-apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0)
-done
+apply  (insert assms) apply (smt (verit) assms i192 nextDTHDataFrom_otherside_rule_1_0) done
 show goal776: "nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> \<not> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside i950 nextReqIs_HostIBDataPrevious_IMAD_invariant1)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_sameside i950 nextReqIs_HostIBDataPrevious_IMAD_invariant1) done
 show goal777: "nextSnpRespIs RspIFwdM ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> \<not> nextReqIs CleanEvictNoData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside i951 nextReqIs_HostIBDataPrevious_IMAD_invariant2)
-done
+apply  (insert assms) apply (smt (verit) HostIBDataPrevious_nextSnpRespIs_otherside i951 nextReqIs_HostIBDataPrevious_IMAD_invariant2) done
 show goal778: "(CSTATE SMA ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextSnoopIs SnpData ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<and> nextGOPending ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<longrightarrow> HSTATE SAD ( T [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ])) "
 apply simp
 by (metis aux408 nextReqRespIs.simps(1))
