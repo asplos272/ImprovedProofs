@@ -1,5 +1,5 @@
 
-theory FixModifiedDirtyEvict  imports BasicInvariants  begin
+theory FixModifiedDirtyEvictFilled imports BasicInvariants  begin
 sledgehammer_params[timeout=10, dont_minimize, "try0" = false]
 lemma snps2_HostModified_DirtyEvict: shows "snps2 ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = snps2 T"
 apply(case_tac "program1 T")
@@ -121,7 +121,7 @@ done
 lemma nextGOPending_HostModifiedDirtyEvict: "nextGOPending (  T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ] ) 1 = nextGOPending T 1"
 apply simp+
 done
-lemma HostModified_DirtyEvict'_coherent_aux_simpler: assumes "SWMR_state_machine T \<and> HSTATE ModifiedM T \<and> nextReqIs DirtyEvict T 0 \<and> GTS T 1 \<and> CSTATE MIA T 0 \<and> \<not> (CSTATE SIA T 1 \<and> nextGOPendingIs GO_WritePullDrop T 1) "
+lemma HostModified_DirtyEvict'_coherent_aux_simpler: assumes "SWMR_state_machine T \<and> HSTATE ModifiedM T \<and> nextReqIs DirtyEvict T 0 \<and> GTS T 1 \<and> CSTATE MIA T 0 "
   shows "SWMR_state_machine  ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
 proof -
 have i0: "SWMR T"
@@ -130,8 +130,7 @@ have i1x: "HSTATE ModifiedM T "
 by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
 have i2x: "nextReqIs DirtyEvict T 0"
 by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
-have i3x: "\<not>  (CSTATE SIA T 1 \<and> nextGOPendingIs GO_WritePullDrop T 1)"
-by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
+
 have i3: "C_msg_P_oppo ISD nextHTDDataPending (\<lambda>T i. \<not> CSTATE Modified T i) T"
 by (insert assms, unfold SWMR_state_machine_def, elim conjE, assumption)
 have i4: "H_msg_P_same SD nextDTHDataPending (\<lambda>T i. \<not> CSTATE Modified T i) T"
@@ -2625,7 +2624,8 @@ apply  (insert assms)
 apply (smt (verit) aux_r34_9)
 done
 show goal214:  "CSTATE SIA ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<longrightarrow> HSTATE InvalidM ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE SharedM ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE SB ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE IB ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE ID ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
-by (metis CSTATE_HostModified_DirtyEvict_otherside_invariant2 i1x i3x i737)
+  
+  by (metis i201)
 show goal215: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
 by (metis CSTATE_general_rule_3_0 C_msg_P_same_def aux_r34_9 i1x i321 i329 i737 nextDTHDataPending_general_rule_3_0)
 show goal216: "CSTATE SMAD ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<and> nextHTDDataPending ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE MA ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE MAD ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE SAD ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
