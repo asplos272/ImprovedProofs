@@ -2549,7 +2549,9 @@ apply (smt (verit) InvalidLoad'_CSTATE_otherside InvalidLoad'_HSTATE InvalidLoad
 done
 show goal215: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 +=rdreq RdShared] [ 0 s= ISAD])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-(*error in extract_one_liner_proof function: didn't find s/h proof
+  apply(intro conjI)
+   apply (metis CSTATE_different1 MESI_State.distinct(289) SharedSnpInv'_CSTATE_invariant5)
+  apply (smt (verit) CSTATE_starting_transaction_otherside_invariant1 InvalidLoad'_HSTATE goal173 i189 i1x i328 i382 i591 i718 i722 i774 nextDTHDataFrom_def nextDTHDataFrom_general_rule_6_0 nextDTHDataPending_def nextGOPendingIs_general_rule_9_1 reqresps_empty_noGOPendingIs2) done
 
 show goal216: "CSTATE SMAD ( T [ 0 +=rdreq RdShared] [ 0 s= ISAD]) 0 \<and> nextHTDDataPending ( T [ 0 +=rdreq RdShared] [ 0 s= ISAD]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 +=rdreq RdShared] [ 0 s= ISAD]) \<or> HSTATE MA ( T [ 0 +=rdreq RdShared] [ 0 s= ISAD]) \<or> HSTATE MAD ( T [ 0 +=rdreq RdShared] [ 0 s= ISAD]) \<or> HSTATE SAD ( T [ 0 +=rdreq RdShared] [ 0 s= ISAD])"
 apply  (insert assms)

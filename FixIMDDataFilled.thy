@@ -2748,8 +2748,10 @@ apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P
 apply (smt (verit) CSTATE_different1 CSTATE_different2 CSTATE_otherside_rule_5_0 C_msg_state_def MESI_State.distinct(289) MESI_State.distinct(43) i221 i47 nextReqIs_general_rule_7_0)
 done
 show goal212: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-sorry
+apply  ( unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (intro conjI) 
+  apply (metis CSTATE_assign_rule_6 CSTATE_disj1 MESI_State.distinct(43)) 
+  apply (smt (verit) i1x i2x i679 i901 nextSnoopPending_empty_not_rule_7_1) done
 
 show goal213:  "CSTATE SIA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE InvalidM ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE IB ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 apply  (insert assms)
@@ -2760,7 +2762,10 @@ apply  (insert assms)
 apply (smt (verit) CSTATE_IMDData_otherside IMDData_HSTATE IMDData_nextGOPendingIs assms i327 i328 i656 i674 i725 i772)
 done
 show goal215: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-sorry
+  unfolding C_msg_P_same_def
+  apply(intro conjI)
+   apply (metis assms dthdatas1_general_rule_4_0 i437 nextDTHDataPending_def)
+  apply (smt (verit) CSTATE_otherside_rule_5_0 aux5_r42 goal61 i189 i1x i221 i2x i328 i608 i656 i674 i725 i772 nextDTHDataPending_def nextGOPendingIs_general_rule_7_1) done
 
 show goal216: "CSTATE SMAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 apply  (insert assms)

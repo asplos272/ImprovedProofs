@@ -4562,8 +4562,8 @@ apply  (insert assms)
 apply (smt (verit) CSTATE_HostIDData_otherside_invariant3 CSTATE_inequality_invariant Invalid_not_eq_MIA assms aux7062 i453 nextReqIs_HostIDData_IMAD_invariant1)
 done
 show goal705: "HSTATE InvalidM ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<and> nextReqIs DirtyEvict ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<longrightarrow> CSTATE IIA ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1"
-apply  (insert assms)
-sorry
+  apply simp
+  apply (smt (verit) CSTATE_various_forms6 i132 i1x i225 i2x i454 i95 i960 nextReqIs_various_forms4 reqresps_empty_noGOPendingIs2 startsWithProp.simps(1)) done
 
 show goal706: "HSTATE InvalidM ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) \<longrightarrow> (\<not> CSTATE SIA ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0 \<or> nextGOPendingIs GO_WritePullDrop ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 0) \<and> (\<not> CSTATE SIA ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1 \<or> nextGOPendingIs GO_WritePullDrop ( T [ =hv v] [ 5 sHost= InvalidM] [ Dev1 -=d2hdHead ]) 1)"
 apply  (insert assms)

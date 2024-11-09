@@ -1,5 +1,5 @@
 
-theory FixModifiedSnpDataShared  imports BasicInvariants   begin
+theory FixModifiedSnpDataSharedFilled  imports BasicInvariants   begin
 sledgehammer_params[timeout=10, dont_minimize, "try0" = false]
 lemma reqresps1_ModifiedSnpDataShared: shows "reqresps1 T = [] \<Longrightarrow> length (reqresps1 
 (T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= Shared] [ Dev1 +=d2hd dthd])) \<le> 1"
@@ -1890,9 +1890,8 @@ apply  (insert assms)
 apply (metis i58 nextSnoopIs_otherside_rule_2_0 reqs2_ModifiedSnpDataShared)
 done
 show goal46: "length (snps2 ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= Shared] [ Dev1 +=d2hd dthd])) \<le> 1"
-apply  (insert assms)
-(*error in extract_one_liner_proof function: didn't find s/h proof
-
+  apply simp 
+  apply (metis One_nat_def i60 list.size(3)) done
 show goal47: "length (snps1 ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= Shared] [ Dev1 +=d2hd dthd])) \<le> 1"
 apply  (insert assms)
 apply (smt (verit) assms aux43 i78 i920)
