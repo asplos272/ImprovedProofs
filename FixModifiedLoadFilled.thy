@@ -2115,7 +2115,7 @@ apply (smt (verit) HSTATE_general_rule_10_0 i1x i449 i897 nextSnpRespIs_general_
 done
 show goal120: "HSTATE MAD (T [ -=i 0]) \<and> nextSnpRespIs RspIFwdM (T [ -=i 0]) 1 \<longrightarrow> (CSTATE IMAD (T [ -=i 0]) 0 \<or> CSTATE SMAD (T [ -=i 0]) 0) \<and> dthdatas2 (T [ -=i 0]) \<noteq> [] \<and> htddatas1 (T [ -=i 0]) = []"
 apply  (insert assms)
-using SARspSFwdM_invariant2 i489 nextSnpRespIs_general_rule_13_0
+using SARspSFwdM_invariant2 i489 nextSnpRespIs_general_rule_13_0 by blast
 
 show goal121: "HSTATE MA (T [ -=i 0]) \<and> snpresps1 (T [ -=i 0]) \<noteq> [] \<longrightarrow> (CSTATE IMAD (T [ -=i 0]) 1 \<or> CSTATE SMAD (T [ -=i 0]) 1) \<and> htddatas2 (T [ -=i 0]) \<noteq> [] \<or> (CSTATE IMA (T [ -=i 0]) 1 \<or> CSTATE SMA (T [ -=i 0]) 1) \<and> htddatas2 (T [ -=i 0]) = []"
 apply  (insert assms)
