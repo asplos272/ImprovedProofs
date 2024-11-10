@@ -6,19 +6,19 @@ Chengsong: I tweaked this file to easily call sledgehammer on a proof state, als
 utilities for removing comments in generated one-liners.
 *)
 
-signature SLEDGEHAMMER_COMMANDS1 =
+signature HAMMER_ALT =
 sig
   type params = Sledgehammer_Prover.params
 
   val provers : string Unsynchronized.ref
   val default_params : theory -> (string * string) list -> params
   val parse_params: (string * string) list parser
-  val my_hammer_away: int -> Proof.state -> (string * string)
+  val hammer_away: int -> Proof.state -> (string * string)
   val my_verbose_hammer_away: int -> Proof.state -> int -> (string * string)
   val extract_one_liner_proof: string -> string
 end;
 
-structure Sledgehammer_Commands1 : SLEDGEHAMMER_COMMANDS1 =
+structure Hammer_Alt : HAMMER_ALT =
 struct
 
 open ATP_Util
@@ -308,7 +308,7 @@ val parse_fact_override =
     no_fact_override
 
 
-fun my_hammer_away i state0 =
+fun hammer_away i state0 =
   let
     val state = silence_state state0
     val thy = Proof.theory_of state
