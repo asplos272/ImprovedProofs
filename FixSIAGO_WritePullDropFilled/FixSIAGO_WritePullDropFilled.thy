@@ -4931,8 +4931,8 @@ apply  (insert assms)
 apply (metis CSTATE_SIAGO_WritePullDrop_otherside_invariant2 CSTATE_disj1 HSTATE_SIAGO_WritePullDrop_invariant MESI_State.distinct(167) SIAGO_WritePullDrop_CSTATE_aux SharedSnpInv'_CSTATE_invariant5 i2160 i916 nextGOPendingIs_XYAGO_other1)
 done
 show goal743: "HSTATE ID ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]) \<longrightarrow> \<not> CSTATE SMAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]) 1 \<and> \<not> CSTATE SMAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]) 0"
-apply  (insert assms)
-sorry
+
+  by (metis CSTATE_SIAGO_WritePullDrop_otherside_invariant2 CSTATE_inequality_invariant HSTATE_SIAGO_WritePullDrop_invariant HSTATE_XYADGO1 MESI_State.distinct(167) SIAGO_WritePullDrop_CSTATE_aux SharedSnpInv'_CSTATE_invariant5 i917 nextDTHDataFrom2_XYAGO1 remove_instr_HSTATE)
 
 show goal744: "HSTATE MA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]) \<and> nextSnpRespIs RspIHitSE ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]) 0"
 apply  (insert assms)

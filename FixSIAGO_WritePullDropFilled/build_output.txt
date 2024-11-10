@@ -1,4 +1,4 @@
-Started at Sun Nov 10 22:20:51 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:55:07 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -14,10 +14,8 @@ Session Unsorted/BaseProof
 Session Unsorted/FixSIAGO_WritePullDropFilled
 Running FixSIAGO_WritePullDropFilled ...
 FixSIAGO_WritePullDropFilled: theory FixSIAGO_WritePullDropFilled.FixSIAGO_WritePullDropFilled
-FixSIAGO_WritePullDropFilled FAILED (see also "isabelle build_log -H Error FixSIAGO_WritePullDropFilled")
-*** Cheating requires quick_and_dirty mode!
-*** At command "sorry" (line 4935 of "~/Documents/GitHub/betterProof/FixSIAGO_WritePullDropFilled/FixSIAGO_WritePullDropFilled.thy")
-Unfinished session(s): FixSIAGO_WritePullDropFilled
+Timing FixSIAGO_WritePullDropFilled (8 threads, 83.292s elapsed time, 222.812s cpu time, 18.203s GC time, factor 2.68)
+Finished FixSIAGO_WritePullDropFilled (0:01:24 elapsed time)
 
-Finished at Sun Nov 10 22:22:53 GMT+8 2024
-0:02:02 elapsed time
+Finished at Sun Nov 10 22:56:36 GMT+8 2024
+0:01:28 elapsed time

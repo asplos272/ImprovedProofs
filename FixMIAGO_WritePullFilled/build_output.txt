@@ -1,4 +1,4 @@
-Started at Sun Nov 10 22:14:29 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:45:42 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -15,9 +15,28 @@ Session Unsorted/FixMIAGO_WritePullFilled
 Running FixMIAGO_WritePullFilled ...
 FixMIAGO_WritePullFilled: theory FixMIAGO_WritePullFilled.FixMIAGO_WritePullFilled
 FixMIAGO_WritePullFilled FAILED (see also "isabelle build_log -H Error FixMIAGO_WritePullFilled")
-*** Cheating requires quick_and_dirty mode!
-*** At command "sorry" (line 1965 of "~/Documents/GitHub/betterProof/FixMIAGO_WritePullFilled/FixMIAGO_WritePullFilled.thy")
+*** Failed to apply initial proof method (line 5000 of "~/Documents/GitHub/betterProof/FixMIAGO_WritePullFilled/FixMIAGO_WritePullFilled.thy"):
+*** goal (1 subgoal):
+***  1. HSTATE ID
+***      ( T?buffer1 :=
+***            Some
+***             m? [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0]) ?
+***     nextDTHDataFrom 0
+***      ( T?buffer1 :=
+***            Some
+***             m? [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0]) ?
+***     ¬ CSTATE SIA
+***        ( T?buffer1 :=
+***              Some
+***               m? [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0])
+***        1 ?
+***     nextGOPendingIs GO_WritePullDrop
+***      ( T?buffer1 :=
+***            Some
+***             m? [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0])
+***      1
+*** At command "by" (line 5000 of "~/Documents/GitHub/betterProof/FixMIAGO_WritePullFilled/FixMIAGO_WritePullFilled.thy")
 Unfinished session(s): FixMIAGO_WritePullFilled
 
-Finished at Sun Nov 10 22:14:37 GMT+8 2024
-0:00:08 elapsed time
+Finished at Sun Nov 10 22:51:28 GMT+8 2024
+0:05:45 elapsed time

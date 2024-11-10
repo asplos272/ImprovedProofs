@@ -1962,7 +1962,12 @@ apply (metis CSTATE_MIAGO_WritePull_otherside_invariant2 MIAGO_WritePull_nextGOP
 done
 show goal28: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) nextEvict ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
-sorry
+  apply(intro conjI)
+  
+   apply (metis CSTATE_assign_rule_1 CSTATE_disj1 CSTATE_remove_op MESI_State.distinct(163) SharedSnpInv'_MAD_CSTATE_invariant5 i204 nextEvict_MIAGO_WritePull_invariant)
+  
+  by (metis CSTATE_otherside_rule_6 CSTATE_remove_op C_msg_P_same_def MIAGO_WritePull_nextEvict_otherside MIAGO_WritePull_nextGOPendingIs_otherside SharedSnpInv'_MAD_CSTATE_invariant5 i204 i32 nextGOPendingIs_general_rule_3_0)
+
 
 show goal29: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)

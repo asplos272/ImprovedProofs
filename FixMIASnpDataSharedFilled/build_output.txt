@@ -1,4 +1,4 @@
-Started at Sun Nov 10 22:14:47 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:51:37 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixMIASnpDataSharedFilled
-Running FixMIASnpDataSharedFilled ...
-FixMIASnpDataSharedFilled: theory FixMIASnpDataSharedFilled.FixMIASnpDataSharedFilled
-Timing FixMIASnpDataSharedFilled (8 threads, 77.250s elapsed time, 191.625s cpu time, 16.016s GC time, factor 2.48)
-Finished FixMIASnpDataSharedFilled (0:01:18 elapsed time)
 
-Finished at Sun Nov 10 22:16:09 GMT+8 2024
-0:01:22 elapsed time
+Finished at Sun Nov 10 22:51:40 GMT+8 2024
+0:00:03 elapsed time

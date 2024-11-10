@@ -1,0 +1,8 @@
+session "BaseProof" = HOL +
+  options [document = false]
+  theories
+    Transposed
+    CoherenceProperties
+    BuggyRules
+    BasicInvariants
+
