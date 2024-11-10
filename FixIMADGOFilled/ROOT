@@ -1,0 +1,4 @@
+session "FixIMADGOFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixIMADGOFilled

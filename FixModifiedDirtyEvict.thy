@@ -79,9 +79,7 @@ lemma nextReqIs_HostModified_DirtyEvict_IMAD_invariant2: shows
 
 lemma nextReqIs_HostModified_DirtyEvict_IMAD_invariant1: shows 
   "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = []"
-  apply(cases "reqs1 T")
-  apply simp+
-  done
+  apply(cases "reqs1 T")   apply simp+   done
 
 
 
@@ -145,9 +143,7 @@ lemma nextStore_nextEvict_exclusive: shows "nextEvict T i \<Longrightarrow> \<no
 
 
 lemma reqlength1_minus: shows "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 (T [ 0 -=req]) = []"
-  apply(cases "reqs1 T")
-   apply simp+
-  done
+  apply(cases "reqs1 T")    apply simp+   done
 
 lemma HostModified_DirtyEvict': shows "reqs1 (T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid]) = reqs1 T"
   by simp
@@ -171,16 +167,12 @@ lemma nextGOPendingIs_inequality: shows "\<lbrakk>X \<noteq> Y ; nextGOPendingIs
   apply(case_tac "reqresps1 T")
  apply force
    apply simp
-  apply(case_tac "reqresps2 T")
-   apply simp+
-  done
+  apply(case_tac "reqresps2 T")    apply simp+   done
 
 
 
 lemma nextLoad_HostModifiedDirtyEvict: "nextLoad (  T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ] ) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1241,9 +1233,7 @@ apply simp done
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i211) 
 apply (smt (verit) i1x i922) 
-apply (smt (verit) i211) 
-apply (smt (verit) i1x i922) 
- done
+apply (smt (verit) i211)  apply (smt (verit) i1x i922)   done
 
   show goal51: "CSTATE Invalid ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = [] \<and> snpresps2 ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = [] \<and> reqresps1 ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = [] \<and> htddatas1 ( T [ 5 sHost= ID] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = []"
  apply  (insert assms)(**)apply (metis CSTATE_general_rule_3_0 assms i187 i1x i417 i576 i595) done

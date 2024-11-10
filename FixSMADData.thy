@@ -46,73 +46,53 @@ lemma SMADData_nextStore_otherside: shows "nextStore T 1 = nextStore ( T [ 0 s= 
 
 lemma SMADData_snps2:   " snps2  T  = snps2  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMADData_snps1:   " snps1  T  = snps1  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMADData_reqs1:   " reqs1  T  = reqs1  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 
 lemma SMADData_reqs2:   " reqs2  T  = reqs2  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
    apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMADData_reqresps1:   " reqresps1  T  = reqresps1  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma SMADData_reqresps2:   " reqresps2  T  = reqresps2  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
 lemma SMADData_snpresps1:   " snpresps1  T  = snpresps1  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma SMADData_snpresps2:   " snpresps2  T  = snpresps2  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SMADData_dthdatas1:   " dthdatas1  T  = dthdatas1  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma SMADData_dthdatas2:   " dthdatas2  T  = dthdatas2  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMADData_htddatas1:   " length (htddatas1  T) \<le> 1 \<Longrightarrow>   (htddatas1 ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])) = []"
@@ -121,23 +101,17 @@ apply (cases "htddatas1 T", simp+) done
   
 lemma SMADData_htddatas2:   " htddatas2  T  = htddatas2  ( T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
 
 
 lemma nextGOPending_DeviceSMADData: "nextGOPending (  T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ] ) i = nextGOPending T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 lemma nextLoad_DeviceSMADData: "nextLoad (  T [ 0 s= SMA] [ 0 :=dd msg ]  [ 0 -=devd ] ) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1052,9 +1026,7 @@ proof (intro conjI)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i100 i2x nextHTDDataPending_def startsWithProp.simps(1)) 
 apply (smt (verit) CSTATE_various_forms3 HSTATE_def H_msg_P_same_def i27 i2x i579 nextReqIs_various_forms4) 
-apply (smt (verit) HSTATE_def i189 list.distinct(1)) 
-apply (smt (verit) i1x i2x i406 i576 i582 i641 list.discI) 
- done
+apply (smt (verit) HSTATE_def i189 list.distinct(1))  apply (smt (verit) i1x i2x i406 i576 i582 i641 list.discI)   done
 
   show goal24: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (\<lambda>T. \<not> HSTATE ModifiedM T) ( T [ 0 s= SMA] [ 0 :=dd msg] [ 0 -=devd ])"
  apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (smt (verit) SMADData_HSTATE SMADData_nextGOPendingIs i313) done

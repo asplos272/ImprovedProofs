@@ -1,0 +1,4 @@
+session "FixMARspIFwdMFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixMARspIFwdMFilled

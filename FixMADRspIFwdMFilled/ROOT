@@ -1,0 +1,4 @@
+session "FixMADRspIFwdMFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixMADRspIFwdMFilled

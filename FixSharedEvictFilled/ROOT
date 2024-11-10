@@ -1,0 +1,4 @@
+session "FixSharedEvictFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixSharedEvictFilled

@@ -1,0 +1,4 @@
+session "FixISAGOFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixISAGOFilled

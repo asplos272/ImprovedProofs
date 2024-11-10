@@ -1,0 +1,4 @@
+session "FixInvalidStoreFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixInvalidStoreFilled

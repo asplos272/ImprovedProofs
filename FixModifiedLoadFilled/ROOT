@@ -1,0 +1,4 @@
+session "FixModifiedLoadFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixModifiedLoadFilled

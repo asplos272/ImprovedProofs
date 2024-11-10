@@ -1,0 +1,23 @@
+Started at Sat Nov 9 23:56:32 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
+ISABELLE_BUILD_OPTIONS=""
+
+ML_PLATFORM="x86_64_32-windows"
+ML_HOME="/cygdrive/c/Users/Chengsong/Desktop/Isabelle2024/contrib/polyml-5.9.1/x86_64_32-windows"
+ML_SYSTEM="polyml-5.9.1"
+ML_OPTIONS="--minheap 500"
+
+Session Pure/Pure
+Session Misc/Tools
+Session HOL/HOL (main)
+Session Unsorted/BaseProof
+Session Unsorted/FixIIAGO_WritePullFilled
+Running FixIIAGO_WritePullFilled ...
+FixIIAGO_WritePullFilled: theory FixIIAGO_WritePullFilled.FixIIAGO_WritePullFilled
+FixIIAGO_WritePullFilled FAILED (see also "isabelle build_log -H Error FixIIAGO_WritePullFilled")
+*** Illegal application of proof command in "prove" mode
+*** At command "show" (line 2065 of "~/Documents/GitHub/betterProof/FixIIAGO_WritePullFilled/FixIIAGO_WritePullFilled.thy")
+Unfinished session(s): FixIIAGO_WritePullFilled
+
+Finished at Sat Nov 9 23:59:09 GMT+8 2024
+0:02:36 elapsed time

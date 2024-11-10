@@ -1,0 +1,4 @@
+session "FixModifiedSnpDataSharedFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixModifiedSnpDataSharedFilled

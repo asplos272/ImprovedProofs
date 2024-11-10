@@ -1,0 +1,4 @@
+session "FixMIAGO_WritePullFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixMIAGO_WritePullFilled

@@ -1,0 +1,4 @@
+session "FixMBDataFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixMBDataFilled

@@ -1,0 +1,4 @@
+session "FixInvalidRdSharedFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixInvalidRdSharedFilled

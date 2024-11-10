@@ -1,0 +1,4 @@
+session "FixMIASnpDataInvalidFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixMIASnpDataInvalidFilled

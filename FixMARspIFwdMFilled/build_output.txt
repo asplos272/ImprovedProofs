@@ -1,0 +1,21 @@
+Started at Sun Nov 10 01:09:54 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
+ISABELLE_BUILD_OPTIONS=""
+
+ML_PLATFORM="x86_64_32-windows"
+ML_HOME="/cygdrive/c/Users/Chengsong/Desktop/Isabelle2024/contrib/polyml-5.9.1/x86_64_32-windows"
+ML_SYSTEM="polyml-5.9.1"
+ML_OPTIONS="--minheap 500"
+
+Session Pure/Pure
+Session Misc/Tools
+Session HOL/HOL (main)
+Session Unsorted/BaseProof
+Session Unsorted/FixMARspIFwdMFilled
+Running FixMARspIFwdMFilled ...
+FixMARspIFwdMFilled: theory FixMARspIFwdMFilled.FixMARspIFwdMFilled
+Timing FixMARspIFwdMFilled (8 threads, 251.655s elapsed time, 71.828s cpu time, 2.453s GC time, factor 0.29)
+Finished FixMARspIFwdMFilled (0:04:12 elapsed time)
+
+Finished at Sun Nov 10 01:14:11 GMT+8 2024
+0:04:16 elapsed time

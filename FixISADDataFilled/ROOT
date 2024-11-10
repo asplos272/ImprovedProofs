@@ -1,0 +1,4 @@
+session "FixISADDataFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixISADDataFilled

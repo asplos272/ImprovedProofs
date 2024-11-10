@@ -1,0 +1,21 @@
+Started at Sun Nov 10 02:50:42 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
+ISABELLE_BUILD_OPTIONS=""
+
+ML_PLATFORM="x86_64_32-windows"
+ML_HOME="/cygdrive/c/Users/Chengsong/Desktop/Isabelle2024/contrib/polyml-5.9.1/x86_64_32-windows"
+ML_SYSTEM="polyml-5.9.1"
+ML_OPTIONS="--minheap 500"
+
+Session Pure/Pure
+Session Misc/Tools
+Session HOL/HOL (main)
+Session Unsorted/BaseProof
+Session Unsorted/FixShared_CleanEvict_NotLastDropFilled
+Running FixShared_CleanEvict_NotLastDropFilled ...
+FixShared_CleanEvict_NotLastDropFilled: theory FixShared_CleanEvict_NotLastDropFilled.FixShared_CleanEvict_NotLastDropFilled
+Timing FixShared_CleanEvict_NotLastDropFilled (8 threads, 257.013s elapsed time, 76.609s cpu time, 2.469s GC time, factor 0.30)
+Finished FixShared_CleanEvict_NotLastDropFilled (0:04:18 elapsed time)
+
+Finished at Sun Nov 10 02:55:04 GMT+8 2024
+0:04:22 elapsed time

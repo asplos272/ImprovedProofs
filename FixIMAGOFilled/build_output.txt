@@ -1,0 +1,21 @@
+Started at Sun Nov 10 00:07:12 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
+ISABELLE_BUILD_OPTIONS=""
+
+ML_PLATFORM="x86_64_32-windows"
+ML_HOME="/cygdrive/c/Users/Chengsong/Desktop/Isabelle2024/contrib/polyml-5.9.1/x86_64_32-windows"
+ML_SYSTEM="polyml-5.9.1"
+ML_OPTIONS="--minheap 500"
+
+Session Pure/Pure
+Session Misc/Tools
+Session HOL/HOL (main)
+Session Unsorted/BaseProof
+Session Unsorted/FixIMAGOFilled
+Running FixIMAGOFilled ...
+FixIMAGOFilled: theory FixIMAGOFilled.FixIMAGOFilled
+Timing FixIMAGOFilled (8 threads, 226.508s elapsed time, 69.859s cpu time, 2.500s GC time, factor 0.31)
+Finished FixIMAGOFilled (0:03:47 elapsed time)
+
+Finished at Sun Nov 10 00:11:04 GMT+8 2024
+0:03:51 elapsed time

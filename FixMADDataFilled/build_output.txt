@@ -1,0 +1,23 @@
+Started at Sun Nov 10 01:01:14 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
+ISABELLE_BUILD_OPTIONS=""
+
+ML_PLATFORM="x86_64_32-windows"
+ML_HOME="/cygdrive/c/Users/Chengsong/Desktop/Isabelle2024/contrib/polyml-5.9.1/x86_64_32-windows"
+ML_SYSTEM="polyml-5.9.1"
+ML_OPTIONS="--minheap 500"
+
+Session Pure/Pure
+Session Misc/Tools
+Session HOL/HOL (main)
+Session Unsorted/BaseProof
+Session Unsorted/FixMADDataFilled
+Running FixMADDataFilled ...
+FixMADDataFilled: theory FixMADDataFilled.FixMADDataFilled
+FixMADDataFilled FAILED (see also "isabelle build_log -H Error FixMADDataFilled")
+*** Undefined fact: "Bit_Operations.semiring_bits_class.bits_one_mod_two_eq_one" (line 4949 of "~/Documents/GitHub/betterProof/FixMADDataFilled/FixMADDataFilled.thy")
+*** At command "apply" (line 4949 of "~/Documents/GitHub/betterProof/FixMADDataFilled/FixMADDataFilled.thy")
+Unfinished session(s): FixMADDataFilled
+
+Finished at Sun Nov 10 01:05:32 GMT+8 2024
+0:04:18 elapsed time

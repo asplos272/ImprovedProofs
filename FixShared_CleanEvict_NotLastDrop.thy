@@ -129,9 +129,7 @@ lemma nextStore_nextEvict_exclusive: shows "nextEvict T i \<Longrightarrow> \<no
 
 
 lemma reqlength1_minus: shows "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 (T [ 0 -=req]) = []"
-  apply(cases "reqs1 T")
-   apply simp+
-  done
+  apply(cases "reqs1 T")    apply simp+   done
 
 lemma HostShared_CleanEvict_NotLastDrop': shows "reqs1 (T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid]) = reqs1 T"
   by simp
@@ -155,16 +153,12 @@ lemma nextGOPendingIs_inequality: shows "\<lbrakk>X \<noteq> Y ; nextGOPendingIs
   apply(case_tac "reqresps1 T")
  apply force
    apply simp
-  apply(case_tac "reqresps2 T")
-   apply simp+
-  done
+  apply(case_tac "reqresps2 T")    apply simp+   done
 
 
 
 lemma nextLoad_HostShared_CleanEvict_NotLastDrop: "nextLoad ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1178,9 +1172,7 @@ proof (intro conjI)
   show goal30: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ])"
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i186 i1x) 
-apply (smt (verit) CSTATE_various_forms2 GTS_def i210 i3x i5x list.discI) 
-apply (smt (verit) CSTATE_various_forms6 i5x) 
- done
+apply (smt (verit) CSTATE_various_forms2 GTS_def i210 i3x i5x list.discI)  apply (smt (verit) CSTATE_various_forms6 i5x)   done
 
   show goal31: "H_C_state_msg_same ModifiedM Modified (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ])"
  apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (smt (verit) CSTATE_HostShared_CleanEvict_NotLastDrop_otherside_invariant2 assms aux1_notIIA i22) done
@@ -1401,9 +1393,7 @@ qed
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) CSTATE_various_forms2 GTS_def i3x i618old) 
 apply (smt (verit) i211) 
-apply (smt (verit) i210 i56 list.discI) 
-apply (smt (verit) i211) 
- done
+apply (smt (verit) i210 i56 list.discI)  apply (smt (verit) i211)   done
 
   show goal136: "CSTATE ISAD ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) 0 \<and> nextGOPending ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> HSTATE SD ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE SharedM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE MAD ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE SB ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ])"
  apply  (insert assms)(**)apply (smt (verit) i201) done
@@ -1561,9 +1551,7 @@ apply (smt (verit) i211)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) CSTATE_various_forms2 GTS_def i317 i3x) 
 apply (smt (verit) i211) 
-apply (smt (verit) i210 i56 list.discI) 
-apply (smt (verit) i211) 
- done
+apply (smt (verit) i210 i56 list.discI)  apply (smt (verit) i211)   done
 
   show goal213: "CSTATE SIA ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> HSTATE InvalidM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE SharedM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE SB ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE IB ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE ModifiedM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ])"
  apply  (insert assms)(**)apply (smt (verit) i201) done
@@ -1623,9 +1611,7 @@ apply (smt (verit) i211)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i211) 
 apply (smt (verit) i56 nextReqRespIs.simps(1)) 
-apply (smt (verit) i211) 
-apply (smt (verit) i56 nextReqRespIs.simps(1)) 
- done
+apply (smt (verit) i211)  apply (smt (verit) i56 nextReqRespIs.simps(1))   done
 
   show goal241: "CSTATE IMA ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) 0 \<and> nextGOPending ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE MAD ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ]) \<or> HSTATE SAD ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid] [ 0 -=req ])"
  apply  (insert assms)(**)apply (smt (verit) CSTATE_HostShared_CleanEvict_NotLastDrop_otherside_invariant3 assms i652) done

@@ -1,0 +1,4 @@
+session "FixISDSnpInvFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixISDSnpInvFilled

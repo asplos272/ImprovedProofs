@@ -71,9 +71,7 @@ qed
 
 
 lemma nextEvict_SIAGO_WritePull_CSTATE_invariant: shows "nextEvict T 0 \<Longrightarrow> CSTATE Invalid ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0])  0"
- apply(case_tac "program1 T")
-  apply simp+
-  done
+ apply(case_tac "program1 T")   apply simp+   done
 
 lemma nextEvict_SIAGO_WritePull_invariant: shows"nextEvict T 0 = nextEvict ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] ) 0"
   by simp
@@ -186,9 +184,7 @@ lemma dthdatas1_perform_instr: shows "dthdatas1 T = dthdatas1 (T [ -=i m])"
   apply(case_tac "program1 T")
  apply simp
   apply simp
-  apply(case_tac "program2 T")
-   apply simp+
-  done
+  apply(case_tac "program2 T")    apply simp+   done
 
   
 \<comment>\<open>_params[minimize=true,preplay_timeout=50,timeout=200]
@@ -212,9 +208,7 @@ lemma nextGOPending_DeviceSIAGO_WritePull: "nextGOPending (  T\<lparr>buffer1 :=
 
 
 lemma nextLoad_DeviceSIAGO_WritePull: "nextLoad (  T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ Dev1 +=d2hd dthd] [ -=i 0] ) 1 = nextLoad T 1"
-  apply(case_tac "program1 T")
-  apply simp+
-  done
+  apply(case_tac "program1 T")   apply simp+   done
 
 
 

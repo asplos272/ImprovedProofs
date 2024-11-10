@@ -1,0 +1,4 @@
+session "FixModifiedStoreFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixModifiedStoreFilled

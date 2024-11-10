@@ -1,0 +1,4 @@
+session "FixSharedRdOwnSelfFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixSharedRdOwnSelfFilled

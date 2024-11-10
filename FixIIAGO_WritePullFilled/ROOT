@@ -1,0 +1,4 @@
+session "FixIIAGO_WritePullFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixIIAGO_WritePullFilled

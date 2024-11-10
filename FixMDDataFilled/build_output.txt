@@ -1,0 +1,20 @@
+Started at Sun Nov 10 01:22:39 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
+ISABELLE_BUILD_OPTIONS=""
+
+ML_PLATFORM="x86_64_32-windows"
+ML_HOME="/cygdrive/c/Users/Chengsong/Desktop/Isabelle2024/contrib/polyml-5.9.1/x86_64_32-windows"
+ML_SYSTEM="polyml-5.9.1"
+ML_OPTIONS="--minheap 500"
+
+Session Pure/Pure
+Session Misc/Tools
+Session HOL/HOL (main)
+Session Unsorted/BaseProof
+Session Unsorted/FixMDDataFilled
+*** Cannot load theory file "/cygdrive/c/Users/Chengsong/Documents/GitHub/betterProof/FixMDDataFilled/BasicInvariants.thy"
+*** The error(s) above occurred for theory "FixMDDataFilled.BasicInvariants"
+*** (required by "FixMDDataFilled.FixMDDataFilled") (line 2 of "/cygdrive/c/Users/Chengsong/Documents/GitHub/betterProof/FixMDDataFilled/FixMDDataFilled.thy")
+*** Cannot load theory file "/cygdrive/c/Users/Chengsong/Documents/GitHub/betterProof/FixMDDataFilled/BasicInvariants.thy"
+*** No such file: "/cygdrive/c/Users/Chengsong/Documents/GitHub/betterProof/FixMDDataFilled/BasicInvariants.thy"
+*** The error(s) above occurred in session "FixMDDataFilled" (line 1 of "/cygdrive/c/Users/Chengsong/Documents/GitHub/betterProof/FixMDDataFilled/ROOT")

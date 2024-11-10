@@ -1,0 +1,4 @@
+session "FixSMADSnpInvFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixSMADSnpInvFilled

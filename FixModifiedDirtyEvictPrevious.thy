@@ -79,9 +79,7 @@ lemma nextReqIs_HostModified_DirtyEvictPrevious_IMAD_invariant2: shows
 
 lemma nextReqIs_HostModified_DirtyEvictPrevious_IMAD_invariant1: shows 
   "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = []"
-  apply(cases "reqs1 T")
-  apply simp+
-  done
+  apply(cases "reqs1 T")   apply simp+   done
 
 
 
@@ -145,9 +143,7 @@ lemma nextStore_nextEvict_exclusive: shows "nextEvict T i \<Longrightarrow> \<no
 
 
 lemma reqlength1_minus: shows "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 (T [ 0 -=req]) = []"
-  apply(cases "reqs1 T")
-   apply simp+
-  done
+  apply(cases "reqs1 T")    apply simp+   done
 
 lemma HostModified_DirtyEvictPrevious': shows "reqs1 (T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid]) = reqs1 T"
   by simp
@@ -171,16 +167,12 @@ lemma nextGOPendingIs_inequality: shows "\<lbrakk>X \<noteq> Y ; nextGOPendingIs
   apply(case_tac "reqresps1 T")
  apply force
    apply simp
-  apply(case_tac "reqresps2 T")
-   apply simp+
-  done
+  apply(case_tac "reqresps2 T")    apply simp+   done
 
 
 
 lemma nextLoad_HostModifiedDirtyEvict: "nextLoad (  T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ] ) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1201,9 +1193,7 @@ proof (intro conjI)
   show goal34: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
      apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i189 i194 i1x) 
-apply (smt (verit) i189 i1x i210 list.discI) 
-apply (smt (verit) i4x i898) 
- done
+apply (smt (verit) i189 i1x i210 list.discI)  apply (smt (verit) i4x i898)   done
 
   show goal35: "H_C_state_msg_oppo ModifiedM IIA (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
     apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (smt (verit) CSTATE_inequality_invariant C_msg_state_def MESI_State.distinct(11) assms i209 i47 nextReqIs_HostModified_DirtyEvictPrevious_IMAD_invariant2) done
@@ -1237,9 +1227,7 @@ apply (smt (verit) i4x i898)
      apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i490 i4x i614old) 
 apply (smt (verit) i211) 
-apply (smt (verit) i490 i4x i614old) 
-apply (smt (verit) i211) 
- done
+apply (smt (verit) i490 i4x i614old)  apply (smt (verit) i211)   done
 
   show goal50: "C_msg_P_oppo Invalid nextStore (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
     apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (metis CSTATE_general_rule_3_0 i1x i2x i339 i370 i418 i4x i538 i595 i72 i844 nextEvict_HostModified_DirtyEvictPrevious_invariant nextStore_nextEvict_exclusive) done
@@ -1353,9 +1341,7 @@ apply (smt (verit) i4x i898)
 apply (smt (verit) i4x i898) 
 apply (smt (verit) i4x i898) 
 apply (smt (verit) i4x i898) 
-apply (smt (verit) i4x i898) 
-apply (smt (verit) i4x i898) 
- done
+apply (smt (verit) i4x i898)  apply (smt (verit) i4x i898)   done
 
   show goal95: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<and> CSTATE IIA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> CSTATE Modified ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE MIA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> (CSTATE IMAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE SMAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<and> nextGOPending ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> (CSTATE IMA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE SMA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1) \<and> nextGOPending ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> (CSTATE IMD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE SMD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1) \<and> nextHTDDataPending ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
     apply  (insert assms)(**)apply (smt (verit) CSTATE_HostModified_DirtyEvictPrevious_otherside_invariant2 assms) done
@@ -1539,9 +1525,7 @@ apply (smt (verit) i4x i898)
     apply  (insert assms)(**)apply (smt (verit) HOST_State.distinct(165) HOST_State.distinct(193) HSTATE_invariant3 i201) done
   show goal185: "CSTATE IIA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
      apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) i4x i898) 
-apply (smt (verit) i4x i898) 
- done
+apply (smt (verit) i4x i898)  apply (smt (verit) i4x i898)   done
 
   show goal186: "CSTATE IIA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
     apply  (insert assms)(**)apply (smt (verit) HostModified_DirtyEvictPrevious_nextGOPendingIs_otherside assms i313) done
@@ -2448,9 +2432,7 @@ apply (smt (verit) i4x i898)
 apply  (smt (verit) i189 i1x i4x i898 list.distinct(1))  done
   show goal637: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> CSTATE Invalid ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE ISAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1 \<or> CSTATE IMAD ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
      apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) i189 i194 i1x) 
-apply (smt (verit) i4x i898) 
- done
+apply (smt (verit) i189 i194 i1x)  apply (smt (verit) i4x i898)   done
 
   show goal638: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<and> \<not> CSTATE Shared ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
     apply  (insert assms)(**)apply (smt (verit) CSTATE_HostModified_DirtyEvictPrevious_otherside_invariant2 CSTATE_HostModified_DirtyEvictPrevious_otherside_invariant3 assms i107) done
@@ -2458,17 +2440,13 @@ apply (smt (verit) i4x i898)
     apply  (insert assms)(**)apply (smt (verit) assms i159 i212 i214 snpresps1_HostModified_DirtyEvictPrevious) done
   show goal640: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
      apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) i189 i1x i210 list.discI) 
-apply (smt (verit) i189 i194 i1x i212 list.discI) 
- done
+apply (smt (verit) i189 i1x i210 list.discI)  apply (smt (verit) i189 i194 i1x i212 list.discI)   done
 
   show goal641: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<and> nextDTHDataFrom 1 ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
      apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i4x i898) 
 apply (smt (verit) i189 i194 i1x) 
-apply (smt (verit) i4x i898) 
-apply (smt (verit) i4x i898) 
- done
+apply (smt (verit) i4x i898)  apply (smt (verit) i4x i898)   done
 
   show goal642: "HSTATE MB ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<and> \<not> CSTATE SIA ( T [ 5 sHost= MB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
     apply  (insert assms)(**)apply (metis CSTATE_different1 CSTATE_general_rule_3_0 MESI_State.distinct(539) i1x i3x i4x i590 i676 i699 i737) done

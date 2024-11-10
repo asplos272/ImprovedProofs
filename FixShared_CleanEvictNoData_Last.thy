@@ -128,9 +128,7 @@ lemma nextStore_nextEvict_exclusive: shows "nextEvict T i \<Longrightarrow> \<no
 
 
 lemma reqlength1_minus: shows "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = []"
-  apply(cases "reqs1 T")
-   apply simp+
-  done
+  apply(cases "reqs1 T")    apply simp+   done
 
 lemma HostShared_CleanEvictNoData_Last': shows "reqs1 (T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid]) = reqs1 T"
   by simp
@@ -154,16 +152,12 @@ lemma nextGOPendingIs_inequality: shows "\<lbrakk>X \<noteq> Y ; nextGOPendingIs
   apply(case_tac "reqresps1 T")
  apply force
    apply simp
-  apply(case_tac "reqresps2 T")
-   apply simp+
-  done
+  apply(case_tac "reqresps2 T")    apply simp+   done
 
 
 
 lemma nextLoad_HostShared_CleanEvictNoData_Last: "nextLoad ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1229,9 +1223,7 @@ proof (intro conjI)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i2150) 
 apply (smt (verit) aux_CSTATE_Invalid1 i614old) 
-apply (smt (verit) i2150) 
-apply (smt (verit) aux_CSTATE_Invalid1 i614old) 
- done
+apply (smt (verit) i2150)  apply (smt (verit) aux_CSTATE_Invalid1 i614old)   done
 
   show goal40: "C_msg_P_same Invalid nextStore (\<lambda>T i. \<not> nextSnoopIs SnpInv T i) ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ])"
  apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (smt (verit) CSTATE_HostShared_CleanEvictNoData_Last_otherside_invariant3 aux_CSTATE_Invalid1 i592 i593 nextSnoopIs_general_rule_8_0) done
@@ -1257,9 +1249,7 @@ apply (smt (verit) aux_CSTATE_Invalid1 i614old)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i211) 
 apply (smt (verit) aux_CSTATE_Invalid1 i614old) 
-apply (smt (verit) i211) 
-apply (smt (verit) aux_CSTATE_Invalid1 i614old i616old) 
- done
+apply (smt (verit) i211)  apply (smt (verit) aux_CSTATE_Invalid1 i614old i616old)   done
 
   show goal51: "CSTATE Invalid ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = [] \<and> snpresps2 ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = [] \<and> reqresps1 ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = [] \<and> htddatas1 ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = []"
  apply  (insert assms)(**)apply (smt (verit) CSTATE_HostShared_CleanEvictNoData_Last_otherside_invariant3 assms i68 reqs1_empty_not_nextReqIs_general_invariant) done
@@ -2185,9 +2175,7 @@ apply (smt (verit) aux_CSTATE_Invalid1 i614old i616old)
  apply  (insert assms)(**)apply (smt (verit) assms i929 i946 nextHTDDataPending_general_rule_6_0) done
   show goal512: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) 1"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) aux_CSTATE_Invalid1 i614old) 
-apply (smt (verit) aux_CSTATE_Invalid1 i614old) 
- done
+apply (smt (verit) aux_CSTATE_Invalid1 i614old)  apply (smt (verit) aux_CSTATE_Invalid1 i614old)   done
 
   show goal513: "HSTATE InvalidM ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 5 sHost= InvalidM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) 0"
  apply  (insert assms)(**)apply (smt (verit) CSTATE_HostShared_CleanEvictNoData_Last_otherside_invariant3 assms i727) done

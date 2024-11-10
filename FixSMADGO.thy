@@ -61,9 +61,7 @@ lemma SMADGO'_not_nextGOPending: "length (reqresps1 T) \<le> 1 \<Longrightarrow>
   by simp+
 
 lemma SMADGO'_not_nextGOPending1: "length (reqresps1 T) \<le> 1 \<Longrightarrow> reqresps1 ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
-  apply(cases "reqresps1 T")
-   apply simp+
-  done
+  apply(cases "reqresps1 T")    apply simp+   done
 
 
 lemma SMADGO'_nextGOPending1: "nextGOPending  T 1 = nextGOPending  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1"
@@ -101,20 +99,14 @@ apply  simp done
 
 lemma SMADGO'_nextReqIs_invariant1: shows "nextReqIs x T i = nextReqIs x ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"
   apply(case_tac i)
-  apply simp
-  apply simp
-  done
+  apply simp   apply simp   done
 
 lemma SMADGO'_nextReqIs_invariant_DirtyEvict: shows "nextReqIs DirtyEvict T i = nextReqIs DirtyEvict ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"
-  apply(case_tac i)
-   apply simp+
-  done
+  apply(case_tac i)    apply simp+   done
 
 
 lemma SMADGO'_nextReqIs_invariant_not_RdOwn: shows "X \<noteq> RdOwn \<Longrightarrow> nextReqIs X T i = nextReqIs X ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) i"
-  apply(case_tac i)
-   apply simp+
-  done
+  apply(case_tac i)    apply simp+   done
 
 lemma reqs2_SMADGO: shows "reqs2 T = reqs2 ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])"
   by simp
@@ -133,9 +125,7 @@ lemma nextLoad2_SMADGO: shows "nextLoad ( T\<lparr>buffer1 := Some m\<rparr> [ 0
 
 
 lemma nextLoad_DeviceSMADGO: "nextLoad (  T \<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ] ) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1114,15 +1104,11 @@ proof (intro conjI)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i56) 
 apply (smt (verit) i56) 
-apply (smt (verit) i56) 
-apply (smt (verit) butlast.simps(1) i56 list.distinct(1)) 
- done
+apply (smt (verit) i56)  apply (smt (verit) butlast.simps(1) i56 list.distinct(1))   done
 
   show goal44: "length (reqs1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])) \<le> 1"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) One_nat_def i57) 
-apply (smt (verit) One_nat_def i57) 
- done
+apply (smt (verit) One_nat_def i57)  apply (smt (verit) One_nat_def i57)   done
 
   show goal45: "length (reqs2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])) \<le> 1"
  apply  (insert assms)(**)apply (metis \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> i58 nextGOPending_yes_reqresp_rule_6_1 reqs2_SMADGO) done
@@ -1147,9 +1133,7 @@ apply (smt (verit) CSTATE_various_forms6 i382)
 apply (smt (verit) CSTATE_various_forms4 i614old) 
 apply (smt (verit) i1x i2x i437 list.distinct(1)) 
 apply (smt (verit) i1x i2x i437 i99 list.discI) 
-apply (smt (verit) i1x i2x i437 i95 list.discI) 
-apply (smt (verit) i101 i1x i2x i437 list.distinct(1)) 
- done
+apply (smt (verit) i1x i2x i437 i95 list.discI)  apply (smt (verit) i101 i1x i2x i437 list.distinct(1))   done
 
   show goal53: "CSTATE Shared ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<longrightarrow> snps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = [] \<and> snpresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = [] \<and> reqresps1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = [] \<and> htddatas1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
  apply  (insert assms)(**)apply (metis CSTATE_assign_rule_4 CSTATE_inequality_invariant MESI_State.distinct(129) SMADGO'_CSTATE_sameside \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> htddatas1_general_rule_5_0) done
@@ -1163,9 +1147,7 @@ apply (smt (verit) CSTATE_various_forms4 i618old)
 apply (smt (verit) CSTATE_various_forms4 i618old) 
 apply (smt (verit) CSTATE_various_forms5 i618old) 
 apply (smt (verit) CSTATE_various_forms5 i618old) 
-apply (smt (verit) i1x i2x i437 i99 list.discI) 
-apply (smt (verit) i101 i1x i2x i437 i584 list.distinct(1)) 
- done
+apply (smt (verit) i1x i2x i437 i99 list.discI)  apply (smt (verit) i101 i1x i2x i437 i584 list.distinct(1))   done
 
   show goal57: "CSTATE Invalid ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<longrightarrow> reqs1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
  apply  (insert assms)(**)apply (metis CSTATE_assign_rule_4 CSTATE_inequality_invariant MESI_State.distinct(171) SMADGO'_CSTATE_sameside \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close>) done
@@ -1209,9 +1191,7 @@ apply (smt (verit) i101 i1x i2x i437 i584 list.distinct(1))
  apply  (insert assms)(**)apply (smt (verit) assms aux2_r84 i437 i883) done
   show goal77: "length (reqresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])) \<le> 1"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) One_nat_def i86) 
-apply (smt (verit) One_nat_def i86) 
- done
+apply (smt (verit) One_nat_def i86)  apply (smt (verit) One_nat_def i86)   done
 
   show goal78: "CSTATE MIA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<and> nextGOPendingIs GO_WritePull ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<longrightarrow> snps1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
  apply  (insert assms)(**)apply (smt (verit) aux2_r84 reqresps_empty_noGOPendingIs1) done
@@ -1231,9 +1211,7 @@ apply (smt (verit) One_nat_def i86)
  apply  (insert assms)(**)apply (smt (verit) aux2_r84) done
   show goal86: "reqs2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) \<noteq> [] \<longrightarrow> reqresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) i95) 
-apply (smt (verit) i95) 
- done
+apply (smt (verit) i95)  apply (smt (verit) i95)   done
 
   show goal87: "reqs1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) \<noteq> [] \<longrightarrow> snpresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
  apply  (insert assms)(**)apply (metis CSTATE_assign_rule_4 SMADGO'_CSTATE_sameside \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> assms i602 snpresps2_xyad_go_invariant) done
@@ -1241,9 +1219,7 @@ apply (smt (verit) i95)
  apply  (insert assms)(**)apply (metis CSTATE_assign_rule_4 SARspSFwdM_invariant1 \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> i99 nextSnpRespIs_general_rule_6_0 nextSnpRespIs_invariant1 reqs2_SMADGO) done
   show goal89: "reqs1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) \<noteq> [] \<longrightarrow> htddatas1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) i100) 
-apply (smt (verit) i100) 
- done
+apply (smt (verit) i100)  apply (smt (verit) i100)   done
 
   show goal90: "reqs2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) \<noteq> [] \<longrightarrow> htddatas2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
  apply  (insert assms)(**)apply (metis CSTATE_assign_rule_4 HTDDataPending_htddatas_invariant2 SMADGO'_nextHTDDataPending \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> assms empty_no_snoop2 i469 i602 reqs2_SMADGO) done
@@ -1263,9 +1239,7 @@ apply (smt (verit) i100)
  apply  (insert assms)(**)apply (smt (verit) aux2_r84) done
   show goal98: "reqs2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) \<noteq> [] \<longrightarrow> reqresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) i95) 
-apply (smt (verit) i95) 
- done
+apply (smt (verit) i95)  apply (smt (verit) i95)   done
 
   show goal99: "HSTATE SAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) \<longrightarrow> CSTATE ISAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<or> CSTATE ISAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1"
  apply  (insert assms)(**)apply (metis CSTATE_inequality_invariant MESI_State.distinct(281) SMADGO'_CSTATE_otherside SMADGO'_HSTATE \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> assms i106 nextGOPending_yes_reqresp_rule_6_1) done
@@ -1301,9 +1275,7 @@ apply (smt (verit) i95)
  apply  (insert assms)(**)apply (smt (verit) aux2_r84) done
   show goal115: "length (snpresps1 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])) \<le> 1"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) One_nat_def i120) 
-apply (smt (verit) One_nat_def i120) 
- done
+apply (smt (verit) One_nat_def i120)  apply (smt (verit) One_nat_def i120)   done
 
   show goal116: "length (snpresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])) \<le> 1"
  apply  (insert assms)(**)apply (metis CSTATE_otherside_rule_6 HTDDataPending_htddatas_invariant2 SMADGO'_CSTATE_sameside \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> assms bot_nat_0.extremum empty_no_snoop_variant2 i437 i469 i519 i586 i602 i77 i884 le_antisym list.size(3) nat_le_linear nextGOPending_yes_reqresp_rule_6_1 nextHTDDataPending_various_forms1 no2Datas_def snpresps2_xyad_go_invariant xyad_go_invariant_CSTATE_sameside) done
@@ -1487,9 +1459,7 @@ apply (smt (verit) CSTATE_various_forms4 i317)
 apply (smt (verit) CSTATE_various_forms4 i317) 
 apply (smt (verit) CSTATE_various_forms5 i317) 
 apply (smt (verit) butlast.simps(1) i56 list.distinct(1)) 
-apply (smt (verit) i1x i2x i437 i99 list.discI) 
-apply (smt (verit) i101 i1x i2x i437 i584 list.distinct(1)) 
- done
+apply (smt (verit) i1x i2x i437 i99 list.discI)  apply (smt (verit) i101 i1x i2x i437 i584 list.distinct(1))   done
 
   show goal204: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextSnoopPending T i) ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])"
  apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (metis CSTATE_inequality_invariant C_msg_P_same_def MESI_State.distinct(583) SMADGO'_CSTATE_otherside SMADGO'_CSTATE_sameside SMADGO'_nextGOPendingIs \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> i201 i318 i521 nextGOPendingIs_XYADGO_agnostic1) done
@@ -1618,9 +1588,7 @@ apply (smt (verit) CSTATE_various_forms4 i378)
 apply (smt (verit) i1x i2x i341 i602 i913) 
 apply (smt (verit) butlast.simps(1) i56 list.distinct(1)) 
 apply (smt (verit) i1x i2x i437 i99 list.discI) 
-apply (smt (verit) i1x i2x i437 i95 list.discI) 
-apply (smt (verit) i1x i2x i602) 
- done
+apply (smt (verit) i1x i2x i437 i95 list.discI)  apply (smt (verit) i1x i2x i602)   done
 
   show goal264: "CSTATE ISDI ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<longrightarrow> \<not> nextReqIs RdOwn ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> \<not> HSTATE ModifiedM ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])"
  apply  (insert assms)(**)apply (metis CSTATE_assign_rule_4 CSTATE_inequality_invariant MESI_State.distinct(319)) done
@@ -1630,9 +1598,7 @@ apply (smt (verit) i1x i2x i602)
  apply  (insert assms)(**)apply (smt (verit) aux2_r84) done
   show goal267: "CSTATE Invalid ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<longrightarrow> reqresps2 ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) = []"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) CSTATE_various_forms6 i382) 
-apply (smt (verit) i1x i2x i437 i95 list.discI) 
- done
+apply (smt (verit) CSTATE_various_forms6 i382)  apply (smt (verit) i1x i2x i437 i95 list.discI)   done
 
   show goal268: "CSTATE Shared ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<and> nextSnoopIs SnpInv ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<longrightarrow> HSTATE MA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ])"
  apply  (insert assms)(**)apply (metis CSTATE_inequality_invariant MESI_State.distinct(129) SMADGO'_CSTATE_sameside SMADGO'_HSTATE \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close> nextSnoopIs_general_rule_6_0) done
@@ -2622,9 +2588,7 @@ apply (smt (verit) i56 nextReqRespStateIs.simps(1))
 apply (smt (verit) i118 nextReqRespStateIs.simps(1)) 
 apply (smt (verit) CSTATE_various_forms6 i930 nextHTDDataPending_various_forms2) 
 apply (smt (verit) i56 nextReqRespStateIs.simps(1)) 
-apply (smt (verit) i118 nextReqRespStateIs.simps(1)) 
-apply (smt (verit) i101 i1x i2x i437 list.discI) 
- done
+apply (smt (verit) i118 nextReqRespStateIs.simps(1))  apply (smt (verit) i101 i1x i2x i437 list.discI)   done
 
   show goal759: "(CSTATE SIAC ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<and> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0 \<and> nextGOPendingState Invalid ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0) \<and> HSTATE ModifiedM ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) \<longrightarrow> CSTATE Modified ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> CSTATE MIA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> (CSTATE IMAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> CSTATE SMAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1) \<and> nextHTDDataPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<and> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> (CSTATE IMA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> CSTATE SMA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1) \<and> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> (CSTATE IMD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1 \<or> CSTATE SMD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1) \<and> nextHTDDataPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 1"
  apply  (insert assms)(**)apply (smt (verit) \<open>\<not> nextGOPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= SMD] [ 0 -=reqresp ]) 0\<close>) done

@@ -132,9 +132,7 @@ lemma SIASnpInv_nextSnoopIs_otherside: shows "nextSnoopIs X T 1 = nextSnoopIs X 
 
 
 lemma snpresps1_SIASnpInv'_aux1: shows "snpresps1 T = snpresps1 (T [i -=snp ] [ i s= X])"
-  apply(case_tac i)
-   apply simp+
-  done
+  apply(case_tac i)    apply simp+   done
 
 
 
@@ -148,9 +146,7 @@ lemma snpresps1_SIASnpInv'_aux1: shows "snpresps1 T = snpresps1 (T [i -=snp ] [ 
 
 lemma snps1_SIASnpInv: shows " length (snps1 T) \<le> 1 \<Longrightarrow> \<not>nextSnoopPending ( T\<lparr>buffer1 := x\<rparr> [0 +=snpresp y z] [0 -=snp ] [ 0 s= mesi]) 0"
   apply(case_tac "snps1 T")
-   apply simp
-  apply simp
-  done
+   apply simp   apply simp   done
 
 
 
@@ -158,17 +154,13 @@ lemma nextGOPending_DeviceSIASnpInv: "nextGOPending ( T\<lparr>buffer1 := x\<rpa
   apply(case_tac j)
   apply(case_tac i)
    apply simp+
-  apply(case_tac i)
-apply simp+
-done
+  apply(case_tac i) apply simp+ done
 
 lemma nextLoad_DeviceSIASnpInv: "nextLoad ( T\<lparr>buffer1 := x\<rparr> [i +=snpresp y z] [i -=snp ] [ i s= mesi]) j = nextLoad T j"
   apply(case_tac j)
   apply(case_tac i)
   apply simp+
-  apply(case_tac i)
-apply simp+
-done
+  apply(case_tac i) apply simp+ done
 
 
 
@@ -177,9 +169,7 @@ lemma CSTATE_d2hd: shows " CSTATE X ( T [ devi +=d2hd msg  ]) i = CSTATE X T i"
  apply(case_tac i)
    apply(case_tac devi)
   apply simp+
-  apply(case_tac devi)
-   apply simp+
-  done
+  apply(case_tac devi)    apply simp+   done
 
 
 
@@ -1682,9 +1672,7 @@ apply simp
  apply  (insert assms)(**)apply (metis SIASnpInv'_snpresps2_invariant1_aux2 SIASnpInv_nextReqIs aux153 aux1531 i1x i740) done
   show goal302: "nextSnpRespIs RspSFwdM ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 0 \<longrightarrow> CSTATE Shared ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 0 \<or> CSTATE SMAD ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 0 \<or> CSTATE SIA ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 0 \<or> CSTATE SIAC ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 0"
   apply  (cases "dthdatas1 T") apply  (auto)
-apply (smt (verit) Message.simps(38) SnpRespType.distinct(23) append_self_conv2 aux67 i56 rev.simps(1) startsWithProp.simps(2)) 
-apply (smt (verit) aux67 i56 list.discI) 
- done
+apply (smt (verit) Message.simps(38) SnpRespType.distinct(23) append_self_conv2 aux67 i56 rev.simps(1) startsWithProp.simps(2))  apply (smt (verit) aux67 i56 list.discI)   done
 
   show goal303: "nextSnpRespIs RspSFwdM ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 1 \<longrightarrow> CSTATE Shared ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 1 \<or> CSTATE SMAD ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 1 \<or> CSTATE SIA ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 1 \<or> CSTATE SIAC ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspIHitSE tid] [0 -=snp ] [ 0 s= IIA]) 1"
  apply  (insert assms)(**)apply (metis SIASnpInv'_snpresps2_invariant1_aux2 SIASnpInv_nextReqIs aux1531 i1x i740 nextSnpRespIs_property2) done

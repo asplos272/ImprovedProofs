@@ -25,96 +25,68 @@ lemma CSTATE_toggle:
 
 lemma nextDTHDataFrom_toggle:
   "j \<le> 1 \<Longrightarrow> nextDTHDataFrom j (toggle T) = nextDTHDataFrom ((j + 1) mod 2) T"
-  apply (cases j)
-   apply simp+
-  done
+  apply (cases j)    apply simp+   done
 
 lemma nextEvict_toggle:
   "j \<le> 1 \<Longrightarrow> nextEvict (toggle T) j = nextEvict T ((j + 1) mod 2)"
-  apply (cases j)
-   apply simp+
-  done
+  apply (cases j)    apply simp+   done
 
 lemma nextGOPending_toggle:
   "i \<le> 1 \<Longrightarrow> nextGOPending (toggle T) i = nextGOPending T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 lemma nextHTDDataPending_toggle:
   "i \<le> 1 \<Longrightarrow> nextHTDDataPending (toggle T) i = nextHTDDataPending T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 lemma nextReqIs_toggle:
   "i \<le> 1 \<Longrightarrow> nextReqIs req (toggle T) i = nextReqIs req T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 lemma HSTATE_toggle:
   "HSTATE x (toggle T) = HSTATE x T"
   by simp
 
 lemma nextLoad_toggle:
   "i \<le> 1 \<Longrightarrow> nextLoad  (toggle T) i = nextLoad  T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 
 (* Lemma for nextStore *)
 lemma nextStore_toggle:
   "i \<le> 1 \<Longrightarrow> nextStore (toggle T) i = nextStore T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 (* Lemma for nextSnpRespIs *)
 lemma nextSnpRespIs_toggle:
   "i \<le> 1 \<Longrightarrow> nextSnpRespIs resp (toggle T) i = nextSnpRespIs resp T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 (* Lemma for nextSnoopIs *)
 lemma nextSnoopIs_toggle:
   "i \<le> 1 \<Longrightarrow> nextSnoopIs snoop (toggle T) i = nextSnoopIs snoop T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 (* Lemma for nextSnoopPending *)
 lemma nextSnoopPending_toggle:
   "i \<le> 1 \<Longrightarrow> nextSnoopPending (toggle T) i = nextSnoopPending T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 (* Lemma for CXL_SPG_used *)
 lemma CXL_SPG_used_toggle:
   "i \<le> 1 \<Longrightarrow> CXL_SPG_used (toggle T) i = CXL_SPG_used T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 (* Lemma for GTS *)
 lemma GTS_toggle:
   "i \<le> 1 \<Longrightarrow> GTS (toggle T) i = GTS T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 (* Lemma for nextGOPendingIs *)
 lemma nextGOPendingIs_toggle:
   "i \<le> 1 \<Longrightarrow> nextGOPendingIs go (toggle T) i = nextGOPendingIs go T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 lemma nextGOPendingState_toggle:
   "i \<le> 1 \<Longrightarrow> nextGOPendingState mesi (toggle T) i = nextGOPendingState mesi T ((i + 1) mod 2)"
-  apply (cases i)
-   apply simp+
-  done
+  apply (cases i)    apply simp+   done
 
 (* Direct Field Swap Lemmas *)
 
@@ -190,39 +162,27 @@ definition reqresps :: "Type1State \<Rightarrow> nat \<Rightarrow> Message list"
 
 lemma htddatas_toggle:
   "i \<le> 1 \<Longrightarrow> htddatas (toggle T) i = htddatas T ((i + 1) mod 2)"
-  apply (cases i)
-   apply (simp add: htddatas_def htddatas1_toggle htddatas2_toggle)+
-  done
+  apply (cases i)    apply (simp add: htddatas_def htddatas1_toggle htddatas2_toggle)+   done
 
 lemma dthdatas_toggle:
   "i \<le> 1 \<Longrightarrow> dthdatas (toggle T) i = dthdatas T ((i + 1) mod 2)"
-  apply (cases i)
-   apply (simp add: dthdatas_def dthdatas1_toggle dthdatas2_toggle)+
-  done
+  apply (cases i)    apply (simp add: dthdatas_def dthdatas1_toggle dthdatas2_toggle)+   done
 
 lemma snps_toggle:
   "i \<le> 1 \<Longrightarrow> snps (toggle T) i = snps T ((i + 1) mod 2)"
-  apply (cases i)
-   apply (simp add: snps_def snps1_toggle snps2_toggle)+
-  done
+  apply (cases i)    apply (simp add: snps_def snps1_toggle snps2_toggle)+   done
 
 lemma reqs_toggle:
   "i \<le> 1 \<Longrightarrow> reqs (toggle T) i = reqs T ((i + 1) mod 2)"
-  apply (cases i)
-   apply (simp add: reqs_def reqs1_toggle reqs2_toggle)+
-  done
+  apply (cases i)    apply (simp add: reqs_def reqs1_toggle reqs2_toggle)+   done
 
 lemma snpresps_toggle:
   "i \<le> 1 \<Longrightarrow> snpresps (toggle T) i = snpresps T ((i + 1) mod 2)"
-  apply (cases i)
-   apply (simp add: snpresps_def snpresps1_toggle snpresps2_toggle)+
-  done
+  apply (cases i)    apply (simp add: snpresps_def snpresps1_toggle snpresps2_toggle)+   done
 
 lemma reqresps_toggle:
   "i \<le> 1 \<Longrightarrow> reqresps (toggle T) i = reqresps T ((i + 1) mod 2)"
-  apply (cases i)
-   apply (simp add: reqresps_def reqresps1_toggle reqresps2_toggle)+
-  done
+  apply (cases i)    apply (simp add: reqresps_def reqresps1_toggle reqresps2_toggle)+   done
 
 
 
@@ -1050,9 +1010,7 @@ have i970: "(HSTATE SAD T \<and> nextDTHDataFrom 1 T \<longrightarrow> \<not> CS
      apply  (cases "program1 T") apply  (auto)
 apply (smt (verit) SWMR_def i0) 
 apply (smt (verit) SWMR_def i0) 
-apply (smt (verit) SWMR_def i0) 
-apply (smt (verit) SWMR_def i0) 
- done
+apply (smt (verit) SWMR_def i0)  apply (smt (verit) SWMR_def i0)   done
 
   show goal2: "C_msg_P_oppo ISD nextHTDDataPending (\<lambda>T i. \<not> CSTATE Modified T i) (toggle T)"
     apply  (insert CSTATE_toggle HSTATE_toggle nextReqIs_toggle nextHTDDataPending_toggle nextGOPending_toggle nextDTHDataFrom_toggle htddatas_toggle dthdatas_toggle snps_toggle reqs_toggle snpresps_toggle reqresps_toggle nextLoad_toggle nextStore_toggle nextSnpRespIs_toggle nextSnoopIs_toggle nextSnoopPending_toggle CXL_SPG_used_toggle GTS_toggle nextGOPendingIs_toggle htddatas1_toggle htddatas2_toggle dthdatas1_toggle dthdatas2_toggle snps1_toggle snps2_toggle reqs1_toggle reqs2_toggle snpresps1_toggle snpresps2_toggle reqresps1_toggle reqresps2_toggle)(**)apply (smt (verit) C_msg_P_oppo_def add_0 add_self_mod_2 i3 le_iff_add le_numeral_extra(4) one_mod_two_eq_one zero_less_one_class.zero_le_one) done
@@ -2192,17 +2150,13 @@ apply (smt (verit) SWMR_def i0)
      apply  (cases "program1 T") apply  (auto)
 apply (smt (verit) CSTATE_various_forms3 MESI_State.distinct(179) i947 nextReqIs_various_forms2) 
 apply (smt (verit) CSTATE_various_forms3 MESI_State.distinct(137) i947 nextReqIs_various_forms2) 
-apply (smt (verit) CSTATE_various_forms3 MESI_State.distinct(179) i947 nextReqIs_various_forms2) 
-apply (smt (verit) CSTATE_various_forms3 MESI_State.distinct(137) i947 nextReqIs_various_forms2) 
- done
+apply (smt (verit) CSTATE_various_forms3 MESI_State.distinct(179) i947 nextReqIs_various_forms2)  apply (smt (verit) CSTATE_various_forms3 MESI_State.distinct(137) i947 nextReqIs_various_forms2)   done
 
   show goal562: "HSTATE SharedM (toggle T) \<and> lastSharer (toggle T) \<and> nextReqIs CleanEvictNoData (toggle T) 1 \<longrightarrow> \<not> CSTATE Shared (toggle T) 0 \<and> \<not> CSTATE Shared (toggle T) 1"
      apply  (cases "program1 T") apply  (auto)
 apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(137) i946 nextReqIs_various_forms1) 
 apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(179) i946 nextReqIs_various_forms1) 
-apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(137) i946 nextReqIs_various_forms1) 
-apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(179) i946 nextReqIs_various_forms1) 
- done
+apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(137) i946 nextReqIs_various_forms1)  apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(179) i946 nextReqIs_various_forms1)   done
 
   show goal563: "HSTATE SharedM (toggle T) \<and> lastSharer (toggle T) \<and> nextReqIs CleanEvictNoData (toggle T) 0 \<longrightarrow> \<not> (CSTATE ISAD (toggle T) 1 \<and> nextGOPending (toggle T) 1)"
     apply  (insert CSTATE_toggle HSTATE_toggle nextReqIs_toggle nextHTDDataPending_toggle nextGOPending_toggle nextDTHDataFrom_toggle htddatas_toggle dthdatas_toggle snps_toggle reqs_toggle snpresps_toggle reqresps_toggle nextLoad_toggle nextStore_toggle nextSnpRespIs_toggle nextSnoopIs_toggle nextSnoopPending_toggle CXL_SPG_used_toggle GTS_toggle nextGOPendingIs_toggle htddatas1_toggle htddatas2_toggle dthdatas1_toggle dthdatas2_toggle snps1_toggle snps2_toggle reqs1_toggle reqs2_toggle snpresps1_toggle snpresps2_toggle reqresps1_toggle reqresps2_toggle)(**)apply (metis CSTATE_toggle C_msg_not_def HOST_DEVNUM_def HSTATE_toggle comm_monoid_add_class.add_0 i734 lastSharer_def le_numeral_extra(4) mod_self nextGOPending_toggle nextReqIs_toggle one_add_one one_mod_two_eq_one zero_less_one_class.zero_le_one) done

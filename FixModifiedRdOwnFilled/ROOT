@@ -1,0 +1,4 @@
+session "FixModifiedRdOwnFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixModifiedRdOwnFilled

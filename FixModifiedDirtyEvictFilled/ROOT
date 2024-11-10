@@ -1,0 +1,4 @@
+session "FixModifiedDirtyEvictFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixModifiedDirtyEvictFilled

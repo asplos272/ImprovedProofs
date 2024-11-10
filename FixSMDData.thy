@@ -13,9 +13,7 @@ lemma devcache2_copy_hdata1_invariant: shows "devcache2 ( T [ 0 :=dd msg] ) = de
 lemma devcache2_copy_perform1_invariant: shows "devcache2 ( T [ -=i 0] ) = devcache2 T"
   apply simp
   apply(case_tac "program1 T")
-   apply simp
-  apply simp 
-  done
+   apply simp   apply simp    done
 
 lemma devcache2_consume_hdata1_invariant: shows "devcache2 ( T [ 0 -=devd ] ) = devcache2 T"
   by simp
@@ -24,9 +22,7 @@ lemma devcache2_consume_hdata1_invariant: shows "devcache2 ( T [ 0 -=devd ] ) = 
 
 lemma devcache1_SMDData_invariant_aux1: shows "CLEntry.block_state  (devcache1 T) = Shared \<Longrightarrow> 
   CLEntry.block_state (devcache1 ( T  [ -=i 0] )) \<noteq> Modified" 
-  apply(case_tac "program1 T")
-   apply simp+
-  done
+  apply(case_tac "program1 T")    apply simp+   done
   
 
 
@@ -55,18 +51,14 @@ lemma SMDData_Modified_aux1: shows "nextLoad T 0 \<Longrightarrow> CSTATE X T 0 
   apply(case_tac a)
  apply simp
   apply(case_tac x2)
-  apply(case_tac n)
-  apply simp+
-  done
+  apply(case_tac n)   apply simp+   done
 
 lemma nextLoad_devstate: shows "nextLoad T i = nextLoad (T [0 s= mesi]) i"
   by simp
 
 
 lemma SMDData_Modified: shows "CSTATE Modified ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 0"
-  apply(case_tac "program1 T")
-  apply simp+
-  done
+  apply(case_tac "program1 T")   apply simp+   done
 
 
 lemma reqs1_SMDData: shows "reqs1  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) = reqs1 T"
@@ -75,9 +67,7 @@ lemma reqs1_SMDData: shows "reqs1  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] 
   apply(case_tac a)
  apply simp
   apply(case_tac x2)
-  apply(case_tac n)
-  apply simp+
-  done
+  apply(case_tac n)   apply simp+   done
 
 lemma reqs2_SMDData: shows "reqs2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) = reqs2 T"
   apply(case_tac "program1 T")
@@ -85,9 +75,7 @@ lemma reqs2_SMDData: shows "reqs2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] 
   apply(case_tac a)
  apply simp
   apply(case_tac x2)
-  apply(case_tac n)
-  apply simp+
-  done
+  apply(case_tac n)   apply simp+   done
 
 lemma nextReqIs_SMDData: shows "nextReqIs X T i = nextReqIs X ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) i"
   apply(case_tac i) 
@@ -124,9 +112,7 @@ lemma SMDData_nextEvict: shows "nextEvict T 1 = nextEvict ( T [ 0 s= mesi] [ 0 :
   apply(case_tac n)
   apply simp
   apply simp
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMDData_nextLoad: shows "nextLoad T 1 = nextLoad ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1"
@@ -138,9 +124,7 @@ lemma SMDData_nextLoad: shows "nextLoad T 1 = nextLoad ( T [ 0 s= Modified] [ 0 
   apply(case_tac n)
   apply simp
   apply simp
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMDData_HSTATE: shows "(HSTATE X ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) = HSTATE X T"
@@ -152,9 +136,7 @@ lemma SMDData_HSTATE: shows "(HSTATE X ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 
   apply(case_tac n)
   apply simp
   apply simp
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SMDData_HSTATES: shows "(HSTATE MAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or>
   HSTATE MA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or>
@@ -168,9 +150,7 @@ lemma SMDData_HSTATES: shows "(HSTATE MAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -
   apply(case_tac n)
   apply simp
   apply simp
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SMDData_nextSnoopIs: shows "nextSnoopIs  X T i = nextSnoopIs X ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) i"
   apply(case_tac "program1 T")
@@ -181,9 +161,7 @@ lemma SMDData_nextSnoopIs: shows "nextSnoopIs  X T i = nextSnoopIs X ( T [ 0 s= 
   apply(case_tac n)
   apply simp
   apply simp
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SMDData_nextStore_otherside: shows "nextStore T 1 = nextStore ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1"
    apply(case_tac "program1 T")
@@ -194,81 +172,59 @@ lemma SMDData_nextStore_otherside: shows "nextStore T 1 = nextStore ( T [ 0 s= M
   apply(case_tac n)
   apply simp
   apply simp
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
 
 lemma device_perform_op_snps2:   " snps2  T  = snps2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma device_perform_op_snps1:   " snps1  T  = snps1  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma device_perform_op_reqs1:   " reqs1  T  = reqs1  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 
 lemma device_perform_op_reqs2:   " reqs2  T  = reqs2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
    apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma device_perform_op_reqresps1:   " reqresps1  T  = reqresps1  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma device_perform_op_reqresps2:   " reqresps2  T  = reqresps2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
 lemma device_perform_op_snpresps1:   " snpresps1  T  = snpresps1  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma device_perform_op_snpresps2:   " snpresps2  T  = snpresps2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma device_perform_op_dthdatas1:   " dthdatas1  T  = dthdatas1  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma device_perform_op_dthdatas2:   " dthdatas2  T  = dthdatas2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma device_perform_op_htddatas1:   " length (htddatas1  T) \<le> 1 \<Longrightarrow>   (htddatas1 ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])) = []"
@@ -280,9 +236,7 @@ lemma device_perform_op_htddatas1:   " length (htddatas1  T) \<le> 1 \<Longright
   
 lemma device_perform_op_htddatas2:   " htddatas2  T  = htddatas2  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma device_perform_op_nextHTDDataPending:   " nextHTDDataPending  T 1 = nextHTDDataPending  ( T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1"
    apply(case_tac "program1 T")
@@ -293,9 +247,7 @@ lemma device_perform_op_nextHTDDataPending:   " nextHTDDataPending  T 1 = nextHT
   apply(case_tac n)
   apply simp
   apply simp
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
@@ -309,9 +261,7 @@ apply(case_tac i)
 
 
 lemma nextLoad_DeviceSMDData: "nextLoad (  T [ 0 s= Modified] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ] ) 1 = nextLoad T 1"
-  apply(case_tac "program1 T")
-apply simp+
-  done
+  apply(case_tac "program1 T") apply simp+   done
 
 
 lemma SMDData'_coherent_aux_simpler: assumes "SWMR_state_machine T \<and> CSTATE SMD T 0 \<and> nextHTDDataPending T 0 " shows 
@@ -2845,9 +2795,7 @@ qed
 proof (-)
   show goal1: "(CSTATE SIAC ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IIA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> GTS ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE MA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Modified] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
   apply  (cases "program1 T") apply  (auto)
-apply (smt (verit) HOST_State.distinct(149) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_various_forms1 i220) 
-apply (smt (verit) HOST_State.distinct(149) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_def i220) 
- done
+apply (smt (verit) HOST_State.distinct(149) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_various_forms1 i220)  apply (smt (verit) HOST_State.distinct(149) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_def i220)   done
 
 qed
 

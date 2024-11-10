@@ -7,9 +7,7 @@ lemma nextEvict_SMAGO_CSTATE_invariant: shows "CSTATE X T i = CSTATE X (T [ -=i 
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac a)
- apply simp+
-  done
+  apply(case_tac a)  apply simp+   done
 
   
 lemma nextStore_SMAGO_invariant_otherside: shows"nextStore T 1 = nextStore ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] ) 1"
@@ -23,9 +21,7 @@ lemma HSTATE_SMAGO_invariant: shows "HSTATE X ( T\<lparr>buffer1 := Some m\<rpar
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac a)
- apply simp+
-  done
+  apply(case_tac a)  apply simp+   done
   
 
 
@@ -37,9 +33,7 @@ lemma nextReqIs_SMAGO_IMAD_invariant2: shows
  apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/370\.txt *)
 
   by simp
@@ -50,9 +44,7 @@ lemma nextReqIs_SMAGO_IMAD_invariant1: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/418\.txt *)
 
   by simp
@@ -62,9 +54,7 @@ lemma CSTATE_SMAGO_otherside_invariant2: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/466\.txt *)
 
   by simp
@@ -74,9 +64,7 @@ lemma SMAGO_nextGOPendingIs_otherside: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/514\.txt *)
 
   by simp
@@ -87,9 +75,7 @@ lemma SMAGO_nextEvict_otherside: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/562\.txt *)
 
   by simp
@@ -100,9 +86,7 @@ lemma SMAGO_nextHTDDataPending_otherside: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/610\.txt *)
 
   by simp
@@ -113,9 +97,7 @@ lemma SMAGO_nextSnpRespIs_otherside: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/658\.txt *)
 
   by simp
@@ -126,9 +108,7 @@ lemma SMAGO_nextDTHDataPending_sameside: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/706\.txt *)
 
   by simp
@@ -138,9 +118,7 @@ lemma SMAGO_nextSnpRespIs_sameside: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/754\.txt *)
 
   by simp
@@ -237,69 +215,51 @@ lemma nextReqIs_SMAGO: shows "nextReqIs X T i = nextReqIs X ( T \<lparr>buffer1 
 
 lemma SMAGO_snps2:   " snps2  T  = snps2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMAGO_snps1:   " snps1  T  = snps1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMAGO_reqs1:   " reqs1  T  = reqs1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 
 lemma SMAGO_reqs2:   " reqs2  T  = reqs2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
    apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
   
 lemma SMAGO_reqresps2:   " reqresps2  T  = reqresps2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
 lemma SMAGO_snpresps1:   " snpresps1  T  = snpresps1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma SMAGO_snpresps2:   " snpresps2  T  = snpresps2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SMAGO_dthdatas1:   " dthdatas1  T = [] \<Longrightarrow> 
   length (dthdatas1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])) \<le> 1"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma SMAGO_dthdatas2:   " dthdatas2  T  = dthdatas2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SMAGO_htddatas1:   "htddatas1 T =  (htddatas1 ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]))"
@@ -315,18 +275,14 @@ lemma SMAGO_htddatas1:   "htddatas1 T =  (htddatas1 ( T \<lparr>buffer1 := Some 
 
 lemma SMAGO_htddatas2:   " htddatas2  T  = htddatas2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SMAGO_nextHTDDataPending: "nextHTDDataPending T i = 
   nextHTDDataPending ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0])  i"
    apply(case_tac "program1 T")
    apply simp
   apply(case_tac a)
- apply simp
-   apply simp+
-  done
+ apply simp    apply simp+   done
 
 
 lemma IIAGO_nextGOPending_otherside: "nextGOPending T 1 = nextGOPending ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 1"
@@ -423,9 +379,7 @@ lemma dthdatas1_perform_instr: shows "dthdatas1 T = dthdatas1 (T [ -=i m])"
   apply(case_tac "program1 T")
  apply simp
   apply simp
-  apply(case_tac "program2 T")
-   apply simp+
-  done
+  apply(case_tac "program2 T")    apply simp+   done
 
 
 
@@ -433,14 +387,10 @@ lemma dthdatas1_perform_instr: shows "dthdatas1 T = dthdatas1 (T [ -=i m])"
 
 
 lemma nextGOPending_DeviceSMAGO_other: "nextGOPending (  T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0] ) 1 = nextGOPending T 1"
-  apply(case_tac "program1 T")
-   apply simp+
-  done
+  apply(case_tac "program1 T")    apply simp+   done
 
 lemma nextLoad_DeviceSMAGO: "nextLoad (  T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0] ) 1 = nextLoad T 1"
-  apply(case_tac "program1 T")
-   apply simp+
-  done
+  apply(case_tac "program1 T")    apply simp+   done
 
 
 lemma nextGOPending_DeviceSMAGO: "nextGOPending (  T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0] ) 1 = nextGOPending T 1"
@@ -455,9 +405,7 @@ lemma SMAGO_nextHTDDataPending_sameside: shows
   apply simp
   apply(case_tac "program1 T")
    apply simp
-  apply(case_tac "a")
-  apply simp
-subgoal subgoal  apply auto done  done
+  apply(case_tac "a")   apply simp subgoal subgoal  apply auto done  done
 (* \./proofs/NewSMAGO/1606\.txt *)
 
   by simp
@@ -3184,9 +3132,7 @@ qed
 proof (-)
   show goal1: "(CSTATE SIAC ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 1 \<and> nextGOPendingIs GO ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 1 \<and> nextGOPendingState Invalid ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 1 \<and> \<not> CSTATE IIA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 0 \<and> GTS ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 0) \<and> HSTATE MA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) \<longrightarrow> (CSTATE IMAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 0 \<or> CSTATE SMAD ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 0) \<and> nextHTDDataPending ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 0 \<or> CSTATE IMA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 0 \<or> CSTATE SMA ( T\<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) 0"
   apply  (cases "program1 T") apply  (auto)
-apply (smt (verit) CSTATE_disj2 HOST_State.distinct(119) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_def HSTATE_invariant4 HSTATE_various_forms1 MESI_State.distinct(283) MESI_State.distinct(575) i106 i1x i2x i366 i849 nextGOPending_various_forms4) 
-apply (smt (verit) CSTATE_disj2 HOST_State.distinct(119) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_def HSTATE_invariant4 HSTATE_various_forms1 MESI_State.distinct(283) MESI_State.distinct(575) i106 i1x i2x i366 i849 nextGOPending_various_forms4) 
- done
+apply (smt (verit) CSTATE_disj2 HOST_State.distinct(119) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_def HSTATE_invariant4 HSTATE_various_forms1 MESI_State.distinct(283) MESI_State.distinct(575) i106 i1x i2x i366 i849 nextGOPending_various_forms4)  apply (smt (verit) CSTATE_disj2 HOST_State.distinct(119) HOST_State.distinct(17) HOST_State.distinct(249) HSTATE_def HSTATE_invariant4 HSTATE_various_forms1 MESI_State.distinct(283) MESI_State.distinct(575) i106 i1x i2x i366 i849 nextGOPending_various_forms4)   done
 qed
   show goal788: "(HSTATE SD ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) \<and> nextDTHDataFrom 0 ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) \<longrightarrow> snps2 ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Modified] [ 0 -=reqresp ] [ -=i 0]) = []) "
 

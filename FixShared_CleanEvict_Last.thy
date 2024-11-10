@@ -128,9 +128,7 @@ lemma nextStore_nextEvict_exclusive: shows "nextEvict T i \<Longrightarrow> \<no
 
 
 lemma reqlength1_minus: shows "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = []"
-  apply(cases "reqs1 T")
-   apply simp+
-  done
+  apply(cases "reqs1 T")    apply simp+   done
 
 lemma HostShared_CleanEvict_Last': shows "reqs1 (T [ 5 sHost= SharedM] [ 0 +=reqresp GO_WritePullDrop Invalid txid]) = reqs1 T"
   by simp
@@ -154,16 +152,12 @@ lemma nextGOPendingIs_inequality: shows "\<lbrakk>X \<noteq> Y ; nextGOPendingIs
   apply(case_tac "reqresps1 T")
  apply force
    apply simp
-  apply(case_tac "reqresps2 T")
-   apply simp+
-  done
+  apply(case_tac "reqresps2 T")    apply simp+   done
 
 
 
 lemma nextLoad_HostShared_CleanEvict_Last: "nextLoad ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1187,9 +1181,7 @@ proof (intro conjI)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i2150) 
 apply (smt (verit) CSTATE_various_forms4 i614old) 
-apply (smt (verit) i2150) 
-apply (smt (verit) CSTATE_various_forms6 i614old) 
- done
+apply (smt (verit) i2150)  apply (smt (verit) CSTATE_various_forms6 i614old)   done
 
   show goal40: "C_msg_P_same Invalid nextStore (\<lambda>T i. \<not> nextSnoopIs SnpInv T i) ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
  apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (smt (verit) CSTATE_HostShared_CleanEvict_Last_otherside_invariant2 CSTATE_HostShared_CleanEvict_Last_otherside_invariant3 i590 i591 nextSnoopIs_general_rule_8_0) done
@@ -1215,9 +1207,7 @@ apply (smt (verit) CSTATE_various_forms6 i614old)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i211) 
 apply (smt (verit) i4x i614old i853 lastSharer_def) 
-apply (smt (verit) i211) 
-apply (smt (verit) i211 i56 list.distinct(1)) 
- done
+apply (smt (verit) i211)  apply (smt (verit) i211 i56 list.distinct(1))   done
 
   show goal51: "CSTATE Invalid ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> snps2 ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = [] \<and> snpresps2 ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = [] \<and> reqresps1 ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = [] \<and> htddatas1 ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) = []"
  apply  (insert assms)(**)apply (smt (verit) CSTATE_HostShared_CleanEvict_Last_otherside_invariant3 assms i68 reqs1_empty_not_nextReqIs_general_invariant) done
@@ -1529,9 +1519,7 @@ apply (smt (verit) i211 i56 list.distinct(1))
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i4x i614old i853 lastSharer_def) 
 apply (smt (verit) i211) 
-apply (smt (verit) i210 i56 list.discI) 
-apply (smt (verit) i211) 
- done
+apply (smt (verit) i210 i56 list.discI)  apply (smt (verit) i211)   done
 
   show goal205: "CSTATE SIA ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> HSTATE IB ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE SB ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<or> HSTATE MB ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ])"
  apply  (insert assms)(**)apply (smt (verit) i201) done
@@ -2338,9 +2326,7 @@ apply (smt (verit) i211)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i2150) 
 apply (smt (verit) empty_reqs_nextReqIs i2x i4x i614old i68 lastSharer_def) 
-apply (smt (verit) i2150) 
-apply (smt (verit) i101 i186 i1x i589 list.distinct(1)) 
- done
+apply (smt (verit) i2150)  apply (smt (verit) i101 i186 i1x i589 list.distinct(1))   done
 
   show goal605: "HSTATE ID ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<and> nextDTHDataFrom 0 ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 5 sHost= IB] [ 0 +=reqresp GO_WritePull Invalid txid] [ 0 -=req ]) 1"
  apply  (insert assms)(**)apply (smt (verit) HostShared_CleanEvict_Last_nextGOPendingIs_otherside assms i794) done

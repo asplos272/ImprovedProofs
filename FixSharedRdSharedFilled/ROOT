@@ -1,0 +1,4 @@
+session "FixSharedRdSharedFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixSharedRdSharedFilled

@@ -1,0 +1,4 @@
+session "FixSARspSFwdMFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixSARspSFwdMFilled

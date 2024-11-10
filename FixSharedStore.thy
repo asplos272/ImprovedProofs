@@ -113,19 +113,13 @@ lemma SharedStore'_nextReqIs_invariant_not_RdOwn: shows "X \<noteq> RdOwn \<Long
 
 
 lemma nextGOPending_DeviceSharedStore: "nextGOPending ( T [ 0 +=rdreq RdOwn] [ 0 s= SMAD]) i = nextGOPending T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 lemma nextLoad_DeviceSharedStore: "nextLoad ( T [ 0 +=rdreq RdOwn] [ 0 s= SMAD]) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 lemma nextEvict_DeviceSharedStore: "nextEvict ( T [ 0 +=rdreq RdOwn] [ 0 s= SMAD]) i = nextEvict T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 

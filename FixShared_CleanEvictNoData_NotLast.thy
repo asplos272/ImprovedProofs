@@ -128,9 +128,7 @@ lemma nextStore_nextEvict_exclusive: shows "nextEvict T i \<Longrightarrow> \<no
 
 
 lemma reqlength1_minus: shows "length (reqs1 T) \<le> 1 \<Longrightarrow> reqs1 (T [ 0 -=req]) = []"
-  apply(cases "reqs1 T")
-   apply simp+
-  done
+  apply(cases "reqs1 T")    apply simp+   done
 
 lemma HostShared_CleanEvictNoData_NotLast': shows "reqs1 (T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid]) = reqs1 T"
   by simp
@@ -154,16 +152,12 @@ lemma nextGOPendingIs_inequality: shows "\<lbrakk>X \<noteq> Y ; nextGOPendingIs
   apply(case_tac "reqresps1 T")
  apply force
    apply simp
-  apply(case_tac "reqresps2 T")
-   apply simp+
-  done
+  apply(case_tac "reqresps2 T")    apply simp+   done
 
 
 
 lemma nextLoad_HostShared_CleanEvictNoData_NotLast: "nextLoad ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) i = nextLoad T i"
-apply(case_tac i)
-apply simp+
-done
+apply(case_tac i) apply simp+ done
 
 
 
@@ -1172,9 +1166,7 @@ proof (intro conjI)
   show goal30: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ])"
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i186 i1x) 
-apply (smt (verit) CSTATE_various_forms2 GTS_def i200 i210 i3x list.discI) 
-apply (smt (verit) i192 list.discI nextDTHDataFrom_def) 
- done
+apply (smt (verit) CSTATE_various_forms2 GTS_def i200 i210 i3x list.discI)  apply (smt (verit) i192 list.discI nextDTHDataFrom_def)   done
 
   show goal31: "H_C_state_msg_same ModifiedM Modified (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ])"
  apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)(**)apply (smt (verit) CSTATE_HostShared_CleanEvictNoData_NotLast_otherside_invariant2 assms i209 i22) done
@@ -1200,9 +1192,7 @@ apply (smt (verit) i192 list.discI nextDTHDataFrom_def)
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(293) i2x i946) 
 apply (smt (verit) i95 nextReqRespIs.simps(1) startsWithProp.simps(1)) 
-apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(293) i2x i946) 
-apply (smt (verit) i95 nextReqRespIs.simps(1) startsWithProp.simps(1)) 
- done
+apply (smt (verit) CSTATE_various_forms1 MESI_State.distinct(293) i2x i946)  apply (smt (verit) i95 nextReqRespIs.simps(1) startsWithProp.simps(1))   done
 
   show goal42: "snps2 ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) \<noteq> [] \<longrightarrow> reqs1 ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = [] \<and> snpresps2 ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = [] \<and> dthdatas2 ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = [] \<and> reqresps1 ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) = []"
  apply  (insert assms)(**)apply (smt (verit) i213) done
@@ -1604,9 +1594,7 @@ apply (smt (verit) i95 nextReqRespIs.simps(1) startsWithProp.simps(1))
   apply  (cases "dthdatas1 T") apply  (auto)
 apply (smt (verit) i211) 
 apply (smt (verit) i56 nextReqRespIs.simps(1)) 
-apply (smt (verit) i211) 
-apply (smt (verit) i56 nextReqRespIs.simps(1)) 
- done
+apply (smt (verit) i211)  apply (smt (verit) i56 nextReqRespIs.simps(1))   done
 
   show goal241: "CSTATE IMA ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) 0 \<and> nextGOPending ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) \<or> HSTATE MAD ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ]) \<or> HSTATE SAD ( T [ 5 sHost= SharedM] [ 0 +=reqresp GO Invalid txid] [ 0 -=req ])"
  apply  (insert assms)(**)apply (smt (verit) CSTATE_HostShared_CleanEvictNoData_NotLast_otherside_invariant3 assms i652) done

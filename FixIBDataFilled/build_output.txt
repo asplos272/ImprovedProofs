@@ -1,0 +1,28 @@
+Started at Sat Nov 9 23:42:56 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
+ISABELLE_BUILD_OPTIONS=""
+
+ML_PLATFORM="x86_64_32-windows"
+ML_HOME="/cygdrive/c/Users/Chengsong/Desktop/Isabelle2024/contrib/polyml-5.9.1/x86_64_32-windows"
+ML_SYSTEM="polyml-5.9.1"
+ML_OPTIONS="--minheap 500"
+
+Session Pure/Pure
+Session Misc/Tools
+Session HOL/HOL (main)
+Session Unsorted/BaseProof
+Session Unsorted/FixIBDataFilled
+Building BaseProof ...
+BaseProof: theory BaseProof.Transposed
+BaseProof: theory BaseProof.CoherenceProperties
+BaseProof: theory BaseProof.BuggyRules
+BaseProof: theory BaseProof.BasicInvariants
+Timing BaseProof (8 threads, 18.455s elapsed time, 28.344s cpu time, 2.547s GC time, factor 1.54)
+Finished BaseProof (0:00:23 elapsed time)
+Running FixIBDataFilled ...
+FixIBDataFilled: theory FixIBDataFilled.FixIBDataFilled
+Timing FixIBDataFilled (8 threads, 289.693s elapsed time, 79.375s cpu time, 2.922s GC time, factor 0.27)
+Finished FixIBDataFilled (0:04:50 elapsed time)
+
+Finished at Sat Nov 9 23:48:15 GMT+8 2024
+0:05:18 elapsed time

@@ -1,0 +1,4 @@
+session "FixMIASnpDataSharedFilled" = BaseProof +
+  options [document = false]
+  theories
+    FixMIASnpDataSharedFilled

@@ -129,69 +129,51 @@ lemma nextReqIs_SIACGO: shows "nextReqIs X T i = nextReqIs X ( T \<lparr>buffer1
 
 lemma SIACGO_snps2:   " snps2  T  = snps2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SIACGO_snps1:   " snps1  T  = snps1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SIACGO_reqs1:   " reqs1  T  = reqs1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 
 lemma SIACGO_reqs2:   " reqs2  T  = reqs2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
    apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
   
 lemma SIACGO_reqresps2:   " reqresps2  T  = reqresps2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 
 lemma SIACGO_snpresps1:   " snpresps1  T  = snpresps1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma SIACGO_snpresps2:   " snpresps2  T  = snpresps2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SIACGO_dthdatas1:   " dthdatas1  T = [] \<Longrightarrow> 
   length (dthdatas1  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])) \<le> 1"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
   
 lemma SIACGO_dthdatas2:   " dthdatas2  T  = dthdatas2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 
 lemma SIACGO_htddatas1:   "htddatas1 T =  (htddatas1 ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]))"
@@ -207,18 +189,14 @@ lemma SIACGO_htddatas1:   "htddatas1 T =  (htddatas1 ( T \<lparr>buffer1 := Some
 
 lemma SIACGO_htddatas2:   " htddatas2  T  = htddatas2  ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])"
  apply (cases "program1 T")
- apply simp
-   apply simp
-  done
+ apply simp    apply simp   done
 
 lemma SIACGO_nextHTDDataPending: "nextHTDDataPending T i = 
   nextHTDDataPending ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0])  i"
    apply(case_tac "program1 T")
    apply simp
   apply(case_tac a)
- apply simp
-   apply simp+
-  done
+ apply simp    apply simp+   done
 
 
 lemma IIAGO_nextGOPending_otherside: "nextGOPending T 1 = nextGOPending ( T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0]) 1"
@@ -298,9 +276,7 @@ lemma dthdatas1_perform_instr: shows "dthdatas1 T = dthdatas1 (T [ -=i m])"
   apply(case_tac "program1 T")
  apply simp
   apply simp
-  apply(case_tac "program2 T")
-   apply simp+
-  done
+  apply(case_tac "program2 T")    apply simp+   done
 
 
 
@@ -308,14 +284,10 @@ lemma dthdatas1_perform_instr: shows "dthdatas1 T = dthdatas1 (T [ -=i m])"
 
 
 lemma nextGOPending_DeviceSIACGO_other: "nextGOPending (  T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0] ) 1 = nextGOPending T 1"
-  apply(case_tac "program1 T")
-   apply simp+
-  done
+  apply(case_tac "program1 T")    apply simp+   done
 
 lemma nextLoad_DeviceSIACGO: "nextLoad (  T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0] ) 1 = nextLoad T 1"
-  apply(case_tac "program1 T")
-   apply simp+
-  done
+  apply(case_tac "program1 T")    apply simp+   done
 
 
 lemma nextGOPending_DeviceSIACGO: "nextGOPending (  T \<lparr>buffer1 := Some m\<rparr> [ 0 s= Invalid] [ 0 -=reqresp ] [ -=i 0] ) 1 = nextGOPending T 1"
