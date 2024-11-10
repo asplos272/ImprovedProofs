@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Loop over all Fix*Filled.thy files
-for FILE in Fix*Filled.thy
+for FILE in FixSMDData*Filled.thy
 do
     BASENAME=${FILE%.thy}
     echo "Processing $FILE"

@@ -2,7 +2,7 @@
 first_draft_fix_timeouts \<^theory> file_with_errors
 \<close> *)
 theory dofix
-  imports  BasicInvariants
+  imports  BaseProof.BasicInvariants
 begin
 declare [[ML_print_depth = 4000000]]
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/pred.ML"
@@ -29,6 +29,8 @@ fun writeFileln dirname content =
         val _ = writeln content
         val _ = TextIO.closeOut fd
     in () end;
+
+
 \<close>
 
 
@@ -56,16 +58,15 @@ fun repair_sorrys stacts =
         val (_, str2) = Hammer_Alt.hammer_away 1 (Toplevel.proof_of st);
         val sorry_fix = (if (Pred.contains "imed out" orf Pred.contains "No proof found") str2 then "sorry" else "")
         val actual_fix = (if sorry_fix = "" then (Hammer_Alt.extract_one_liner_proof (YXML.content_of str2)) else sorry_fix)
-        val new_act = Actions.make_one thy actual_fix;
+        val new_acts = Actions.make thy actual_fix;
         val _ = warning ("Adopted proof: " ^ actual_fix) (*Actions.text_of new_act)*)
-        val _ = (if actual_fix = Actions.text_of new_act then () else warning ("discrepancy between inserted text and s/h generated proof"))
-        val (new_st, new_err) = Actions.apply_safe new_act st;
-      in (new_act, new_st, new_err) end
+        val act_st_err_list = Actions.apply_all new_acts st;
+      in act_st_err_list end
     fun do_next (act', st', err') (_:Actions.T, st, _:(exn * string) option) =
       if Actions.on_kind (Pred.is "sorry") act'
       then fix_using_sledgehammer st
-      else (act', st', err')
-  in Ops.log_fold do_next (Actions.void, Toplevel.make_state NONE, NONE) stacts end;
+      else [(act', st', err')]
+  in Ops.log_fold_list do_next (Actions.void, Toplevel.make_state NONE, NONE) stacts end;
 
 
 
@@ -175,7 +176,7 @@ fun end_to_end_fix old_name new_name path = (let val actions = Actions.make' \<^
     val fixed_trace = process_all {err_timeout_in_secs=45} actions;
     val perfect_trace = repair_sorrys fixed_trace
     val new_texts = Library.separate "\n" (map (fn (act, _, _) => Actions.text_of act) perfect_trace);
-    val _ = Ops.create_file {force=false} path new_name (implode new_texts)
+    val _ = Ops.create_file {force=true} path new_name (implode new_texts)
     in () end)
 
 
@@ -183,12 +184,6 @@ fun end_to_end_fix old_name new_name path = (let val actions = Actions.make' \<^
 
 \<close>
 ML \<open>
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSADData.thy" "FixSADDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSADRspIFwdM.thy" "FixSADRspIFwdMFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSADRspSFwdM.thy" "FixSADRspSFwdMFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSARspIFwdM.thy" "FixSARspIFwdMFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSARspSFwdM.thy" "FixSARspSFwdMFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSBData.thy" "FixSBDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
 
 \<close>
 (*
@@ -199,32 +194,11 @@ Ops.create_file {force=true} "/Users/Chengsong/Documents/GitHub/betterProof/" "F
 
 *)
 ML \<open>
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSDData.thy" "FixSDDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
+val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSMDDataFilled.thy" "FixSMDDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
 
 \<close>
 (* WARNING: this creates a new file, the `force` parameter is to force an overwrite *)
 ML \<open>
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSIACGO.thy" "FixSIACGOFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSIAGO_WritePull.thy" "FixSIAGO_WritePullFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSIAGO_WritePullDrop.thy" "FixSIAGO_WritePullDropFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSIASnpInv.thy" "FixSIASnpInvFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSMADData.thy" "FixSMADDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSMADGO.thy" "FixSMADGOFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSMADSnpInv.thy" "FixSMADSnpInvFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSMAGO.thy" "FixSMAGOFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSMDData.thy" "FixSMDDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedDirtyEvict.thy" "FixSharedDirtyEvictFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedEvict.thy" "FixSharedEvictFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedLoad.thy" "FixSharedLoadFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedRdOwn.thy" "FixSharedRdOwnFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedRdOwnSelf.thy" "FixSharedRdOwnSelfFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedRdShared.thy" "FixSharedRdSharedFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedSnpInv.thy" "FixSharedSnpInvFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedStore.thy" "FixSharedStoreFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixShared_CleanEvictNoData_Last.thy" "FixShared_CleanEvictNoData_LastFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixShared_CleanEvictNoData_NotLast.thy" "FixShared_CleanEvictNoData_NotLastFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixShared_CleanEvict_NotLastDrop.thy" "FixShared_CleanEvict_NotLastDropFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSharedEvictData.thy" "FixSharedEvictDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
 
 \<close>
 (*val sorry_filled_in_trace = repair_sorrys  fixed_trace
