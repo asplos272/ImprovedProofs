@@ -5,4 +5,4 @@ session "BaseProof" = HOL +
     CoherenceProperties
     BuggyRules
     BasicInvariants
-
+    Fixer
