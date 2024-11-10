@@ -1,4 +1,4 @@
-Started at Sun Nov 10 03:30:08 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:20:26 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixSharedRdSharedFilled
-Running FixSharedRdSharedFilled ...
-FixSharedRdSharedFilled: theory FixSharedRdSharedFilled.FixSharedRdSharedFilled
-Timing FixSharedRdSharedFilled (8 threads, 257.149s elapsed time, 71.516s cpu time, 2.156s GC time, factor 0.28)
-Finished FixSharedRdSharedFilled (0:04:18 elapsed time)
 
-Finished at Sun Nov 10 03:34:31 GMT+8 2024
-0:04:22 elapsed time
+Finished at Sun Nov 10 22:20:29 GMT+8 2024
+0:00:03 elapsed time

@@ -1,4 +1,4 @@
-Started at Sun Nov 10 01:05:35 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:13:59 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixMADRspIFwdMFilled
-Running FixMADRspIFwdMFilled ...
-FixMADRspIFwdMFilled: theory FixMADRspIFwdMFilled.FixMADRspIFwdMFilled
-Timing FixMADRspIFwdMFilled (8 threads, 251.357s elapsed time, 67.297s cpu time, 2.547s GC time, factor 0.27)
-Finished FixMADRspIFwdMFilled (0:04:12 elapsed time)
 
-Finished at Sun Nov 10 01:09:52 GMT+8 2024
-0:04:16 elapsed time
+Finished at Sun Nov 10 22:14:02 GMT+8 2024
+0:00:02 elapsed time

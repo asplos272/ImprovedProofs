@@ -4946,7 +4946,7 @@ unfolding HostMADData'_def
 unfolding copyInAndForwardData_def
 apply(simp only: HOL.simp_thms(6) nat_to_id.simps if_True   )
 apply(simp only: Groups.add_0)
-apply(simp only: Bit_Operations.semiring_bits_class.bits_one_mod_two_eq_one)
+apply(simp only: bits_one_mod_two_eq_one)
 using HostMADData'_coherent_aux_simpler
 by (smt (verit) Lall.simps(1) Lall.simps(2) One_nat_def clearBuffer_def nat_to_id.simps(2))
 end

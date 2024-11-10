@@ -1729,7 +1729,6 @@ done
 show goal9: "H_msg_P_oppo ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (metis InvalidStore'_nextReqIs_invariant_not_RdOwn InvalidX_HSTATE1 ReqType.distinct(1) aux_r110 i189 i201 nextDTHDataPending_def reqs1_empty_not_nextReqIs_general_invariant)
-
 show goal10: "H_msg_P_oppo ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextSnpRespIs RspIFwdM T i) ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 apply (smt (verit) InvalidX_HSTATE1 i159 i206 nextSnpRespIs_general_rule_9_0 nextSnpRespIs_invariant1 nextSnpRespIs_invariant2)
@@ -2562,7 +2561,9 @@ apply (smt (verit) InvalidStore'_CSTATE_otherside InvalidStore'_HSTATE InvalidSt
 done
 show goal215: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD])"
 apply simp
-by (smt (verit) CSTATE_various_forms5 i186 i189 i1x i328 i382 i593 i720 i724 nextDTHDataFrom_def nextGOPendingIs_various_forms4 nextReqRespIs.simps(1))
+by (metis CSTATE_various_forms5 i186 i189 i1x i328 i382 i593 i720 i724 i776 nextDTHDataFrom_def nextGOPendingIs_various_forms4 nextReqRespIs.simps(1))
+ 
+
 show goal216: "CSTATE SMAD ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD]) 0 \<and> nextHTDDataPending ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD]) \<or> HSTATE MA ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD]) \<or> HSTATE MAD ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD]) \<or> HSTATE SAD ( T [ 0 +=rdreq RdOwn] [ 0 s= IMAD])"
 apply  (insert assms)
 apply (smt (verit) CSTATE_inequality_invariant InvalidStore'_CSTATE_sameside MESI_State.distinct(347))

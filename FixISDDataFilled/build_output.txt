@@ -1,4 +1,4 @@
-Started at Sun Nov 10 00:48:31 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:44:48 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,12 +12,3 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixISDDataFilled
-Running FixISDDataFilled ...
-FixISDDataFilled: theory FixISDDataFilled.FixISDDataFilled
-FixISDDataFilled FAILED (see also "isabelle build_log -H Error FixISDDataFilled")
-*** Undefined fact: "dofix.device_perform_op_dthdatas2" (line 2389 of "~/Documents/GitHub/betterProof/FixISDDataFilled/FixISDDataFilled.thy")
-*** At command "by" (line 2389 of "~/Documents/GitHub/betterProof/FixISDDataFilled/FixISDDataFilled.thy")
-Unfinished session(s): FixISDDataFilled
-
-Finished at Sun Nov 10 00:52:03 GMT+8 2024
-0:03:32 elapsed time

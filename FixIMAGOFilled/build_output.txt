@@ -1,4 +1,4 @@
-Started at Sun Nov 10 00:07:12 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:43:47 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixIMAGOFilled
-Running FixIMAGOFilled ...
-FixIMAGOFilled: theory FixIMAGOFilled.FixIMAGOFilled
-Timing FixIMAGOFilled (8 threads, 226.508s elapsed time, 69.859s cpu time, 2.500s GC time, factor 0.31)
-Finished FixIMAGOFilled (0:03:47 elapsed time)
 
-Finished at Sun Nov 10 00:11:04 GMT+8 2024
-0:03:51 elapsed time
+Finished at Sun Nov 10 22:43:50 GMT+8 2024
+0:00:03 elapsed time

@@ -1,4 +1,4 @@
-Started at Sun Nov 10 03:38:32 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:20:38 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixSharedStoreFilled
-Running FixSharedStoreFilled ...
-FixSharedStoreFilled: theory FixSharedStoreFilled.FixSharedStoreFilled
-Timing FixSharedStoreFilled (8 threads, 234.193s elapsed time, 68.875s cpu time, 2.375s GC time, factor 0.29)
-Finished FixSharedStoreFilled (0:03:55 elapsed time)
 
-Finished at Sun Nov 10 03:42:31 GMT+8 2024
-0:03:59 elapsed time
+Finished at Sun Nov 10 22:20:41 GMT+8 2024
+0:00:02 elapsed time

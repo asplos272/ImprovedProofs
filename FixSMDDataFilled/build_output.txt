@@ -1,4 +1,4 @@
-Started at Sun Nov 10 04:13:52 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:23:33 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -14,10 +14,8 @@ Session Unsorted/BaseProof
 Session Unsorted/FixSMDDataFilled
 Running FixSMDDataFilled ...
 FixSMDDataFilled: theory FixSMDDataFilled.FixSMDDataFilled
-FixSMDDataFilled FAILED (see also "isabelle build_log -H Error FixSMDDataFilled")
-*** Solver verit: Solver terminated abnormally with error code 127
-*** At command "by" (line 2306 of "~/Documents/GitHub/betterProof/FixSMDDataFilled/FixSMDDataFilled.thy")
-Unfinished session(s): FixSMDDataFilled
+Timing FixSMDDataFilled (8 threads, 121.962s elapsed time, 202.203s cpu time, 14.438s GC time, factor 1.66)
+Finished FixSMDDataFilled (0:02:03 elapsed time)
 
-Finished at Sun Nov 10 04:17:17 GMT+8 2024
-0:03:24 elapsed time
+Finished at Sun Nov 10 22:25:41 GMT+8 2024
+0:02:07 elapsed time

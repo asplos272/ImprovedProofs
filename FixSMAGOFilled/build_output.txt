@@ -1,4 +1,4 @@
-Started at Sun Nov 10 04:09:40 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:23:27 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixSMAGOFilled
-Running FixSMAGOFilled ...
-FixSMAGOFilled: theory FixSMAGOFilled.FixSMAGOFilled
-Timing FixSMAGOFilled (8 threads, 244.022s elapsed time, 76.484s cpu time, 2.656s GC time, factor 0.31)
-Finished FixSMAGOFilled (0:04:05 elapsed time)
 
-Finished at Sun Nov 10 04:13:49 GMT+8 2024
-0:04:09 elapsed time
+Finished at Sun Nov 10 22:23:30 GMT+8 2024
+0:00:03 elapsed time

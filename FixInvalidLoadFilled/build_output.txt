@@ -1,4 +1,4 @@
-Started at Sun Nov 10 00:20:01 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:44:05 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixInvalidLoadFilled
-Running FixInvalidLoadFilled ...
-FixInvalidLoadFilled: theory FixInvalidLoadFilled.FixInvalidLoadFilled
-Timing FixInvalidLoadFilled (8 threads, 242.363s elapsed time, 70.969s cpu time, 2.438s GC time, factor 0.29)
-Finished FixInvalidLoadFilled (0:04:03 elapsed time)
 
-Finished at Sun Nov 10 00:24:08 GMT+8 2024
-0:04:07 elapsed time
+Finished at Sun Nov 10 22:44:08 GMT+8 2024
+0:00:03 elapsed time

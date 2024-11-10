@@ -1,4 +1,4 @@
-Started at Sun Nov 10 01:22:44 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:14:29 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -15,9 +15,9 @@ Session Unsorted/FixMIAGO_WritePullFilled
 Running FixMIAGO_WritePullFilled ...
 FixMIAGO_WritePullFilled: theory FixMIAGO_WritePullFilled.FixMIAGO_WritePullFilled
 FixMIAGO_WritePullFilled FAILED (see also "isabelle build_log -H Error FixMIAGO_WritePullFilled")
-*** Illegal application of proof command in "prove" mode
-*** At command "show" (line 3566 of "~/Documents/GitHub/betterProof/FixMIAGO_WritePullFilled/FixMIAGO_WritePullFilled.thy")
+*** Cheating requires quick_and_dirty mode!
+*** At command "sorry" (line 1965 of "~/Documents/GitHub/betterProof/FixMIAGO_WritePullFilled/FixMIAGO_WritePullFilled.thy")
 Unfinished session(s): FixMIAGO_WritePullFilled
 
-Finished at Sun Nov 10 01:26:56 GMT+8 2024
-0:04:12 elapsed time
+Finished at Sun Nov 10 22:14:37 GMT+8 2024
+0:00:08 elapsed time

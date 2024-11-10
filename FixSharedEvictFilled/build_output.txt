@@ -1,4 +1,4 @@
-Started at Sun Nov 10 03:12:37 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 22:20:01 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixSharedEvictFilled
-Running FixSharedEvictFilled ...
-FixSharedEvictFilled: theory FixSharedEvictFilled.FixSharedEvictFilled
-Timing FixSharedEvictFilled (8 threads, 241.309s elapsed time, 72.672s cpu time, 2.938s GC time, factor 0.30)
-Finished FixSharedEvictFilled (0:04:02 elapsed time)
 
-Finished at Sun Nov 10 03:16:44 GMT+8 2024
-0:04:06 elapsed time
+Finished at Sun Nov 10 22:20:05 GMT+8 2024
+0:00:03 elapsed time
