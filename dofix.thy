@@ -194,8 +194,11 @@ Ops.create_file {force=true} "/Users/Chengsong/Documents/GitHub/betterProof/" "F
 
 *)
 ML \<open>
-val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixSMDDataFilled.thy" "FixSMDDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
-
+val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixInvalidStoreFilled.thy" "FixInvalidStoreFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
+val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixISDDataFilled.thy" "FixISDDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
+val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixMADDataFilled.thy" "FixMADDataFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
+val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixMIAGO_WritePullFilled.thy" "FixMIAGO_WritePullFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"      
+val _ = end_to_end_fix "~/Documents/GitHub/betterProof/FixMIASnpDataSharedFilled.thy" "FixMIASnpDataSharedFilled.thy" "/Users/Chengsong/Documents/GitHub/betterProof/"
 \<close>
 (* WARNING: this creates a new file, the `force` parameter is to force an overwrite *)
 ML \<open>

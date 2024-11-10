@@ -8,12 +8,16 @@ by simp
 lemma devcache2_copy_perform1_invariant: shows "devcache2 ( T [ -=i 0] ) = devcache2 T"
 apply simp
 apply(case_tac "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma devcache2_consume_hdata1_invariant: shows "devcache2 ( T [ 0 -=devd ] ) = devcache2 T"
 by simp
 lemma devcache1_ISDData_invariant_aux1: shows "CLEntry.block_state  (devcache1 T) = Shared \<Longrightarrow> 
   CLEntry.block_state (devcache1 ( T  [ -=i 0] )) \<noteq> Modified"
-apply(case_tac "program1 T") apply simp+ done
+apply(case_tac "program1 T")
+apply simp+
+done
 lemma devcache1_ISDData_invariant_aux: shows "CLEntry.block_state  (devcache1 T) = Shared \<Longrightarrow> 
   CLEntry.block_state (devcache1 ( T  [ -=i 0] [ 0 -=devd ])) \<noteq> Modified"
 using devcache1_ISDData_invariant_aux1
@@ -33,7 +37,9 @@ apply simp
 apply(case_tac a)
 apply simp
 apply(case_tac x2)
-apply(case_tac n) apply simp+ done
+apply(case_tac n)
+apply simp+
+done
 lemma nextLoad_devstate: shows "nextLoad T i = nextLoad (T [0 s= mesi]) i"
 by simp
 lemma ISDData_Shared: shows "nextLoad T 0 \<Longrightarrow> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 0"
@@ -42,21 +48,27 @@ apply(subgoal_tac "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 
 apply blast
 apply(subgoal_tac "nextLoad (T [0 s= Shared]) 0")
 using ISDData_Shared_aux1
-apply blast apply simp+ done
+apply blast
+apply simp+
+done
 lemma reqs1_ISDData: shows "reqs1  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) = reqs1 T"
 apply(case_tac "program1 T")
 apply simp
 apply(case_tac a)
 apply simp
 apply(case_tac x2)
-apply(case_tac n) apply simp+ done
+apply(case_tac n)
+apply simp+
+done
 lemma reqs2_ISDData: shows "reqs2  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) = reqs2 T"
 apply(case_tac "program1 T")
 apply simp
 apply(case_tac a)
 apply simp
 apply(case_tac x2)
-apply(case_tac n) apply simp+ done
+apply(case_tac n)
+apply simp+
+done
 lemma nextReqIs_ISDData: shows "nextReqIs X T i = nextReqIs X ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) i"
 apply(case_tac i)
 using nextReqIs_def reqs1_ISDData
@@ -91,7 +103,9 @@ apply(case_tac x2)
 apply(case_tac n)
 apply simp
 apply simp
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma ISDData_nextLoad: shows "nextLoad T 1 = nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1"
 apply(case_tac "program1 T")
 apply simp
@@ -101,7 +115,9 @@ apply(case_tac x2)
 apply(case_tac n)
 apply simp
 apply simp
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma ISDData_HSTATE: shows "(HSTATE X ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) = HSTATE X T"
 apply(case_tac "program1 T")
 apply simp
@@ -111,7 +127,9 @@ apply(case_tac x2)
 apply(case_tac n)
 apply simp
 apply simp
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma ISDData_HSTATES: shows "(HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or>
   HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or>
   HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or>
@@ -124,7 +142,9 @@ apply(case_tac x2)
 apply(case_tac n)
 apply simp
 apply simp
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma ISDData_nextSnoopIs: shows "nextSnoopIs  X T i = nextSnoopIs X ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) i"
 apply(case_tac "program1 T")
 apply simp
@@ -134,7 +154,9 @@ apply(case_tac x2)
 apply(case_tac n)
 apply simp
 apply simp
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma ISDData_nextStore_otherside: shows "nextStore T 1 = nextStore ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1"
 apply(case_tac "program1 T")
 apply simp
@@ -144,37 +166,59 @@ apply(case_tac x2)
 apply(case_tac n)
 apply simp
 apply simp
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_snps2:   " snps2  T  = snps2  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_snps1:   " snps1  T  = snps1  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_reqs1:   " reqs1  T  = reqs1  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_reqs2:   " reqs2  T  = reqs2  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_reqresps1:   " reqresps1  T  = reqresps1  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_reqresps2:   " reqresps2  T  = reqresps2  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_snpresps1:   " snpresps1  T  = snpresps1  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_snpresps2:   " snpresps2  T  = snpresps2  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_dthdatas1:   " dthdatas1  T  = dthdatas1  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_dthdatas2:   " dthdatas2  T  = dthdatas2  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_htddatas1:   " length (htddatas1  T) \<le> 1 \<Longrightarrow>   (htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])) = []"
 apply (cases "program1 T")
 apply simp
@@ -201,7 +245,9 @@ apply(simp)
 by (metis Suc_le_mono bot_nat_0.extremum le_antisym length_Cons list.exhaust list.sel(2) list.sel(3) nat.distinct(1) tl_def)
 lemma device_perform_op_htddatas2:   " htddatas2  T  = htddatas2  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])"
 apply (cases "program1 T")
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma device_perform_op_nextHTDDataPending:   " nextHTDDataPending  T 1 = nextHTDDataPending  ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1"
 apply(case_tac "program1 T")
 apply simp
@@ -211,7 +257,9 @@ apply(case_tac x2)
 apply(case_tac n)
 apply simp
 apply simp
-apply simp apply simp done
+apply simp
+apply simp
+done
 lemma nextGOPending_DeviceISDData: "nextGOPending (  T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ] ) i = nextGOPending T i"
 apply(case_tac i)
 using device_perform_op_reqresps1 nextGOPending_def
@@ -1856,82 +1904,154 @@ show ?thesis
 unfolding SWMR_state_machine_def
 proof (intro conjI)
 show goal1: "SWMR ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (metis CSTATE_various_forms1 CSTATE_various_forms4 HTDDataPending_htddatas_invariant1 SharedSnpInv'_CSTATE_invariant5 assms devcache1_ISDData_invariant devcache2_consume_hdata1_invariant devcache2_copy_hdata1_invariant devcache2_copy_perform1_invariant devcache2_sequals1_invariant i921) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (metis CSTATE_various_forms1 CSTATE_various_forms4 HTDDataPending_htddatas_invariant1 SharedSnpInv'_CSTATE_invariant5 assms devcache1_ISDData_invariant devcache2_consume_hdata1_invariant devcache2_copy_hdata1_invariant devcache2_copy_perform1_invariant devcache2_sequals1_invariant i921)
+done
 show goal2: "C_msg_P_oppo ISD nextHTDDataPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 MESI_State.distinct(3) MESI_State.distinct(97) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(3) MESI_State.distinct(97) i221)
+done
 show goal3: "H_msg_P_same SD nextDTHDataPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23)
+done
 show goal4: "H_msg_P_same SAD nextDTHDataPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(3) i221 i2x i921 nextHTDDataPending_def) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(3) i221 i2x i921 nextHTDDataPending_def)
+done
 show goal5: "C_msg_P_oppo ISAD nextGOPending (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) MESI_State.distinct(3) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) MESI_State.distinct(3) i221)
+done
 show goal6: "H_msg_P_same SharedM (nextReqIs RdShared) (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i22 i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i22 i221)
+done
 show goal7: "H_msg_P_oppo SharedM (nextReqIs RdShared) (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i22 i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i22 i221)
+done
 show goal8: "H_msg_P_same ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> CSTATE Modified T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal9: "H_msg_P_oppo ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal10: "H_msg_P_oppo ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextSnpRespIs RspIFwdM T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal11: "H_msg_P_same ModifiedM (nextReqIs RdShared) (\<lambda>T i. \<not> nextSnpRespIs RspIFwdM T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal12: "C_H_state IMAD (nextReqIs RdOwn) Modified SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23)
+done
 show goal13: "C_H_state IMAD (nextReqIs RdOwn) Modified SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(3) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(3) i221)
+done
 show goal14: "C_H_state IMAD (nextReqIs RdOwn) Modified SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(3) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(3) i221)
+done
 show goal15: "C_H_state Invalid nextStore Modified SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) MESI_State.distinct(95) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) MESI_State.distinct(95) i221)
+done
 show goal16: "C_H_state Invalid nextStore Modified SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) MESI_State.distinct(95) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) MESI_State.distinct(95) i221)
+done
 show goal17: "C_H_state Invalid nextStore Modified SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23)
+done
 show goal18: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i22 i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i22 i221)
+done
 show goal19: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i23)
+done
 show goal20: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal21: "C_msg_not RdShared IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 C_msg_not_def MESI_State.distinct(105) i221 i25 nextReqIs_general_rule_7_0) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 C_msg_not_def MESI_State.distinct(105) i221 i25 nextReqIs_general_rule_7_0)
+done
 show goal22: "C_msg_not RdShared Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant C_msg_not_def MESI_State.distinct(95) i221 i26 nextReqIs_ISDData) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant C_msg_not_def MESI_State.distinct(95) i221 i26 nextReqIs_ISDData)
+done
 show goal23: "H_msg_P_same ModifiedM (nextReqIs DirtyEvict) (\<lambda>T i. CSTATE MIA T i \<or> CSTATE IIA T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal24: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (\<lambda>T. \<not> HSTATE ModifiedM T) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal25: "C_msg_P_same MIA (nextGOPendingIs GO_WritePull) nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(117) i221 i2x i577) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(117) i221 i2x i577)
+done
 show goal26: "C_msg_P_host MIA (nextGOPendingIs GO_WritePull) (HSTATE ID) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(117) i221 i2x i577) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(117) i221 i2x i577)
+done
 show goal27: "C_state_not MIA RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal28: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 C_msg_P_same_def ISDData_nextEvict MESI_State.distinct(121) aux3_r42 i221 i32 nextGOPendingIs_general_rule_7_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 C_msg_P_same_def ISDData_nextEvict MESI_State.distinct(121) aux3_r42 i221 i32 nextGOPendingIs_general_rule_7_1)
+done
 show goal29: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_different2 C_msg_state_def MESI_State.distinct(121) MESI_State.distinct(277) aux3_r42 i221 i47 nextReqIs_general_rule_7_0) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_different2 C_msg_state_def MESI_State.distinct(121) MESI_State.distinct(277) aux3_r42 i221 i47 nextReqIs_general_rule_7_0)
+done
 show goal30: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 by (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant CSTATE_otherside_rule_8 C_msg_P_same_def ISDData_nextGOPendingIs MESI_State.distinct(121) aux5_r42 i35)
 show goal31: "H_C_state_msg_same ModifiedM Modified (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal32: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
 by (smt (verit) C_msg_P_same_def ISDData_nextEvict aux3_r42 aux4_r42 aux_r39 i37)
 show goal33: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_different2 C_msg_state_def MESI_State.distinct(121) MESI_State.distinct(277) aux3_r42 i221 i47 nextReqIs_general_rule_7_0) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_different2 C_msg_state_def MESI_State.distinct(121) MESI_State.distinct(277) aux3_r42 i221 i47 nextReqIs_general_rule_7_0)
+done
 show goal34: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) aux2_r42 aux_r42) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) aux2_r42 aux_r42)
+done
 show goal35: "H_C_state_msg_oppo ModifiedM IIA (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal36: "C_msg_P_host Shared (nextSnoopIs SnpInv) (HSTATE MA) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs assms i385 i400) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs assms i385 i400)
+done
 show goal37: "C_msg_state RdShared ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_otherside_rule_5_0 C_msg_state_def i1x i47 i81 nextReqIs_general_rule_7_0 reqs1_empty_not_nextReqIs_general_invariant) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_otherside_rule_5_0 C_msg_state_def i1x i47 i81 nextReqIs_general_rule_7_0 reqs1_empty_not_nextReqIs_general_invariant)
+done
 show goal38: "C_not_C_msg Modified ISAD nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) MESI_State.distinct(3) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) MESI_State.distinct(3) i221)
+done
 show goal39: "C_msg_P_same Invalid nextStore (\<lambda>T i. \<not> nextHTDDataPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 using aux53p
 unfolding C_msg_P_same_def
@@ -1949,1485 +2069,2941 @@ apply (metis CSTATE_otherside_rule_5_0 C_msg_P_same_def device_perform_op_nextHT
 done
 qed
 show goal40: "C_msg_P_same Invalid nextStore (\<lambda>T i. \<not> nextSnoopIs SnpInv T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(95) i221 i593) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(95) i221 i593)
+done
 show goal41: "C_msg_P_same ISAD nextGOPending (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 using aux53p
 by (smt (verit) C_msg_P_same_def C_msg_state_def i47 i52 nextGOPending_DeviceISDData nextReqIs_ISDData)
 show goal42: "snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps2 assms i79 i81)
+done
 show goal43: "snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_reqresps2 device_perform_op_reqs2 device_perform_op_snpresps1 device_perform_op_snps1 assms i56 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_reqresps2 device_perform_op_reqs2 device_perform_op_snpresps1 device_perform_op_snps1 assms i56 i81)
+done
 show goal44: "length (reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i57 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i57 i81)
+done
 show goal45: "length (reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs2 i58) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs2 i58)
+done
 show goal46: "length (snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps2 assms i60 i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps2 assms i60 i79)
+done
 show goal47: "length (snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps1 i61) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps1 i61)
+done
 show goal48: "C_msg_P_same Shared (nextSnoopIs SnpInv) (\<lambda>T i. \<not> nextHTDDataPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 by (smt (verit) aux48)
 show goal49: "C_msg_P_same IIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1)
+done
 show goal50: "C_msg_P_oppo Invalid nextStore (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 using C_msg_P_oppo_def
 by (smt (z3) CSTATE_inequality_invariant CSTATE_otherside_rule_8 ISDData_nextStore_otherside MESI_State.distinct(95) i221 i612old nextSnoopPending_general_rule_7_0)
 show goal51: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(95) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(95) i221)
+done
 show goal52: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i382 i614old i81) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i382 i614old i81)
+done
 show goal53: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
 by (metis device_perform_op_reqresps1 device_perform_op_snpresps2 device_perform_op_snps2 aux53 i1x i79)
 show goal54: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i616old i81) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i616old i81)
+done
 show goal55: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221)
+done
 show goal56: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_htddatas2 device_perform_op_snpresps1 device_perform_op_snps1 aux3_r42 i618old) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_htddatas2 device_perform_op_snpresps1 device_perform_op_snps1 aux3_r42 i618old)
+done
 show goal57: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal58: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i69) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i69)
+done
 show goal59: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal60: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i71) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i71)
+done
 show goal61: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal62: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal63: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal64: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal65: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(97) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(97) i221)
+done
 show goal66: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i752old nextLoad_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i752old nextLoad_DeviceISDData)
+done
 show goal67: "C_msg_P_host ISD (nextSnoopIs SnpInv) (HSTATE MA) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs assms i400 i401) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs assms i400 i401)
+done
 show goal68: "length (htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) assms htddatas1_empty_if_minus_rule_2_0 i57 i77 i79 i81) done
+apply  (insert assms)
+apply (smt (verit) assms htddatas1_empty_if_minus_rule_2_0 i57 i77 i79 i81)
+done
 show goal69: "length (htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_htddatas2 i78) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_htddatas2 i78)
+done
 show goal70: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal71: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i80 i81) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i80 i81)
+done
 show goal72: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal73: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i82) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i82)
+done
 show goal74: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal75: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending device_perform_op_reqs2 i84) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending device_perform_op_reqs2 i84)
+done
 show goal76: "length (reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i552 i57 i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i552 i57 i79 i81)
+done
 show goal77: "length (reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps2 i86) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps2 i86)
+done
 show goal78: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal79: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps2 assms i552 i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps2 assms i552 i79)
+done
 show goal80: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_nextGOPendingIs assms i79 reqresps_empty_noGOPendingIs1) done
+apply  (insert assms)
+apply (smt (verit) ISDData_nextGOPendingIs assms i79 reqresps_empty_noGOPendingIs1)
+done
 show goal81: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal82: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) i221)
+done
 show goal83: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i92 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i92 nextReqIs_ISDData)
+done
 show goal84: "C_msg_P_same MIA (nextReqIs DirtyEvict) nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) ISDData_nextEvict aux_r93 i539 nextReqIs_ISDData) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) ISDData_nextEvict aux_r93 i539 nextReqIs_ISDData)
+done
 show goal85: "reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal86: "reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps2 device_perform_op_reqs2 assms i81 i95) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps2 device_perform_op_reqs2 assms i81 i95)
+done
 show goal87: "reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal88: "reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs2 device_perform_op_snpresps1 assms i81 i99) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs2 device_perform_op_snpresps1 assms i81 i99)
+done
 show goal89: "reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal90: "reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_htddatas2 device_perform_op_reqs2 assms i101 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_htddatas2 device_perform_op_reqs2 assms i101 i81)
+done
 show goal91: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal92: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal93: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal94: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal95: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal96: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal97: "reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal98: "reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps2 device_perform_op_reqs2 assms i81 i95) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps2 device_perform_op_reqs2 assms i81 i95)
+done
 show goal99: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i106) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i106)
+done
 show goal100: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal101: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_htddatas2 ISDData_HSTATE assms i108 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_htddatas2 ISDData_HSTATE assms i108 i81)
+done
 show goal102: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas2 ISDData_HSTATE assms i109 nextHTDDataPending_various_forms1) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas2 ISDData_HSTATE assms i109 nextHTDDataPending_various_forms1)
+done
 show goal103: "length (dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 i883) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 i883)
+done
 show goal104: "length (dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas2 i884) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas2 i884)
+done
 show goal105: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal106: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
 by (smt (verit) HSTATE_rule_6 i109 i191 i2x nextDTHDataFrom_def nextDTHDataFrom_general_rule_4_0 nextHTDDataPending_def)
 show goal107: "HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i114 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i114 nextSnpRespIs_general_rule_7_0)
+done
 show goal108: "HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 HSTATE_rule_6 MESI_State.distinct(183) i115 i1x i2x i352 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 HSTATE_rule_6 MESI_State.distinct(183) i115 i1x i2x i352 nextSnpRespIs_general_rule_7_0)
+done
 show goal109: "nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(139) MESI_State.distinct(183) MESI_State.distinct(185) MESI_State.distinct(187) MESI_State.distinct(203) assms i456 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(139) MESI_State.distinct(183) MESI_State.distinct(185) MESI_State.distinct(187) MESI_State.distinct(203) assms i456 nextSnpRespIs_general_rule_7_0)
+done
 show goal110: "nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside aux3_r42 i457 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside aux3_r42 i457 nextSnpRespIs_general_rule_7_0)
+done
 show goal111: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) i2x i316 i453 i582 i617old nextHTDDataPending_def nextReqIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) i2x i316 i453 i582 i617old nextHTDDataPending_def nextReqIs_general_rule_7_0)
+done
 show goal112: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms aux3_r42 i454 i577 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms aux3_r42 i454 i577 nextReqIs_ISDData)
+done
 show goal113: "snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps2 device_perform_op_snpresps1 assms i118 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps2 device_perform_op_snpresps1 assms i118 i81)
+done
 show goal114: "snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i79)
+done
 show goal115: "length (snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps1 i120) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps1 i120)
+done
 show goal116: "length (snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i552 i60 i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i552 i60 i79)
+done
 show goal117: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i106) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i106)
+done
 show goal118: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i438 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i438 nextSnpRespIs_general_rule_7_0)
+done
 show goal119: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i190 i2x i449 nextDTHDataFrom_def nextSnpRespIs_general_rule_7_0 remove_instr_HSTATE) done
+apply  (insert assms)
+apply (metis hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i190 i2x i449 nextDTHDataFrom_def nextSnpRespIs_general_rule_7_0 remove_instr_HSTATE)
+done
 show goal120: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i450 nextHTDDataPending_various_forms1 nextSnpRespIs_general_rule_7_0 remove_instr_HSTATE) done
+apply  (insert assms)
+apply (metis hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i450 nextHTDDataPending_various_forms1 nextSnpRespIs_general_rule_7_0 remove_instr_HSTATE)
+done
 show goal121: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant device_perform_op_snpresps1 MESI_State.distinct(185) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i443 nextHTDDataPending_various_forms1 remove_instr_HSTATE) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant device_perform_op_snpresps1 MESI_State.distinct(185) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i443 nextHTDDataPending_various_forms1 remove_instr_HSTATE)
+done
 show goal122: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant device_perform_op_snpresps2 MESI_State.distinct(187) MESI_State.distinct(207) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i352 i452 remove_instr_HSTATE) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant device_perform_op_snpresps2 MESI_State.distinct(187) MESI_State.distinct(207) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i352 i452 remove_instr_HSTATE)
+done
 show goal123: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_htddatas2 device_perform_op_snpresps1 ISDData_HSTATE assms i126 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_htddatas2 device_perform_op_snpresps1 ISDData_HSTATE assms i126 i81)
+done
 show goal124: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 ISDData_HSTATE assms i127 nextHTDDataPending_various_forms1) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 ISDData_HSTATE assms i127 nextHTDDataPending_various_forms1)
+done
 show goal125: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal126: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal127: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i611) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i611)
+done
 show goal128: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i606) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i606)
+done
 show goal129: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i613) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i613)
+done
 show goal130: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i603) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i603)
+done
 show goal131: "dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<and> HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_snpresps2 ISDData_HSTATE assms i136 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_snpresps2 ISDData_HSTATE assms i136 i81)
+done
 show goal132: "dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<and> HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas2 device_perform_op_snpresps1 ISDData_HSTATE assms i137 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas2 device_perform_op_snpresps1 ISDData_HSTATE assms i137 i81)
+done
 show goal133: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(97) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(97) i221)
+done
 show goal134: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i752old nextLoad_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i752old nextLoad_DeviceISDData)
+done
 show goal135: "C_msg_P_same IIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1)
+done
 show goal136: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221)
+done
 show goal137: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i143 i144 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i143 i144 nextGOPending_DeviceISDData)
+done
 show goal138: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) i221)
+done
 show goal139: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i146 nextLoad_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i146 nextLoad_DeviceISDData)
+done
 show goal140: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal141: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i148) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i148)
+done
 show goal142: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal143: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i150 i81 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i150 i81 nextGOPending_DeviceISDData)
+done
 show goal144: "(CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal145: "(CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal146: "(CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal147: "(CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal148: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal149: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i106) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i106)
+done
 show goal150: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i161 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(183) assms i161 nextDTHDataFrom_general_rule_4_0)
+done
 show goal151: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal152: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) HTDDataPending_htddatas_invariant1 ISDData_HSTATE assms i165 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) HTDDataPending_htddatas_invariant1 ISDData_HSTATE assms i165 nextDTHDataFrom_general_rule_4_0)
+done
 show goal153: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal154: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal155: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal156: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal157: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i392 i656 i658 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i392 i656 i658 nextReqIs_ISDData)
+done
 show goal158: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 ISDData_HSTATE assms i186 i591 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 ISDData_HSTATE assms i186 i591 i81)
+done
 show goal159: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas2 ISDData_HSTATE assms i186 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas2 ISDData_HSTATE assms i186 i81)
+done
 show goal160: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 ISDData_HSTATE assms i186 i591 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 ISDData_HSTATE assms i186 i591 i81)
+done
 show goal161: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal162: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal163: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal164: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal165: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal166: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux3_r42 aux4_r42 i178 i179 i770 i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux3_r42 aux4_r42 i178 i179 i770 i802)
+done
 show goal167: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal168: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs assms aux3_r42 aux_not_invalidM i180 i181 i220 i602 i603) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs assms aux3_r42 aux_not_invalidM i180 i181 i220 i602 i603)
+done
 show goal169: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal170: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i182 i183 i220) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i182 i183 i220)
+done
 show goal171: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221)
+done
 show goal172: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) i221) done
+apply  (insert assms)
+apply (smt (verit) i221)
+done
 show goal173: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 ISDData_HSTATE assms i186 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 ISDData_HSTATE assms i186 i81)
+done
 show goal174: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal175: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal176: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal177: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 ISDData_HSTATE assms i455 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 ISDData_HSTATE assms i455 i81)
+done
 show goal178: "nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal179: "nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_nextHTDDataPending i191 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_nextHTDDataPending i191 nextDTHDataFrom_general_rule_4_0)
+done
 show goal180: "nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal181: "nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal182: "HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 ISDData_HSTATE assms i194 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 ISDData_HSTATE assms i194 i81)
+done
 show goal183: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221)
+done
 show goal184: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (\<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> (\<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_rule_6 ISDData_Shared_aux1 MESI_State.distinct(121) SharedSnpInv'_CSTATE_invariant5 i196 i222 nextLoad_devstate nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_rule_6 ISDData_Shared_aux1 MESI_State.distinct(121) SharedSnpInv'_CSTATE_invariant5 i196 i222 nextLoad_devstate nextSnpRespIs_general_rule_7_0)
+done
 show goal185: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal186: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal187: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal188: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal189: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221)
+done
 show goal190: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal191: "snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i552 i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i552 i79 i81)
+done
 show goal192: "snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i79 i81)
+done
 show goal193: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs i796) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs i796)
+done
 show goal194: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux4_r42 i796) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux4_r42 i796)
+done
 show goal195: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs i309 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs i309 nextDTHDataFrom_general_rule_4_0)
+done
 show goal196: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal197: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux4_r42 i859) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux4_r42 i859)
+done
 show goal198: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> (nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs i859) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs i859)
+done
 show goal199: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal200: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 C_msg_P_same_def ISDData_nextEvict MESI_State.distinct(133) aux4_r42 i221 i314) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 C_msg_P_same_def ISDData_nextEvict MESI_State.distinct(133) aux4_r42 i221 i314)
+done
 show goal201: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_different2 CSTATE_otherside_rule_5_0 C_msg_state_def MESI_State.distinct(133) MESI_State.distinct(289) i221 i47 nextReqIs_general_rule_7_0) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_different2 CSTATE_otherside_rule_5_0 C_msg_state_def MESI_State.distinct(133) MESI_State.distinct(289) i221 i47 nextReqIs_general_rule_7_0)
+done
 show goal202: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(133) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(133) i221)
+done
 show goal203: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps1 device_perform_op_snps1 assms i317 i81) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps1 device_perform_op_snps1 assms i317 i81)
+done
 show goal204: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1)
+done
 show goal205: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221)
+done
 show goal206: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE assms aux4_r42 i319 i320 i770 i802) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE assms aux4_r42 i319 i320 i770 i802)
+done
 show goal207: "C_msg_P_same SIA (nextGOPendingIs GO_WritePull) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (metis CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_Shared_aux1 MESI_State.distinct(133) SharedSnpInv'_CSTATE_invariant5 assms aux4_r42 aux5_r42 i138 i2x i316 i320 i323 i770 i809 i818 nextDTHDataFrom_def nextDTHDataPending_def nextHTDDataPending_various_forms1 nextLoad_devstate) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (metis CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_Shared_aux1 MESI_State.distinct(133) SharedSnpInv'_CSTATE_invariant5 assms aux4_r42 aux5_r42 i138 i2x i316 i320 i323 i770 i809 i818 nextDTHDataFrom_def nextDTHDataPending_def nextHTDDataPending_various_forms1 nextLoad_devstate)
+done
 show goal208: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221)
+done
 show goal209: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal210: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 C_msg_P_same_def ISDData_nextEvict MESI_State.distinct(133) i221 i324 nextGOPendingIs_general_rule_7_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 C_msg_P_same_def ISDData_nextEvict MESI_State.distinct(133) i221 i324 nextGOPendingIs_general_rule_7_1)
+done
 show goal211: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextReqIs RdShared T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_different2 CSTATE_otherside_rule_5_0 C_msg_state_def MESI_State.distinct(133) MESI_State.distinct(289) i221 i47 nextReqIs_general_rule_7_0) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_different2 CSTATE_otherside_rule_5_0 C_msg_state_def MESI_State.distinct(133) MESI_State.distinct(289) i221 i47 nextReqIs_general_rule_7_0)
+done
 show goal212: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i1x i221 i79 nextSnoopPending_empty_not_rule_7_1)
+done
 show goal213:  "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221)
+done
 show goal214:  "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextGOPendingIs assms aux_not_invalidM i220 i327 i328 i770) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextGOPendingIs assms aux_not_invalidM i220 i327 i328 i770)
+done
 show goal215: "C_msg_P_same SIA (nextGOPendingIs GO_WritePullDrop) (\<lambda>T i. \<not> nextDTHDataPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 by (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant CSTATE_otherside_rule_8 C_msg_P_same_def ISDData_nextGOPendingIs MESI_State.distinct(133) aux5_r42 i329)
 show goal216: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal217: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221)
+done
 show goal218: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i333 i334) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i333 i334)
+done
 show goal219: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) i221)
+done
 show goal220: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(105) i221)
+done
 show goal221: "C_not_C_msg Modified IMAD nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(3) i221) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(3) i221)
+done
 show goal222: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal223: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal224: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextStore_otherside i340) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextStore_otherside i340)
+done
 show goal225: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal226: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i342 i552 i79 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i342 i552 i79 nextGOPending_DeviceISDData)
+done
 show goal227: "snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i552 i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i552 i79 i81)
+done
 show goal228: "snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i79 i81)
+done
 show goal229: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i220 i332 i345) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i220 i332 i345)
+done
 show goal230: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE assms i220 i338 i346 i632 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE assms i220 i338 i346 i632 nextGOPending_DeviceISDData)
+done
 show goal231: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal232: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE assms i220 i347 i348 i632 i914 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE assms i220 i347 i348 i632 i914 nextGOPending_DeviceISDData)
+done
 show goal233: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal234: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextStore_otherside i350) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextStore_otherside i350)
+done
 show goal235: "C_msg_P_same IMA nextGOPending nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(107) i1x i221 i826 nextGOPending_General_rule_4_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(107) i1x i221 i826 nextGOPending_General_rule_4_1)
+done
 show goal236: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) MESI_State.distinct(127) MESI_State.distinct(99) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) MESI_State.distinct(127) MESI_State.distinct(99) i221)
+done
 show goal237: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending i353) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending i353)
+done
 show goal238: "C_msg_P_oppo IMA nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(107) assms i221 i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(107) assms i221 i826 i829 nextGOPending_DeviceISDData)
+done
 show goal239: "C_msg_P_oppo SMA nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(127) i221 i2x i852 nextGOPending_General_rule_4_1 nextHTDDataPending_def) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(127) i221 i2x i852 nextGOPending_General_rule_4_1 nextHTDDataPending_def)
+done
 show goal240: "C_msg_P_oppo ISA nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
 by (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant CSTATE_otherside_rule_5_0 C_msg_P_oppo_def MESI_State.distinct(99) i356 nextGOPending_DeviceISDData nextSnoopPending_general_rule_7_0)
 show goal241: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal242: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal243: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> ((CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant ISDData_Shared_aux1 MESI_State.distinct(105) MESI_State.distinct(109) MESI_State.distinct(125) MESI_State.distinct(129) SharedSnpInv'_CSTATE_invariant5 i222 nextLoad_devstate) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant ISDData_Shared_aux1 MESI_State.distinct(105) MESI_State.distinct(109) MESI_State.distinct(125) MESI_State.distinct(129) SharedSnpInv'_CSTATE_invariant5 i222 nextLoad_devstate)
+done
 show goal244: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> ((CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 i2x i466 nextGOPending_General_rule_4_1 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 i2x i466 nextGOPending_General_rule_4_1 nextSnoopIs_general_rule_7_0)
+done
 show goal245: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> (dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(107) MESI_State.distinct(125) MESI_State.distinct(127)) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(105) MESI_State.distinct(107) MESI_State.distinct(125) MESI_State.distinct(127))
+done
 show goal246: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> (dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6_flipped CSTATE_inequality_invariant CSTATE_otherside_rule_8 device_perform_op_dthdatas2 MESI_State.distinct(105) SharedSnpInv'_CSTATE_invariant5_2 SharedSnpInv'_MAD_CSTATE_invariant4 dthdatas1_general_rule_4_0 i190 i191 i2x i407 nextDTHDataFrom_def nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6_flipped CSTATE_inequality_invariant CSTATE_otherside_rule_8 device_perform_op_dthdatas2 MESI_State.distinct(105) SharedSnpInv'_CSTATE_invariant5_2 SharedSnpInv'_MAD_CSTATE_invariant4 dthdatas1_general_rule_4_0 i190 i191 i2x i407 nextDTHDataFrom_def nextHTDDataPending_otherside_rule_2_0)
+done
 show goal247: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(129) assms i79 nextGOPending_DeviceISDData reqresps_empty_noGOPending1) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(129) assms i79 nextGOPending_DeviceISDData reqresps_empty_noGOPending1)
+done
 show goal248: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 device_perform_op_dthdatas2 i436 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 device_perform_op_dthdatas2 i436 nextGOPending_DeviceISDData)
+done
 show goal249: "C_msg_P_same SMA nextGOPending nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextStore_otherside MESI_State.distinct(127) i221 i371) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextStore_otherside MESI_State.distinct(127) i221 i371)
+done
 show goal250: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(127) MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(127) MESI_State.distinct(129) i221)
+done
 show goal251: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE assms i220 i353 i366 i367 i547 i643 i645 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE assms i220 i353 i366 i367 i547 i643 i645 nextGOPending_DeviceISDData)
+done
 show goal252: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) MESI_State.distinct(103) MESI_State.distinct(97) MESI_State.distinct(99) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(101) MESI_State.distinct(103) MESI_State.distinct(97) MESI_State.distinct(99) i221)
+done
 show goal253: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextLoad ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i146 i369 i752old nextLoad_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i146 i369 i752old nextLoad_DeviceISDData)
+done
 show goal254: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_disj1 MESI_State.distinct(105) MESI_State.distinct(107) MESI_State.distinct(109) MESI_State.distinct(125) MESI_State.distinct(127) MESI_State.distinct(129)) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_disj1 MESI_State.distinct(105) MESI_State.distinct(107) MESI_State.distinct(109) MESI_State.distinct(125) MESI_State.distinct(127) MESI_State.distinct(129))
+done
 show goal255: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextStore ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextStore_otherside i340 i350 i371) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextStore_otherside i340 i350 i371)
+done
 show goal256: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 dthdatas1_general_rule_4_0 i190 i2x i462 nextDTHDataFrom_def) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 dthdatas1_general_rule_4_0 i190 i2x i462 nextDTHDataFrom_def)
+done
 show goal257: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
 apply  (insert assms)
-by (metis CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(253) MESI_State.distinct(3) dofix.device_perform_op_dthdatas2 dofix.device_perform_op_nextHTDDataPending i221 i436 i463 i79 nextGOPending_DeviceISDData nextSnpRespIs_invariant2)
-
+apply (metis CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(253) MESI_State.distinct(3) dofix.device_perform_op_dthdatas2 dofix.device_perform_op_nextHTDDataPending i221 i436 i463 i79 nextGOPending_DeviceISDData nextSnpRespIs_invariant2)
+done
 show goal258: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(99) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(99) i221)
+done
 show goal259: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i374 i375 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i374 i375 nextGOPending_DeviceISDData)
+done
 show goal260: "CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(103) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(103) i221)
+done
 show goal261: "CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE assms aux_not_invalidM i220 i376 i383 i602 i603 i632) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE assms aux_not_invalidM i220 i376 i383 i602 i603 i632)
+done
 show goal262: "CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(103) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(103) i221)
+done
 show goal263: "CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 device_perform_op_snps2 assms i378 i79) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 device_perform_op_snps2 assms i378 i79)
+done
 show goal264: "CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> \<not> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal265: "CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> \<not> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal266: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i79 i81)
+done
 show goal267: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 assms i382 i81) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 assms i382 i81)
+done
 show goal268: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal269: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i385) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i385)
+done
 show goal270: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508)
+done
 show goal271: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i468 i509) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i468 i509)
+done
 show goal272: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal273: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 ISDData_nextSnoopIs assms i389 i79) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 ISDData_nextSnoopIs assms i389 i79)
+done
 show goal274: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal275: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0) done
+apply  (insert assms)
+apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0)
+done
 show goal276: "nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(187) MESI_State.distinct(207) assms i392 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(187) MESI_State.distinct(207) assms i392 nextReqIs_ISDData)
+done
 show goal277: "nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i393 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i393 nextReqIs_ISDData)
+done
 show goal278: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> CXL_SPG_used ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal279: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> CXL_SPG_used ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CXL_SPG_used_general_rule_4_0 ISDData_nextSnoopIs i397 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CXL_SPG_used_general_rule_4_0 ISDData_nextSnoopIs i397 nextReqIs_ISDData)
+done
 show goal280: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal281: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i401) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i401)
+done
 show goal282: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508)
+done
 show goal283: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(189) MESI_State.distinct(207) MESI_State.distinct(209) assms i401 i466 i470 i636 i937) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(189) MESI_State.distinct(207) MESI_State.distinct(209) assms i401 i466 i470 i636 i937)
+done
 show goal284: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal285: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal286: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal287: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal288: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal289: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal290: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal291: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(187) assms i425 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(187) assms i425 nextDTHDataFrom_general_rule_4_0)
+done
 show goal292: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal293: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps1 ISDData_HSTATE i427 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps1 ISDData_HSTATE i427 nextDTHDataFrom_general_rule_4_0)
+done
 show goal294: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal295: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i474 i888 nextDTHDataFrom_general_rule_4_0 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i474 i888 nextDTHDataFrom_general_rule_4_0 nextReqIs_ISDData)
+done
 show goal296: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal297: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs1 ISDData_HSTATE assms i431 i81 i888 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs1 ISDData_HSTATE assms i431 i81 i888 nextDTHDataFrom_general_rule_4_0)
+done
 show goal298: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal299: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i79)
+done
 show goal300: "(HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(185) assms i443 i799 nextHTDDataPending_various_forms1) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(185) assms i443 i799 nextHTDDataPending_various_forms1)
+done
 show goal301: "(HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps2 ISDData_HSTATE i444 i800 i890) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps2 ISDData_HSTATE i444 i800 i890)
+done
 show goal302: "nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) i221) done
+apply  (insert assms)
+apply (smt (verit) i221)
+done
 show goal303: "nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i442 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i442 nextSnpRespIs_general_rule_7_0)
+done
 show goal304: "(CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal305: "(CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_different1 CSTATE_otherside_rule_5_0 HSTATE_rule_6 MESI_State.distinct(187) MESI_State.distinct(207) i1x i2x i352 i461 nextReqIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis CSTATE_different1 CSTATE_otherside_rule_5_0 HSTATE_rule_6 MESI_State.distinct(187) MESI_State.distinct(207) i1x i2x i352 i461 nextReqIs_general_rule_7_0)
+done
 show goal306: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal307: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i476) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i476)
+done
 show goal308: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal309: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i478) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i478)
+done
 show goal310: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal311: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i693) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i693)
+done
 show goal312: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal313: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i400 i466 i601 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i400 i466 i601 nextSnoopIs_general_rule_7_0)
+done
 show goal314: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal315: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i695) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i695)
+done
 show goal316: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal317: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0)
+done
 show goal318: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal319: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i697) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i697)
+done
 show goal320: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal321: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0)
+done
 show goal322: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal323: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal324: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal325: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal326: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal327: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i484) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i484)
+done
 show goal328: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal329: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(183) assms i486) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(183) assms i486)
+done
 show goal330: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal331: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i488) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i488)
+done
 show goal332: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal333: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i490 i81) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_reqresps2 device_perform_op_snpresps1 device_perform_op_snps1 assms i490 i81)
+done
 show goal334: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal335: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal336: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal337: "nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) MESI_State.distinct(95) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) MESI_State.distinct(95) i221)
+done
 show goal338: "nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i495 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i495 nextReqIs_ISDData)
+done
 show goal339: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal340: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal341: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal342: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal343: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal344: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i317 i79) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i317 i79)
+done
 show goal345: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal346: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i503) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i503)
+done
 show goal347: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> CXL_SPG_used ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(133) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(133) i221)
+done
 show goal348: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> CXL_SPG_used ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CXL_SPG_used_general_rule_4_0 ISDData_nextSnoopIs i505 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CXL_SPG_used_general_rule_4_0 ISDData_nextSnoopIs i505 nextReqIs_ISDData)
+done
 show goal349: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508)
+done
 show goal350: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
 by (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 MESI_State.distinct(565) MESI_State.distinct(575) assms goal317 goal321 i503 i636 nextSnoopIs_general_rule_7_0)
 show goal351: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs assms i469 i508)
+done
 show goal352: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i509) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i509)
+done
 show goal353: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i613) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i613)
+done
 show goal354: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (\<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal355: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (\<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal356: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i613) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i613)
+done
 show goal357: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i613) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i613)
+done
 show goal358: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(125) i221)
+done
 show goal359: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending i516 i914 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending i516 i914 nextGOPending_DeviceISDData)
+done
 show goal360: "C_msg_P_oppo SMAD nextGOPending (\<lambda>T i. \<not> nextSnoopPending T i) ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(125) empty_no_snoop i1x i221 i466 i599 nextGOPending_General_rule_4_1) done
+apply  (insert assms , unfold SWMR_def C_msg_P_same_def C_msg_P_oppo_def H_msg_P_same_def C_H_state_def C_msg_not_def H_msg_P_oppo_def C_msg_P_host_def C_state_not_def H_C_state_msg_same_def H_C_state_msg_oppo_def C_msg_state_def C_not_C_msg_def)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(125) empty_no_snoop i1x i221 i466 i599 nextGOPending_General_rule_4_1)
+done
 show goal361: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal362: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i947 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i947 nextReqIs_ISDData)
+done
 show goal363: "nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextReqRespStateIs Invalid (reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal364: "nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextReqRespStateIs Invalid (reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal365: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal366: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextEvict i525 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextEvict i525 nextReqIs_ISDData)
+done
 show goal367: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) i1x i81 nextReqIs_general_rule_7_0 nextReqIs_not_various_forms1) done
+apply  (insert assms)
+apply (smt (verit) i1x i81 nextReqIs_general_rule_7_0 nextReqIs_not_various_forms1)
+done
 show goal368: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextEvict i527 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextEvict i527 nextReqIs_ISDData)
+done
 show goal369: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal370: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i529 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i529 nextReqIs_ISDData)
+done
 show goal371: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(103) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(103) i221)
+done
 show goal372: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i531 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i531 nextReqIs_ISDData)
+done
 show goal373: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal374: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal375: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal376: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal377: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 device_perform_op_htddatas2 HTDDataPending_htddatas_invariant2 assms i353 i469 i614 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 device_perform_op_htddatas2 HTDDataPending_htddatas_invariant2 assms i353 i469 i614 nextSnoopIs_general_rule_7_0)
+done
 show goal378: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i468 i509) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i468 i509)
+done
 show goal379: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) i2x i316 i453 i582 i617old nextHTDDataPending_def nextReqIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) i2x i316 i453 i582 i617old nextHTDDataPending_def nextReqIs_general_rule_7_0)
+done
 show goal380: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_nextEvict i539 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) ISDData_nextEvict i539 nextReqIs_ISDData)
+done
 show goal381: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal382: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal383: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal384: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal385: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextReqRespStateIs Invalid (reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal386: "nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> nextReqRespStateIs Invalid (reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal387: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221)
+done
 show goal388: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547)
+done
 show goal389: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221)
+done
 show goal390: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i904) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i904)
+done
 show goal391: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221)
+done
 show goal392: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i367 i547) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i367 i547)
+done
 show goal393: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal394: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i553) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i553)
+done
 show goal395: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221)
+done
 show goal396: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i555) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i555)
+done
 show goal397: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) i2x i316 i556 i617old i929 i946 nextHTDDataPending_def nextReqIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) i2x i316 i556 i617old i929 i946 nextHTDDataPending_def nextReqIs_general_rule_7_0)
+done
 show goal398: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside aux3_r42 i557 i947 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside aux3_r42 i557 i947 nextReqIs_ISDData)
+done
 show goal399: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal400: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal401: "CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i560) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i560)
+done
 show goal402: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) i2x i316 i556 i617old i929 i946 nextHTDDataPending_def nextReqIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) i2x i316 i556 i617old i929 i946 nextHTDDataPending_def nextReqIs_general_rule_7_0)
+done
 show goal403: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> nextEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_nextEvict i562 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) ISDData_nextEvict i562 nextReqIs_ISDData)
+done
 show goal404: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(103) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(103) i221)
+done
 show goal405: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i564 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i564 nextReqIs_ISDData)
+done
 show goal406: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221)
+done
 show goal407: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextReqIs CleanEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal408: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal409: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal410: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal411: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> ((CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)) \<and> \<not> ((CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal412: "nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal413: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal414: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal415: "nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_nextGOPendingIs aux4_r42 i578) done
+apply  (insert assms)
+apply (smt (verit) ISDData_nextGOPendingIs aux4_r42 i578)
+done
 show goal416: "nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_nextGOPendingIs aux4_r42 i578) done
+apply  (insert assms)
+apply (smt (verit) ISDData_nextGOPendingIs aux4_r42 i578)
+done
 show goal417: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant ISDData_Shared_aux1 MESI_State.distinct(105) MESI_State.distinct(107) MESI_State.distinct(125) MESI_State.distinct(127) SharedSnpInv'_CSTATE_invariant5 i222 nextLoad_devstate) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant ISDData_Shared_aux1 MESI_State.distinct(105) MESI_State.distinct(107) MESI_State.distinct(125) MESI_State.distinct(127) SharedSnpInv'_CSTATE_invariant5 i222 nextLoad_devstate)
+done
 show goal418: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i183 i220 i345 i581 i802 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i183 i220 i345 i581 i802 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal419: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal420: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal421: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal422: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal423: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal424: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal425: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 aux_not_invalidM i220 i313 i796) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 aux_not_invalidM i220 i313 i796)
+done
 show goal426: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221)
+done
 show goal427: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal428: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal429: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(95) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(95) i221)
+done
 show goal430: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs i593) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_nextSnoopIs i593)
+done
 show goal431: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal432: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221)
+done
 show goal433: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_5_0 device_perform_op_htddatas2 HTDDataPending_htddatas_invariant2 assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i353 i400 i596 i614 i636 nextSnoopIs_general_rule_7_0 remove_instr_HSTATE) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_5_0 device_perform_op_htddatas2 HTDDataPending_htddatas_invariant2 assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i353 i400 i596 i614 i636 nextSnoopIs_general_rule_7_0 remove_instr_HSTATE)
+done
 show goal434: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_disj1 MESI_State.distinct(187) MESI_State.distinct(207) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i352 i601 nextSnoopIs_general_rule_7_0 remove_instr_HSTATE) done
+apply  (insert assms)
+apply (metis CSTATE_disj1 MESI_State.distinct(187) MESI_State.distinct(207) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i352 i601 nextSnoopIs_general_rule_7_0 remove_instr_HSTATE)
+done
 show goal435: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal436: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i552 i599 i79 i914 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i552 i599 i79 i914 nextGOPending_DeviceISDData)
+done
 show goal437: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal438: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis HSTATE_rule_6 i1x i2x i352 i597 i621 i625 i631 i636 i924 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis HSTATE_rule_6 i1x i2x i352 i597 i621 i625 i631 i636 i924 nextSnoopIs_general_rule_7_0)
+done
 show goal439: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602)
+done
 show goal440: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602)
+done
 show goal441: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i604) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i604)
+done
 show goal442: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i604) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i604)
+done
 show goal443: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i606) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i606)
+done
 show goal444: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i606) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i606)
+done
 show goal445: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i608) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i608)
+done
 show goal446: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i609) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i609)
+done
 show goal447: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i610) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i610)
+done
 show goal448: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i608) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i608)
+done
 show goal449: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i609) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i609)
+done
 show goal450: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<or> HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i610) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms aux_not_invalidM i602 i610)
+done
 show goal451: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(97)) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(97))
+done
 show goal452: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i470 i509) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) MESI_State.distinct(207) assms i352 i470 i509)
+done
 show goal453: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(99)) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(99))
+done
 show goal454: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0) done
+apply  (insert assms)
+apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0)
+done
 show goal455: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(101)) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(101))
+done
 show goal456: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0) done
+apply  (insert assms)
+apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0)
+done
 show goal457: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal458: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621)
+done
 show goal459: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal460: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i623) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i623)
+done
 show goal461: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal462: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i625) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i625)
+done
 show goal463: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal464: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0) done
+apply  (insert assms)
+apply (metis assms empty_no_snoop2 i79 snps2_general_rule_7_0)
+done
 show goal465: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(129) i221)
+done
 show goal466: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i629) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i629)
+done
 show goal467: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221)
+done
 show goal468: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i631) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i631)
+done
 show goal469: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal470: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal471: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<longrightarrow> \<not> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal472: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<longrightarrow> \<not> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal473: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal474: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i637) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i637)
+done
 show goal475: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(99)) done
+apply  (insert assms)
+apply (metis CSTATE_assign_rule_6 CSTATE_inequality_invariant MESI_State.distinct(99))
+done
 show goal476: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i639) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(187) MESI_State.distinct(207) assms i2x i352 i639)
+done
 show goal477: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal478: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645)
+done
 show goal479: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(109) i221)
+done
 show goal480: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645)
+done
 show goal481: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal482: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645)
+done
 show goal483: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal484: "CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i401) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i401)
+done
 show goal485: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal486: "CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i647) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i647)
+done
 show goal487: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal488: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i148) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i148)
+done
 show goal489: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextSnoopIs assms i400)
+done
 show goal490: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i148) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i148)
+done
 show goal491: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) MESI_State.distinct(127) i221)
+done
 show goal492: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i653) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i653)
+done
 show goal493: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(129) i221)
+done
 show goal494: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i655) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i655)
+done
 show goal495: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0))"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal496: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1))"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i657 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i657 nextGOPending_DeviceISDData)
+done
 show goal497: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0))"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal498: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1))"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i659 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending ISDData_HSTATE i659 nextGOPending_DeviceISDData)
+done
 show goal499: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal500: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal501: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal502: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal503: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal504: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal505: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal506: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal507: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal508: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal509: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal510: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal511: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal512: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal513: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal514: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal515: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal516: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal517: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal518: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i645)
+done
 show goal519: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal520: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i342 i552 i79 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i342 i552 i79 nextGOPending_DeviceISDData)
+done
 show goal521: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal522: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0)
+done
 show goal523: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal524: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) empty_no_snoop2 i1x i79 nextSnoopIs_general_rule_7_0)
+done
 show goal525: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal526: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) empty_no_snoop_variant2 i1x i79 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) empty_no_snoop_variant2 i1x i79 nextSnoopIs_general_rule_7_0)
+done
 show goal527: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal528: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i688) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i688)
+done
 show goal529: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal530: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i690) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i690)
+done
 show goal531: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal532: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i698) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE ISDData_nextSnoopIs i698)
+done
 show goal533: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal534: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal535: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal536: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i702) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(3) i221 i702)
+done
 show goal537: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> length (dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1 \<and> length (dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 i883 i884) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 device_perform_op_dthdatas2 i883 i884)
+done
 show goal538: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> length (dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1 \<and> length (dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal539: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal540: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221)
+done
 show goal541: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> length (dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1 \<and> length (dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal542: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal543: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 ISDData_HSTATE i709 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 ISDData_HSTATE i709 nextDTHDataFrom_general_rule_4_0)
+done
 show goal544: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal545: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal546: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal547: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal548: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps1 device_perform_op_snps2 ISDData_HSTATE assms i714 i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps1 device_perform_op_snps2 ISDData_HSTATE assms i714 i79 i81)
+done
 show goal549: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal550: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal551: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i79 i81)
+done
 show goal552: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps2 ISDData_HSTATE assms i718 i81 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps2 ISDData_HSTATE assms i718 i81 nextDTHDataFrom_general_rule_4_0)
+done
 show goal553: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal554: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal555: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal556: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal557: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) MESI_State.distinct(129) i221)
+done
 show goal558: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i724) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i724)
+done
 show goal559: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal560: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal561: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> lastSharer ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal562: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> lastSharer ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(139) MESI_State.distinct(95) i1x i69 lastSharer_def lastSharer_non_Invalid_rule_5_0 nextReqIs_general_rule_7_0 nextReqIs_not_various_forms2) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(139) MESI_State.distinct(95) i1x i69 lastSharer_def lastSharer_non_Invalid_rule_5_0 nextReqIs_general_rule_7_0 nextReqIs_not_various_forms2)
+done
 show goal563: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> lastSharer ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal564: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> lastSharer ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221)
+done
 show goal565: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221)
+done
 show goal566: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i79 i81)
+done
 show goal567: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i79 i81)
+done
 show goal568: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps1 ISDData_HSTATE i734 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps1 ISDData_HSTATE i734 nextDTHDataFrom_general_rule_4_0)
+done
 show goal569: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal570: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(207) assms i2x i336 i352 i736 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_8 HSTATE_general_rule_5_0 MESI_State.distinct(207) assms i2x i336 i352 i736 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal571: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (\<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> (\<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal572: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(133) i221 i738 i889) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(133) i221 i738 i889)
+done
 show goal573: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant device_perform_op_snpresps2 MESI_State.distinct(187) MESI_State.distinct(207) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i352 i452 remove_instr_HSTATE) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant device_perform_op_snpresps2 MESI_State.distinct(187) MESI_State.distinct(207) assms hstate_invariants(17) hstate_invariants(20) hstate_invariants(24) i2x i352 i452 remove_instr_HSTATE)
+done
 show goal574: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal575: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal576: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal577: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(117) i221)
+done
 show goal578: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal579: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal580: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal581: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal582: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal583: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(99) i221 i749 i889) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(99) i221 i749 i889)
+done
 show goal584: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i79)
+done
 show goal585: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal586: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal587: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal588: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal589: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal590: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0))"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal591: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal592: "CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal593: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 assms i759 i81) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqresps2 assms i759 i81)
+done
 show goal594: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqresps1 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqresps1 assms i79 i81)
+done
 show goal595: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal596: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal597: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i763) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i763)
+done
 show goal598: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal599: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal600: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal601: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal602: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal603: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal604: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal605: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602)
+done
 show goal606: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602)
+done
 show goal607: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i613) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i613)
+done
 show goal608: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i611) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i611)
+done
 show goal609: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i606) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i606)
+done
 show goal610: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i606) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i606)
+done
 show goal611: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal612: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdShared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal613: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal614: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal615: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal616: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal617: "snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<and> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal618: "snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<and> HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal619: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal620: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal621: "nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal622: "nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal623: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i789 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside ISDData_HSTATE i789 nextSnpRespIs_general_rule_7_0)
+done
 show goal624: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspSFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal625: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221)
+done
 show goal626: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal627: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal628: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal629: "HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i795) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i795)
+done
 show goal630: "HSTATE SharedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i796) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i796)
+done
 show goal631: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(121) i221)
+done
 show goal632: "CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 HSTATE_general_rule_5_0 MESI_State.distinct(183) aux3_r42 i1x i2x i352 i798) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 HSTATE_general_rule_5_0 MESI_State.distinct(183) aux3_r42 i1x i2x i352 i798)
+done
 show goal633: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(185) assms i799 nextHTDDataPending_various_forms1) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant device_perform_op_snpresps1 ISDData_HSTATE MESI_State.distinct(185) assms i799 nextHTDDataPending_various_forms1)
+done
 show goal634: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps2 ISDData_HSTATE i800 i890) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps2 ISDData_HSTATE i800 i890)
+done
 show goal635: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal636: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal637: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal638: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal639: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal640: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal641: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal642: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal643: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal644: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal645: "HSTATE MB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i802) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i802)
+done
 show goal646: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(133) i221)
+done
 show goal647: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(121) i221)
+done
 show goal648: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal649: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal650: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal651: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i817 i818 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i817 i818 nextDTHDataFrom_general_rule_4_0)
+done
 show goal652: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal653: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal654: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602)
+done
 show goal655: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602)
+done
 show goal656: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal657: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs RdOwn ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i824 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i824 nextReqIs_ISDData)
+done
 show goal658: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221)
+done
 show goal659: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal660: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221)
+done
 show goal661: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal662: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal663: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal664: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221)
+done
 show goal665: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal666: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal667: "CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) i221)
+done
 show goal668: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps2 assms i79)
+done
 show goal669: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps1 ISDData_HSTATE i836 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps1 ISDData_HSTATE i836 nextDTHDataFrom_general_rule_4_0)
+done
 show goal670: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal671: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal672: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal673: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(133) i221 i840 i888 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(133) i221 i840 i888 nextDTHDataFrom_general_rule_4_0)
+done
 show goal674: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal675: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i921) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i921)
+done
 show goal676: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(3) i221)
+done
 show goal677: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal678: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal679: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i79 i81)
+done
 show goal680: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221)
+done
 show goal681: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> (CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(101) i221)
+done
 show goal682: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221)
+done
 show goal683: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE ISA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_otherside_rule_5_0 HTDDataPending_htddatas_invariant1 i2x i852 nextGOPending_General_rule_4_1) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_otherside_rule_5_0 HTDDataPending_htddatas_invariant1 i2x i852 nextGOPending_General_rule_4_1)
+done
 show goal684: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221)
+done
 show goal685: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i852 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i852 nextGOPending_DeviceISDData)
+done
 show goal686: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221)
+done
 show goal687: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal688: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(95) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(95) i221)
+done
 show goal689: "CSTATE Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps2 assms i79 i81)
+done
 show goal690: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal691: "HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE ISD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
 by (metis CSTATE_assign_rule_6 CSTATE_disj1 MESI_State.distinct(101) goal106)
 show goal692: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i859) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE ISDData_nextGOPendingIs aux4_r42 i859)
+done
 show goal693: "HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal694: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal695: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE ISAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(183) i1x i516 i862 nextGOPending_General_rule_4_1 nextSnoopIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 CSTATE_otherside_rule_5_0 MESI_State.distinct(183) i1x i516 i862 nextGOPending_General_rule_4_1 nextSnoopIs_general_rule_7_0)
+done
 show goal696: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal697: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i516 i864 i914 nextGOPending_DeviceISDData nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i516 i864 i914 nextGOPending_DeviceISDData nextReqIs_ISDData)
+done
 show goal698: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 device_perform_op_snps2 assms i79)
+done
 show goal699: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i552 i599 i79 i914 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_snpresps1 device_perform_op_snps1 assms i552 i599 i79 i914 nextGOPending_DeviceISDData)
+done
 show goal700: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal701: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal702: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i577)
+done
 show goal703: "CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(117) i221)
+done
 show goal704: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal705: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal706: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (\<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> (\<not> CSTATE SIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> nextGOPendingIs GO_WritePullDrop ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal707: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis HSTATE_general_rule_5_0 i2x i943 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis HSTATE_general_rule_5_0 i2x i943 nextSnpRespIs_general_rule_7_0)
+done
 show goal708: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_different1 HSTATE_rule_6 MESI_State.distinct(187) MESI_State.distinct(207) i1x i2x i352 i875 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (metis CSTATE_different1 HSTATE_rule_6 MESI_State.distinct(187) MESI_State.distinct(207) i1x i2x i352 i875 nextSnpRespIs_general_rule_7_0)
+done
 show goal709: "length (dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas1 i883) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas1 i883)
+done
 show goal710: "length (dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])) \<le> 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_dthdatas2 i884) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_dthdatas2 i884)
+done
 show goal711: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal712: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO_WritePull ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal713: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal714: "HSTATE MAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(187) assms i425 i888 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant ISDData_HSTATE MESI_State.distinct(187) assms i425 i888 nextDTHDataFrom_general_rule_4_0)
+done
 show goal715: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 device_perform_op_snpresps1 HSTATE_general_rule_5_0 MESI_State.distinct(185) i1x i2x i443 nextHTDDataPending_def) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 device_perform_op_snpresps1 HSTATE_general_rule_5_0 MESI_State.distinct(185) i1x i2x i443 nextHTDDataPending_def)
+done
 show goal716: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> [] \<longrightarrow> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE Shared ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_snpresps2 assms i79) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snpresps2 assms i79)
+done
 show goal717: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal718: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> reqresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal719: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal720: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal721: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> (htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1)"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221)
+done
 show goal722: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> (htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<or> CSTATE ISDI ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0)"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i852 i854 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i852 i854 nextGOPending_DeviceISDData)
+done
 show goal723: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal724: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_dthdatas2 assms i81 i898) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_dthdatas2 assms i81 i898)
+done
 show goal725: "nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(107) MESI_State.distinct(127) i221)
+done
 show goal726: "nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i900 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i900 nextSnpRespIs_general_rule_7_0)
+done
 show goal727: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(109) i221)
+done
 show goal728: "CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i902) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i643 i902)
+done
 show goal729: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(129) i221)
+done
 show goal730: "CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i904) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending assms i547 i904)
+done
 show goal731: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(107) i221)
+done
 show goal732: "CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside assms i826 i829 nextGOPending_DeviceISDData)
+done
 show goal733: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(127) i221)
+done
 show goal734: "CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal735: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(105) i221)
+done
 show goal736: "CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal737: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal738: "HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal739: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal740: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal741: "HSTATE InvalidM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE aux_not_invalidM) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE aux_not_invalidM)
+done
 show goal742: "HSTATE IB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i770) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i770)
+done
 show goal743: "HSTATE ID ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i602 i613) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i602 i613)
+done
 show goal744: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i918 nextReqIs_ISDData nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i918 nextReqIs_ISDData nextSnpRespIs_general_rule_7_0)
+done
 show goal745: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i919 nextReqIs_ISDData nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i919 nextReqIs_ISDData nextSnpRespIs_general_rule_7_0)
+done
 show goal746: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal747: "CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i921) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside HTDDataPending_htddatas_invariant1 assms i921)
+done
 show goal748: "HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal749: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(125) i221)
+done
 show goal750: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpInv ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant device_perform_op_nextHTDDataPending ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i924) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant device_perform_op_nextHTDDataPending ISDData_nextSnoopIs MESI_State.distinct(187) assms i621 i924)
+done
 show goal751: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i943 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i943 nextSnpRespIs_general_rule_7_0)
+done
 show goal752: "CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs DirtyEvict ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(125) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(125) i221)
+done
 show goal753: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_different1 MESI_State.distinct(137) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_different1 MESI_State.distinct(137) i221)
+done
 show goal754: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> HSTATE SA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(3) i221)
+done
 show goal755: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(137) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(137) i221)
+done
 show goal756: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending i930) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_nextHTDDataPending i930)
+done
 show goal757: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(137) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(137) i221)
+done
 show goal758: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> snpresps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = [] \<and> htddatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps1 device_perform_op_snps1 assms i81 i932 nextGOPendingStateGeneral_rule_4_1 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_htddatas2 device_perform_op_snpresps1 device_perform_op_snps1 assms i81 i932 nextGOPendingStateGeneral_rule_4_1 nextGOPending_DeviceISDData)
+done
 show goal759: "(CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal760: "(CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> HSTATE ModifiedM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> CSTATE Modified ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> (CSTATE IMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE i220) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE i220)
+done
 show goal761: "(CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal762: "(CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> HSTATE MD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> dthdatas2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<noteq> []"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i632) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i632)
+done
 show goal763: "(CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (metis CSTATE_otherside_rule_5_0 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0) done
+apply  (insert assms)
+apply (metis CSTATE_otherside_rule_5_0 HSTATE_general_rule_5_0 assms i636 nextHTDDataPending_otherside_rule_2_0)
+done
 show goal764: "(CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1) \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_5_0 HSTATE_general_rule_5_0 MESI_State.distinct(187) assms i2x i352 i636 i826 i908 i930 i938 nextGOPendingStateGeneral_rule_4_1 nextGOPending_General_rule_4_1) done
+apply  (insert assms)
+apply (metis CSTATE_inequality_invariant CSTATE_otherside_rule_5_0 HSTATE_general_rule_5_0 MESI_State.distinct(187) assms i2x i352 i636 i826 i908 i930 i938 nextGOPendingStateGeneral_rule_4_1 nextGOPending_General_rule_4_1)
+done
 show goal765: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> snps1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(137) i221) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_inequality_invariant MESI_State.distinct(137) i221)
+done
 show goal766: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_snps2 assms i79 i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_snps2 assms i79 i81)
+done
 show goal767: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> reqs1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) device_perform_op_reqs1 assms i81) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_reqs1 assms i81)
+done
 show goal768: "CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> reqs2 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) = []"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i942 nextGOPendingStateGeneral_rule_4_1 nextGOPending_DeviceISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside device_perform_op_reqs2 i942 nextGOPendingStateGeneral_rule_4_1 nextGOPending_DeviceISDData)
+done
 show goal769: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) ISDData_HSTATE assms i943 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) ISDData_HSTATE assms i943 nextSnpRespIs_general_rule_7_0)
+done
 show goal770: "HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<and> nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) device_perform_op_nextHTDDataPending ISDData_HSTATE i944 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) device_perform_op_nextHTDDataPending ISDData_HSTATE i944 nextSnpRespIs_general_rule_7_0)
+done
 show goal771: "HSTATE SB ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> \<not> CSTATE MIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside CSTATE_inequality_invariant MESI_State.distinct(117) assms i221 i577)
+done
 show goal772: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal773: "nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) CSTATE_ISDData_otherside i947 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) CSTATE_ISDData_otherside i947 nextReqIs_ISDData)
+done
 show goal774: "nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0) done
+apply  (insert assms)
+apply (smt (verit) assms i190 nextDTHDataFrom_general_rule_4_0)
+done
 show goal775: "nextSnpRespIs RspIHitSE ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextDTHDataFrom 1 ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ])"
-apply  (insert assms) apply (smt (verit) i949 nextDTHDataFrom_general_rule_4_0 nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) i949 nextDTHDataFrom_general_rule_4_0 nextSnpRespIs_general_rule_7_0)
+done
 show goal776: "nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> \<not> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
-apply  (insert assms) apply (smt (verit) assms i929 i946 nextReqIs_ISDData) done
+apply  (insert assms)
+apply (smt (verit) assms i929 i946 nextReqIs_ISDData)
+done
 show goal777: "nextSnpRespIs RspIFwdM ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> \<not> nextReqIs CleanEvictNoData ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1"
-apply  (insert assms) apply (smt (verit) i951 nextReqIs_ISDData nextSnpRespIs_general_rule_7_0) done
+apply  (insert assms)
+apply (smt (verit) i951 nextReqIs_ISDData nextSnpRespIs_general_rule_7_0)
+done
 show goal778: "(CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 0 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 0 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])) "
 by (metis CSTATE_assign_rule_6 CSTATE_disj1 MESI_State.distinct(127))
 show goal779: "(CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextSnoopIs SnpData ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPending ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) 1 \<longrightarrow> HSTATE SAD ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ])) "
@@ -3451,7 +5027,9 @@ proof (-)
 show goal1: "(CSTATE SIAC ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingIs GO ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> nextGOPendingState Invalid ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 1 \<and> \<not> CSTATE IIA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<and> GTS ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> HSTATE MA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> (CSTATE IMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMAD ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0) \<and> nextHTDDataPending ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE IMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0 \<or> CSTATE SMA ( T [ 0 s= Shared] [ 0 :=dd msg] [ -=i 0] [ 0 -=devd ]) 0"
 apply  (cases "program1 T")
 apply  (auto)
-apply (metis CSTATE_various_forms6 HSTATE_def i1x i2x i636 i826 i852 i930 nextGOPending_various_forms4 nextHTDDataPending_various_forms1) apply (metis HOST_State.distinct(149) HOST_State.distinct(249) HSTATE_def i1x i220 i2x i346 i348 i632 i636 i80 i826 i852 list.distinct(1) list.inject nextGOPending_def nextHTDDataPending_def nextReqRespIs.elims(2) not_Cons_self2 singleton_or_empty.elims(1) singleton_or_empty.elims(2) singleton_or_empty.simps(1) singleton_or_empty.simps(2)) done
+apply (metis CSTATE_various_forms6 HSTATE_def i1x i2x i636 i826 i852 i930 nextGOPending_various_forms4 nextHTDDataPending_various_forms1)
+apply (metis HOST_State.distinct(149) HOST_State.distinct(249) HSTATE_def i1x i220 i2x i346 i348 i632 i636 i80 i826 i852 list.distinct(1) list.inject nextGOPending_def nextHTDDataPending_def nextReqRespIs.elims(2) not_Cons_self2 singleton_or_empty.elims(1) singleton_or_empty.elims(2) singleton_or_empty.simps(1) singleton_or_empty.simps(2))
+done
 qed
 show goal788: "(HSTATE SD ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) \<and> nextDTHDataFrom 0 ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) \<longrightarrow> snps2 ( T [ 0 s= Shared] [ 0 :=dd msg ] [ -=i 0] [ 0 -=devd ]) = []) "
 by (smt (verit) i190 i2x nextDTHDataFrom_general_rule_4_0)

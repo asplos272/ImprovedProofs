@@ -3410,7 +3410,8 @@ done
 show goal427: "CSTATE SIA ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd]) 1 \<and> nextGOPendingIs GO_WritePullDrop ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd]) 1 \<and> CSTATE IIA ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd]) 0 \<longrightarrow> HSTATE InvalidM ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd]) \<or> HSTATE IB ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd])"
 apply  (insert assms)
 using CSTATE_different1 SharedSnpInv'_CSTATE_invariant5 SharedSnpInv'_MAD_CSTATE_invariant5 goal187
-
+apply blast
+done
 show goal428: "HSTATE InvalidM ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd]) \<longrightarrow> dthdatas1 ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd]) = [] \<and> dthdatas2 ( T \<lparr>buffer1 := Some m\<rparr> [0 +=snpresp RspSFwdM txid] [0 -=snp ] [ 0 s= SIA] [ Dev1 +=d2hd dthd]) = []"
 apply  (insert assms)
 apply (metis CXL_SPG_used_general_rule_8_0 dthdatas2_MIASnpDataShared hstate_invariants(12) hstate_invariants(2) hstate_invariants(24) hstate_invariants(7) hstate_invariants(9) i1x i663)
