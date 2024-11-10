@@ -1,4 +1,4 @@
-Started at Sat Nov 9 23:48:18 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 20:45:26 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixIDDataFilled
-Running FixIDDataFilled ...
-FixIDDataFilled: theory FixIDDataFilled.FixIDDataFilled
-Timing FixIDDataFilled (8 threads, 257.354s elapsed time, 74.578s cpu time, 2.656s GC time, factor 0.29)
-Finished FixIDDataFilled (0:04:18 elapsed time)
 
-Finished at Sat Nov 9 23:52:40 GMT+8 2024
-0:04:22 elapsed time
+Finished at Sun Nov 10 20:45:29 GMT+8 2024
+0:00:02 elapsed time

@@ -1,4 +1,4 @@
-Started at Sat Nov 9 23:52:43 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
+Started at Sun Nov 10 20:45:32 GMT+8 2024 (polyml-5.9.1_x86_64_32-windows on DESKTOP-32SPPMC)
 ISABELLE_TOOL_JAVA_OPTIONS="-Djava.awt.headless=true -Xms512m -Xmx4g -Xss16m"
 ISABELLE_BUILD_OPTIONS=""
 
@@ -12,10 +12,6 @@ Session Misc/Tools
 Session HOL/HOL (main)
 Session Unsorted/BaseProof
 Session Unsorted/FixIIAGO_WritePullDropFilled
-Running FixIIAGO_WritePullDropFilled ...
-FixIIAGO_WritePullDropFilled: theory FixIIAGO_WritePullDropFilled.FixIIAGO_WritePullDropFilled
-Timing FixIIAGO_WritePullDropFilled (8 threads, 220.512s elapsed time, 70.156s cpu time, 2.359s GC time, factor 0.32)
-Finished FixIIAGO_WritePullDropFilled (0:03:41 elapsed time)
 
-Finished at Sat Nov 9 23:56:29 GMT+8 2024
-0:03:45 elapsed time
+Finished at Sun Nov 10 20:45:35 GMT+8 2024
+0:00:02 elapsed time
