@@ -11,12 +11,11 @@ ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/get.ML"
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/sections.ML"
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/seps.ML"
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/actions.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/data.ML"
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/print.ML"
 ML_file "~/Documents/GitHub/betterProof/HammerAlt.ML"
 
 
-ML \<open>
+(* ML \<open>
 (*utility to write to a file with a unique name each time *)
 fun print_string_op NONE = "NoID"
 | print_string_op (SOME s) = s
@@ -26,13 +25,10 @@ fun writeFileln dirname content =
         val _ = writeln content
         val _ = TextIO.closeOut fd
     in () end;
-
-fun log_fold_list _ _ [] = []
-  | log_fold_list f s (x :: xs) = let val vs = f x s in vs @ log_fold_list f (List.last vs) xs end;
-\<close>
+\<close> *)
 
 
-ML \<open>
+(* ML \<open>
 (*telling if a line is refining a goal*)
     fun is_refine_mssg ((_, txt), _) = Pred.contains "Failed to refine any pending goal" txt;
     fun is_refine (act, exn) = exists is_refine_mssg (Runtime.exn_messages exn)
@@ -45,9 +41,13 @@ ML \<open>
     fun is_timeout exn = (case exn of Timeout.TIMEOUT _ => true | _ => false);
     val might_timeout = Actions.on_kind (Pred.is "apply")
       andf Actions.on_text (Pred.contains "smt" orf Pred.contains "metis");
+\<close> *)
 
-\<close>
+
 ML \<open>
+fun log_fold_list _ _ [] = []
+  | log_fold_list f s (x :: xs) = let val vs = f x s in vs @ log_fold_list f (List.last vs) xs end;
+
 fun repair_sorrys stacts =
   let
     fun fix_using_sledgehammer st =
@@ -65,10 +65,6 @@ fun repair_sorrys stacts =
       then fix_using_sledgehammer st
       else [(act', st', err')]
   in log_fold_list do_next (Actions.void, Toplevel.make_state NONE, NONE) stacts end;
-
-
-
-
 
 fun process_all {err_timeout_in_secs=t} acts =
   let
@@ -112,7 +108,7 @@ fun process_all {err_timeout_in_secs=t} acts =
         val (new_st, new_err) = Actions.apply_safe new_act st;
       in (new_act, new_st, new_err) end
 
-    fun fix_using_sledgehammer st =
+    (* fun fix_using_sledgehammer st =
       let
         val thy = Toplevel.theory_of st;
         val (_, str2) = Hammer_Alt.hammer_away 1 (Toplevel.proof_of st);
@@ -121,7 +117,7 @@ fun process_all {err_timeout_in_secs=t} acts =
         val new_act = Actions.make_one thy actual_fix;
         val _ = warning ("Adopted proof: " ^ Actions.text_of new_act)
         val (new_st, new_err) = Actions.apply_safe new_act st;
-      in (new_act, new_st, new_err) end
+      in (new_act, new_st, new_err) end *)
 
     (* Handling incorrectly placed done's after Sledgehammer uses a by *)
     fun is_illegal_app_mssg ((_, txt), _) = Pred.contains "Illegal application of proof" txt;
@@ -176,36 +172,10 @@ fun end_to_end_fix old_name new_name path = (let val actions = Actions.make' \<^
     val new_texts = Library.separate "\n" (map (fn (act, _, _) => Actions.text_of act) perfect_trace);
     val _ = Ops.create_file {force=true} path new_name (implode new_texts)
     in () end)
-
-
-
-
 \<close>
-ML \<open>
-
-\<close>
-(*
-val new_texts = Library.separate "\n" (map (fn (act, _, _) => Actions.text_of act) fixed_trace)
-val new_errors = filter (fn (_, _, err) => is_some err) fixed_trace
-val new_texts = Library.separate "\n" (map (fn (act, _, _) => Actions.text_of act) fixed_trace)
-Ops.create_file {force=true} "/Users/Chengsong/Documents/GitHub/betterProof/" "FixIMDDataNew.thy" (implode new_texts)
-
-*)
-ML \<open>
-\<close>
-(* WARNING: this creates a new file, the `force` parameter is to force an overwrite *)
-ML \<open>
-
-\<close>
-(*val sorry_filled_in_trace = repair_sorrys  fixed_trace
-val sorry_filled_in_text = Library.separate "\n" (map (fn (act, _, _) => Actions.text_of act) sorry_filled_in_trace)
-
-Ops.create_file {force=true} "/Users/Chengsong/Documents/GitHub/betterProof/" "FixIMDDataFilled.thy" (implode new_texts)
-
-*)
 
 
-ML \<open>
+(* ML \<open>
 fun repair_sorrys1 stacts  =
   let
     fun fix_using_sledgehammer st =
@@ -230,9 +200,5 @@ fun end_to_end_fix1 old_name new_name path = (let val actions = Actions.make' \<
     val new_texts = Library.separate "\n" (map (fn (act, _, _) => Actions.text_of act) perfect_trace);
     val _ = Ops.create_file {force=false} path new_name (implode new_texts)
     in () end)
-
-\<close>
-ML \<open>
-
-\<close>
+\<close> *)
 
