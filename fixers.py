@@ -32,7 +32,7 @@ def create_fixer_thys(read_dir, output_dir, n):
                     new_thy_file.write(new_header)
 
                 # Add the ML code block after the modified header
-                new_thy_file.write(f'\nML ‹\nval _ = Fixer.fix_end_to_end \<^theory> "{thy_file_path}" "{thy_file_name}".thy "{output_dir}"\n›\n\nend\n')
+                new_thy_file.write(f'\nML ‹\nval _ = Fixer.fix_end_to_end \<^theory> "{thy_file_path}" "{os.path.basename(thy_file_path)}" "{output_dir}"\n›\n\nend\n')
 
         # Create the ROOT file in the new directory
         root_file_path = os.path.join(new_dir, 'ROOT')
