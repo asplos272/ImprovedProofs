@@ -5,14 +5,14 @@ theory dofix
   imports  BaseProof.BasicInvariants
 begin
 declare [[ML_print_depth = 4000000]]
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/pred.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/ops.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/get.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/sections.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/seps.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/actions.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/print.ML"
-ML_file "~/Documents/GitHub/betterProof/HammerAlt.ML"
+ML_file "~/Programs/deepIsaHOL/src/main/ml/pred.ML"
+ML_file "~/Programs/deepIsaHOL/src/main/ml/ops.ML"
+ML_file "~/Programs/deepIsaHOL/src/main/ml/get.ML"
+ML_file "~/Programs/deepIsaHOL/src/main/ml/sections.ML"
+ML_file "~/Programs/deepIsaHOL/src/main/ml/seps.ML"
+ML_file "~/Programs/deepIsaHOL/src/main/ml/actions.ML"
+ML_file "~/Programs/deepIsaHOL/src/main/ml/Print.ML"
+ML_file "HammerAlt.ML"
 
 
 (* ML \<open>
@@ -159,11 +159,11 @@ fun process_all {err_timeout_in_secs=t} acts =
   in Ops.log_fold do_next (Actions.void, Toplevel.make_state NONE, NONE) acts end;
 
 \<close>
-ML \<open>
+(* ML \<open>
 val test_file = "~/Documents/GitHub/betterProof/FixIMDData.thy"
 val actions = Actions.make' \<^theory> (File.read (Path.explode test_file));
 
-\<close>
+\<close> *)
 
 ML \<open>
 fun end_to_end_fix old_name new_name path = (let val actions = Actions.make' \<^theory> (File.read (Path.explode old_name));
