@@ -13,9 +13,6 @@ ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/seps.ML"
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/actions.ML"
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/data.ML"
 ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/print.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/json_maker.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/g2tac_formatter.ML"
-ML_file "~/Documents/GitHub/DeepIsaHOL/src/main/ml/writer.ML"
 ML_file "~/Documents/GitHub/betterProof/HammerAlt.ML"
 
 
@@ -30,7 +27,8 @@ fun writeFileln dirname content =
         val _ = TextIO.closeOut fd
     in () end;
 
-
+fun log_fold_list _ _ [] = []
+  | log_fold_list f s (x :: xs) = let val vs = f x s in vs @ log_fold_list f (List.last vs) xs end;
 \<close>
 
 
@@ -66,7 +64,7 @@ fun repair_sorrys stacts =
       if Actions.on_kind (Pred.is "sorry") act'
       then fix_using_sledgehammer st
       else [(act', st', err')]
-  in Ops.log_fold_list do_next (Actions.void, Toplevel.make_state NONE, NONE) stacts end;
+  in log_fold_list do_next (Actions.void, Toplevel.make_state NONE, NONE) stacts end;
 
 
 
