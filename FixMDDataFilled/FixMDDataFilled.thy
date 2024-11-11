@@ -1,5 +1,5 @@
 
-theory   FixMDDataFilled  imports BasicInvariants  begin
+theory   FixMDDataFilled  imports BaseProof.BasicInvariants  begin
 sledgehammer_params[timeout=10, dont_minimize, "try0" = false]
 lemma nextHTDDataPending_real_SDData: shows "nextHTDDataPending T 0 = nextHTDDataPending ( T [ Dev2 +=h2dd hmsg] [ =hv v] [ 5 sHost= ModifiedM] [ Dev1 -=d2hdHead ]) 0"
 by simp

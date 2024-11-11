@@ -1,7 +1,7 @@
 session "AllFixes" = BaseProof +
   options [document = false]
-  sessions
-    FixIBDataFilled
+  theories
+  FixIBDataFilled
     FixIDDataFilled
     FixIIAGO_WritePullFilled
     FixIIAGO_WritePullDropFilled
