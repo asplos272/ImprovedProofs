@@ -1,8 +1,18 @@
 session "BaseProof" = HOL +
   options [document = false]
+  sessions
+    "Isabelle_RL"
   theories
     Transposed
     CoherenceProperties
     BuggyRules
     BasicInvariants
     Fixer
+
+(*
+1. Download latest version of Isabelle_Rl 
+2. Command to launch/jedit Isabelle:
+  - isabelle jedit -d /path/to/deepIsaHOL/src/main/ml/ -d /path/to/this/dir/Common
+3. Command to build the `fixers.py` generated sessions:
+  - isabelle build -v -D /path/to/deepIsaHOL/src/main/ml/ -D /path/to/this/dir/Common -d . Temp 
+*)
