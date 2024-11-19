@@ -1,5 +1,5 @@
 theory Fixer
-  imports "~/Programs/deepIsaHOL/src/main/ml/Isabelle_RL" Main
+  imports "Isabelle_RL.Isabelle_RL" Main
 begin
 
 ML_file "HammerAlt.ML"
