@@ -1,73 +1,73 @@
-theory TopLevelTheorem imports BasicInvariants  InitialState
-FixInvalidLoad
-FixSharedLoad
-FixInvalidStore
-FixSharedStore
-FixSharedEvict
-FixSharedEvictData
-FixModifiedEvict
-FixSharedSnpInv
-FixISDSnpInv
-FixISDData
-FixISDIData
-FixIMADData
-FixISADData
-FixIMADGO
-FixSMADData
-FixISADGO
-FixSMADGO
-FixSMAGO
-FixSMADSnpInv
-FixSMDData
-FixIMAGO
-FixISAGO
-FixModifiedStore
-FixModifiedLoad
-FixSIAGO_WritePull
-FixSIAGO_WritePullDrop
-FixIIAGO_WritePull
-FixIIAGO_WritePullDrop
-FixIMDData
-FixMIASnpDataInvalid
-FixMIASnpDataShared
-FixMIASnpInv
-FixMIAGO_WritePull
-FixSIASnpInv
-FixModifiedSnpInv
-FixModifiedSnpDataShared
-FixModifiedSnpDataInvalid
-FixModifiedDirtyEvict
-FixInvalidRdShared
-FixInvalidRdOwn
-FixSharedRdShared
-FixShared_CleanEvict_NotLastData
-FixShared_CleanEvict_NotLastDrop
-FixShared_CleanEvict_Last
-FixShared_CleanEvictNoData_Last
-FixShared_CleanEvictNoData_NotLast
-FixSharedDirtyEvict
-FixModifiedDirtyEvict
-FixModifiedRdShared
-FixModifiedRdOwn
-FixSharedRdOwn
-FixSharedRdOwnSelf
-FixSDData
-FixSADData
-FixMDData
-FixIDData
-FixMADData
-FixSADRspIFwdM
-FixSADRspSFwdM
-FixMADRspIFwdM
-FixMARspIFwdM
-FixSARspIFwdM
-FixSARspSFwdM
-FixSBData
-FixIBData
-FixMBData
-FixInvalidDirtyEvict
-FixMARspIHitSE
-FixSIACGO
+theory TopLevelTheorem imports BaseProof.BasicInvariants  InitialState 
+FixInvalidLoadFilled
+FixSharedLoadFilled
+FixInvalidStoreFilled
+FixSharedStoreFilled
+FixSharedEvictFilled
+FixSharedEvictDataFilled
+FixModifiedEvictFilled
+FixSharedSnpInvFilled
+FixISDSnpInvFilled
+FixISDDataFilled
+FixISDIDataFilled
+FixIMADDataFilled
+FixISADDataFilled
+FixIMADGOFilled
+FixSMADDataFilled
+FixISADGOFilled
+FixSMADGOFilled
+FixSMAGOFilled
+FixSMADSnpInvFilled
+FixSMDDataFilled
+FixIMAGOFilled
+FixISAGOFilled
+FixModifiedStoreFilled
+FixModifiedLoadFilled
+FixSIAGO_WritePullFilled
+FixSIAGO_WritePullDropFilled
+FixIIAGO_WritePullFilled
+FixIIAGO_WritePullDropFilled
+FixIMDDataFilled
+FixMIASnpDataInvalidFilled
+FixMIASnpDataSharedFilled
+FixMIASnpInvFilled
+FixMIAGO_WritePullFilled
+FixSIASnpInvFilled
+FixModifiedSnpInvFilled
+FixModifiedSnpDataSharedFilled
+FixModifiedSnpDataInvalidFilled
+FixModifiedDirtyEvictFilled
+FixInvalidRdSharedFilled
+FixInvalidRdOwnFilled
+FixSharedRdSharedFilled
+FixShared_CleanEvict_NotLastDataFilled
+FixShared_CleanEvict_NotLastDropFilled
+FixShared_CleanEvict_LastFilled
+FixShared_CleanEvictNoData_LastFilled
+FixShared_CleanEvictNoData_NotLastFilled
+FixSharedDirtyEvictFilled
+FixModifiedDirtyEvictFilled
+FixModifiedRdSharedFilled
+FixModifiedRdOwnFilled
+FixSharedRdOwnFilled
+FixSharedRdOwnSelfFilled
+FixSDDataFilled
+FixSADDataFilled
+FixMDDataFilled
+FixIDDataFilled
+FixMADDataFilled
+FixSADRspIFwdMFilled
+FixSADRspSFwdMFilled
+FixMADRspIFwdMFilled
+FixMARspIFwdMFilled
+FixSARspIFwdMFilled
+FixSARspSFwdMFilled
+FixSBDataFilled
+FixIBDataFilled
+FixMBDataFilled
+FixInvalidDirtyEvictFilled
+FixMARspIHitSEFilled
+FixSIACGOFilled
 
 begin
 
@@ -211,10 +211,10 @@ theorem all_transitions_coherent: assumes "SWMR_state_machine T"
     using that apply (smt (verit) ModifiedSnpInv'_coherent assms) done
   show goal35: "Lall (ModifiedSnpDataShared' T 0) SWMR_state_machine"
     if "SWMR_state_machine T"
-    using that apply (smt (verit) FixModifiedSnpDataShared.ModifiedSnpDataInvalid'_coherent assms) done
+    using that apply (smt (verit) FixModifiedSnpDataSharedFilled.ModifiedSnpDataInvalid'_coherent assms) done
   show goal36: "Lall (ModifiedSnpDataInvalid' T 0) SWMR_state_machine"
     if "SWMR_state_machine T"
-    using that apply (smt (verit) FixModifiedSnpDataInvalid.ModifiedSnpDataInvalid'_coherent assms) done
+    using that apply (smt (verit) FixModifiedSnpDataInvalidFilled.ModifiedSnpDataInvalid'_coherent assms) done
   show goal37: "Lall (HostInvalidRdShared' T 0) SWMR_state_machine"
     if "SWMR_state_machine T"
     using that apply (smt (verit) HostInvalidRdShared'_coherent assms) done
@@ -362,7 +362,8 @@ proof -
     unfolding SWMR_state_machine_def
     apply(elim conjE)
     unfolding SWMR_pp_def
-    proof (intro conjI)
+  proof (intro conjI)
+
   show goal1: "CSTATE Modified T' 0 \<longrightarrow> \<not> CSTATE Shared T' 1"
     if "SWMR T'"
       and "C_msg_P_oppo ISD nextHTDDataPending (\<lambda>T i. \<not> CSTATE Modified T i) T'"

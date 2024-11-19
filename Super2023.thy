@@ -560,7 +560,7 @@ fun print_proof_text_from_state_generate_oneliners2b print m1 m2  state =
     val lines = lines ;
     val raw_str = cat_lines lines;
     val message = Active.sendback_markup_properties [] (raw_str);
-    val _ = writeFileln (OS.FileSys.getDir() ^ "/Results" ^ Context.theory_name {long=false} (Proof_Context.theory_of ctxt) ) raw_str;
+    (*val _ = writeFileln (OS.FileSys.getDir() ^ "/Results" ^ Context.theory_name {long=false} (Proof_Context.theory_of ctxt) ) raw_str;*)
   
   in
     (state |> tap (fn _ => Output.information message))
@@ -640,7 +640,7 @@ fun print_proof_text_from_state_generate_oneliners print m1 state =
     val lines = lines ;
     val raw_str = cat_lines lines;
     val message = Active.sendback_markup_properties [] (raw_str);
-    val _ = writeFileln (OS.FileSys.getDir() ^ "/Results" ^ Context.theory_name {long=false} (Proof_Context.theory_of ctxt) ) raw_str;
+    (*val _ = writeFileln (OS.FileSys.getDir() ^ "/Results" ^ Context.theory_name {long=false} (Proof_Context.theory_of ctxt) ) raw_str;*)
   in
     (state |> tap (fn _ => Output.information message))
   end
